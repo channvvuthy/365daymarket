@@ -4,16 +4,16 @@
             <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
                 <div class="logo">
                     <a href="">
-                        <h1 class="margin">Company Name</h1>
+                        <h1 class="margin">khmer168</h1>
                     </a>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
                 <div class="menus pull-right">
                     <ul class="list-inline">
-                        <li><a href=""><i class="glyphicon glyphicon-lock"></i> Login</a></li>
-                        <li><a href=""><i class="glyphicon glyphicon-user"></i> Register</a></li>
-                        <li><a href=""><i class="glyphicon glyphicon-question-sign"></i> How To Use</a></li>
+                        <li><a href=""><i class="icon-lock"></i> Login</a></li>
+                        <li><a href=""><i class="icon-user"></i> Register</a></li>
+                        <li><a href=""><i class="icon-key"></i> How To Use</a></li>
                         <li>
                             <div class="dropdown">
                                 <button class="btn btn-primary dropdown-toggle language" type="button" data-toggle="dropdown">

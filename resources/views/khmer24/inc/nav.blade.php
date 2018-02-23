@@ -12,17 +12,18 @@
                         </div>
                         <div id="collapseOne" class="panel-collapse collapse in">
                             <ul class="list-group">
-                                <li class="list-group-item"><span class="glyphicon glyphicon-pencil text-primary"></span><a href="http://fb.com/moinakbarali">Phone & Tablets</a></li>
+                                <li class="list-group-item"><i class="icon-heart"></i><a href="http://fb.com/moinakbarali"> Popular Categories</a></li>
+                                <li class="list-group-item"><i class="icon-phone"></i><a href="http://fb.com/moinakbarali"> Phone & Tablets</a></li>
 
-                                <li class="list-group-item"><span class="glyphicon glyphicon-flash text-success"></span><a href="http://fb.com/moinakbarali">Computer & Accessories</a></li>
+                                <li class="list-group-item"><i class="icon-laptop"></i><a href="http://fb.com/moinakbarali"> Computer & Accessories</a></li>
 
-                                <li class="list-group-item"><span class="glyphicon glyphicon-file text-info"></span><a href="http://fb.com/moinakbarali">Electronic & Appliances</a></li>
+                                <li class="list-group-item"><i class="icon-monitor"></i><a href="http://fb.com/moinakbarali"> Electronic & Appliances</a></li>
 
-                                <li class="list-group-item"> <span class="glyphicon glyphicon-comment text-success"></span><a href="http://fb.com/moinakbarali">Car & Vehicle</a><span class="badge">42</span></li>
-                                <li class="list-group-item"> <span class="glyphicon glyphicon-comment text-success"></span><a href="http://fb.com/moinakbarali">House & Land</a><span class="badge">42</span></li>
-                                <li class="list-group-item"> <span class="glyphicon glyphicon-comment text-success"></span><a href="http://fb.com/moinakbarali">Jobs</a><span class="badge">42</span></li>
-                                <li class="list-group-item"> <span class="glyphicon glyphicon-comment text-success"></span><a href="http://fb.com/moinakbarali">Services</a><span class="badge">42</span></li>
-                                <li class="list-group-item"> <span class="glyphicon glyphicon-comment text-success"></span><a href="http://fb.com/moinakbarali">Feshion & Beauty</a><span class="badge">42</span></li>
+                                <li class="list-group-item"> <i class="icon-car"></i><a href="http://fb.com/moinakbarali"> Car & Vehicle</a></li>
+                                <li class="list-group-item"> <i class="icon-home"></i><a href="http://fb.com/moinakbarali"> House & Land</a></li>
+                                <li class="list-group-item"> <i class="icon-briefcase"></i><a href="http://fb.com/moinakbarali"> Jobs</a></li>
+                                <li class="list-group-item"> <i class="icon-key"></i><a href="http://fb.com/moinakbarali"> Services</a></li>
+                                <li class="list-group-item"> <i class="icon-tshirt"></i><a href="http://fb.com/moinakbarali"> Fashion & Beauty</a></li>
 
                             </ul>
                         </div>
@@ -31,24 +32,154 @@
             </div>
             <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 no-padding-left">
                 <div class="sub-menu">
-                    <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus animi, aperiam beatae
-                        consequuntur eum laborum minima optio quasi quisquam repellendus, similique velit veniam
-                        voluptate. Aliquam laboriosam similique sunt tenetur ut!
-                    </div>
-                    <div>Ab at beatae debitis dolor doloremque eius error facilis fuga fugiat, hic incidunt ipsa iure
-                        neque nulla odit pariatur, porro quas quis rem reprehenderit tenetur totam ullam ut vel vero?
-                    </div>
-                    <div>Accusamus accusantium aliquam aspernatur, at beatae corporis delectus distinctio doloribus
-                        ducimus eaque eum ex explicabo iusto mollitia necessitatibus non nulla perspiciatis quaerat quam
-                        quasi quia recusandae, sequi suscipit vel voluptatem.
-                    </div>
-                    <div>A accusamus assumenda dolores excepturi facilis fuga minus molestias nostrum saepe vitae. Illum
-                        nobis nulla sint? Distinctio eos magni, necessitatibus nobis quisquam rerum. A accusantium est
-                        eum id nam ut.
-                    </div>
-                    <div>Ab ad aperiam at atque commodi consectetur, culpa ducimus est et fugit inventore itaque iure
-                        magni maxime minima molestiae molestias mollitia non nulla, numquam obcaecati odit quidem
-                        tempora ullam vitae!
+                    <div class="pop-cat">
+                        <ul class="list-inline">
+                            <li class="li">
+                                <a href="">
+                                    <div class="icon">
+                                        <span class="icon-sell"></span>
+                                    </div>
+                                    <p class="title">House for Sale</p>
+                                </a>
+                            </li>
+                            <li class="li">
+                                <a href="">
+                                    <div class="icon">
+                                        <span class="landed-properties-for-sale"></span>
+                                    </div>
+                                    <p class="title">Land for Sale</p>
+                                </a>
+                            </li>
+                            <li class="li">
+                                <a href="">
+                                    <div class="icon">
+                                        <span class="icon-sell"></span>
+                                    </div>
+                                    <p class="title">Cars for Sale</p>
+                                </a>
+                            </li>
+                            <li class="li">
+                                <a href="">
+                                    <div class="icon">
+                                        <span class="icon-sell"></span>
+                                    </div>
+                                    <p class="title">Motorcycles for Sale</p>
+                                </a>
+                            </li>
+                            <li class="li">
+                                <a href="">
+                                    <div class="icon">
+                                        <span class="icon-sell"></span>
+                                    </div>
+                                    <p class="title">Phones, Tablets</p>
+                                </a>
+                            </li>
+                            <li class="li">
+                                <a href="">
+                                    <div class="icon">
+                                        <span class="icon-sell"></span>
+                                    </div>
+                                    <p class="title">Phone Accessories</p>
+                                </a>
+                            </li>
+                            <li class="li">
+                                <a href="">
+                                    <div class="icon">
+                                        <span class="icon-sell"></span>
+                                    </div>
+                                    <p class="title">House for Sale</p>
+                                </a>
+                            </li>
+                            <li class="li">
+                                <a href="">
+                                    <div class="icon">
+                                        <span class="landed-properties-for-sale"></span>
+                                    </div>
+                                    <p class="title">Land for Sale</p>
+                                </a>
+                            </li>
+                            <li class="li">
+                                <a href="">
+                                    <div class="icon">
+                                        <span class="icon-sell"></span>
+                                    </div>
+                                    <p class="title">Cars for Sale</p>
+                                </a>
+                            </li>
+                            <li class="li">
+                                <a href="">
+                                    <div class="icon">
+                                        <span class="icon-sell"></span>
+                                    </div>
+                                    <p class="title">Motorcycles for Sale</p>
+                                </a>
+                            </li>
+                            <li class="li">
+                                <a href="">
+                                    <div class="icon">
+                                        <span class="icon-sell"></span>
+                                    </div>
+                                    <p class="title">Phones, Tablets</p>
+                                </a>
+                            </li>
+                            <li class="li">
+                                <a href="">
+                                    <div class="icon">
+                                        <span class="icon-sell"></span>
+                                    </div>
+                                    <p class="title">Phone Accessories</p>
+                                </a>
+                            </li>
+                            <li class="li">
+                                <a href="">
+                                    <div class="icon">
+                                        <span class="icon-sell"></span>
+                                    </div>
+                                    <p class="title">House for Sale</p>
+                                </a>
+                            </li>
+                            <li class="li">
+                                <a href="">
+                                    <div class="icon">
+                                        <span class="landed-properties-for-sale"></span>
+                                    </div>
+                                    <p class="title">Land for Sale</p>
+                                </a>
+                            </li>
+                            <li class="li">
+                                <a href="">
+                                    <div class="icon">
+                                        <span class="icon-sell"></span>
+                                    </div>
+                                    <p class="title">Cars for Sale</p>
+                                </a>
+                            </li>
+                            <li class="li">
+                                <a href="">
+                                    <div class="icon">
+                                        <span class="icon-sell"></span>
+                                    </div>
+                                    <p class="title">Motorcycles for Sale</p>
+                                </a>
+                            </li>
+                            <li class="li">
+                                <a href="">
+                                    <div class="icon">
+                                        <span class="icon-sell"></span>
+                                    </div>
+                                    <p class="title">Phones, Tablets</p>
+                                </a>
+                            </li>
+                            <li class="li">
+                                <a href="">
+                                    <div class="icon">
+                                        <span class="icon-sell"></span>
+                                    </div>
+                                    <p class="title">Phone Accessories</p>
+                                </a>
+                            </li>
+
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -58,7 +189,7 @@
 <script>
     $(document).ready(function () {
         var nav=$(".navInner");
-        var navHeight =nav.height();
+        var navHeight =nav.height()-20;
         $(".sub-menu").css({"min-height":navHeight+"px"});
     })
 
