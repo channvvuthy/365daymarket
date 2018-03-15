@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Location;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class LocationController extends Controller
 {
@@ -14,7 +15,11 @@ class LocationController extends Controller
      */
     public function index()
     {
-        //
+        $locations= Location::where("status","Publish")->get();
+        return Response::json(array(
+            'locations'    =>  $locations),
+            200
+        );
     }
 
     /**

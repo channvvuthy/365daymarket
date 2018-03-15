@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use DB;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class PostController extends Controller
 {
@@ -11,9 +14,27 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Post::all();
+        $offset=0;
+        $limit=30;
+        if(!empty($request->offset)){
+            $offset=$request->offset;
+        }
+        if(!empty($request->limit)){
+            $limit=$request->limit;
+        }
+        $product=DB::select("SELECT name,price,images,location_name FROM posts ORDER BY id DESC LIMIT $offset,$limit ");
+        if(!empty($request->q)){
+            $q=$request->q;
+            $product=DB::select("SELECT name,price,images,location_name FROM posts WHERE name LIKE  '%".$q."%' ORDER BY id DESC LIMIT $offset,$limit ");
+        }
+
+
+        return Response::json(array(
+            'products'    =>  $product),
+            200
+        );
     }
 
     /**

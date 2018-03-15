@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Category;
+use DB;
+use Illuminate\Support\Facades\Response;
 
 class CategoryController extends Controller
 {
@@ -14,7 +15,24 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return Category::all();
+        $tableIds = DB::select( DB::raw("SELECT id,name,icon,description,status FROM categories WHERE parent_id=0"));
+        $jsonResult = array();
+
+        for($i = 0;$i < count($tableIds);$i++)
+        {
+            $jsonResult[$i]["id"] = $tableIds[$i]->id;
+            $jsonResult[$i]["name"] = $tableIds[$i]->name;
+            $jsonResult[$i]["icon"] = $tableIds[$i]->icon;
+            $jsonResult[$i]["description"] = $tableIds[$i]->description;
+            $jsonResult[$i]["status"] = $tableIds[$i]->status;
+            $id = $tableIds[$i]->id;
+            $jsonResult[$i]["sub_category"] = DB::select( DB::raw("SELECT id,name,icon,description,status FROM categories WHERE parent_id =$id"));
+        }
+
+        return Response::json(array(
+            'categories'    =>  $jsonResult),
+            200
+        );
     }
 
     /**
@@ -97,5 +115,14 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getAjaxRequestSubCategory(Request $request){
+        $categories=Category::where('parent_id',$request->id)->where('status','Publish')->get();
+        if(count($categories)){
+            foreach ($categories as $category){
+                echo "<option value='".$category->name."'>$category->name</option>";
+            }
+        }
     }
 }
