@@ -59,6 +59,6 @@ class Handler extends ExceptionHandler
             ];
             return response()->json($json, 400);
         }
-        //return parent::render($request, $e);
+        return parent::render($request, $e);
     }
 }

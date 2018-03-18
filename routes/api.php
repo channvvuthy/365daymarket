@@ -35,6 +35,10 @@ Route::get('profile',[
     'uses'=>'SignInController@getProfile',
     'as'=>'getProfile'
 ]);
+Route::post('edit-profile',[
+    'uses'=>'SignInController@postProfile',
+    'as'=>'postProfile'
+]);
 
 
 
