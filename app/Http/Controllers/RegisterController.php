@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
-use Illuminate\Support\Facades\Response;
-use App\Save;
 
-class UserController extends Controller
+class RegisterController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -46,26 +43,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request$request, $id)
+    public function show($id)
     {
-        $offset=0;
-        $limit=30;
-        if(!empty($request->offset)){
-            $offset=$request->offset;
-        }
-        if(!empty($request->limit)){
-            $limit=$request->limit;
-        }
-        $user=DB::select("SELECT * FROM users WHERE  id=$id");
-        $product_list_by_user=DB::select("SELECT * FROM posts  WHERE user_id=$id ORDER BY id DESC LIMIT $offset,$limit");
-        $product_favorites=DB::select("SELECT * FROM saves WHERE user_id=$id");
-        return Response::json(array(
-            'user'    =>  $user,
-            'product_list_by_user'=>$product_list_by_user,
-            'product_favorites'=>$product_favorites
-        ),
-            200
-        );
+        //
     }
 
     /**
@@ -100,15 +80,5 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function postProfile(Request $request){
-        $this->validate($request, [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'phone' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|min:6'
-        ]);
     }
 }

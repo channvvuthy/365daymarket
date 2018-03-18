@@ -43,5 +43,9 @@ Route::get('/test',function (){
     }
 
 });
-Route::post('sign_up',['uses'=>'SingUpController@postSignUp','as'=>'signup']);
-Route::get('register',['uses'=>'SingUpController@register','as'=>'register_api']);
+
+Route::get('register',['uses'=>'SingUpController@register','as'=>'register']);
+Route::get('user/verify/{code}',['uses'=>'SingUpController@getVerify','as'=>'verify']);
+Route::get('recover',['uses'=>'SingUpController@recover','as'=>'recover']);
+
+Route::get('login',['uses'=>'SignInController@getLogin','as'=>'login']);

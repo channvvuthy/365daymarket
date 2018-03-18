@@ -20,5 +20,21 @@ Route::resource('category', 'CategoryController');
 Route::resource('location', 'LocationController');
 Route::resource('product', 'PostController');
 Route::resource('user', 'UserController');
+Route::resource('auth', 'AuthController');
+
+Route::post('register', [
+    'uses' => 'SingUpController@postSignUp',
+    'as' => 'signup'
+]);
+
+Route::post('login', [
+    'uses' => 'SignInController@postLogin',
+    'as' => 'login'
+]);
+Route::get('profile',[
+    'uses'=>'SignInController@getProfile',
+    'as'=>'getProfile'
+]);
+
 
 

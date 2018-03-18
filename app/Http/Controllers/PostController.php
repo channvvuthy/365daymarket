@@ -16,7 +16,6 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-
         $offset=0;
         $limit=30;
         if(!empty($request->offset)){

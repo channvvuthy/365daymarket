@@ -8,18 +8,11 @@
     <title>Document</title>
 </head>
 <body>
-<form action="{{route('signup')}}" method="post" enctype="multipart/form-data">
+<form action="{{route('login')}}" method="post" enctype="multipart/form-data">
     <input type="hidden" name="_token" value="{{Session::token()}}">
-    <p><input type="text" name="first_name"  placeholder="first_name"></p>
-
-    <p>  <input type="text" name="last_name"  placeholder="last_name"></p>
     <p><input type="email" name="email" placeholder="email"></p>
     <p> <input type="password" name="password"  placeholder="password"></p>
-    <p><input type="text" name="location" placeholder="location"></p>
-    <p><input type="text" name="phone" placeholder="phone"></p>
-
-    <p><input type="file" name="image" id=""></p>
-    <p><input type="submit" value="Register"></p>
+    <p><input type="submit" value="Login"></p>
 
 </form>
 </body>
