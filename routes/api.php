@@ -21,3 +21,4 @@ Route::resource('location', 'LocationController');
 Route::resource('product', 'PostController');
 Route::resource('user', 'UserController');
 
+
