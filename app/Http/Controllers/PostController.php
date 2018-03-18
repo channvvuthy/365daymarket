@@ -16,6 +16,7 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
+
         $offset=0;
         $limit=30;
         if(!empty($request->offset)){
@@ -24,10 +25,10 @@ class PostController extends Controller
         if(!empty($request->limit)){
             $limit=$request->limit;
         }
-        $product=DB::select("SELECT name,price,images,location_name FROM posts ORDER BY id DESC LIMIT $offset,$limit ");
+        $product=DB::select("SELECT name,price,images,location_name,created_at,updated_at FROM posts ORDER BY id DESC LIMIT $offset,$limit ");
         if(!empty($request->q)){
             $q=$request->q;
-            $product=DB::select("SELECT name,price,images,location_name FROM posts WHERE name LIKE  '%".$q."%' ORDER BY id DESC LIMIT $offset,$limit ");
+            $product=DB::select("SELECT name,price,images,location_name ,created_at,updated_at FROM posts WHERE name LIKE  '%".$q."%' ORDER BY id DESC LIMIT $offset,$limit ");
         }
 
 
@@ -64,9 +65,33 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(Post $post,$id)
     {
-        //
+        $product=DB::select("SELECT * FROM posts WHERE id =$id");
+        $user=DB::select("SELECT users.* FROM users INNER JOIN posts ON users.id=posts.user_id WHERE posts.id=$id");
+        foreach ($user as $detail){
+            $user_id=$detail->id;
+        }
+        foreach ($product as $relate){
+            $relate_category=$relate->sub_category_name;
+        }
+       $relate_posts=DB::select("SELECT users.* FROM users INNER JOIN posts ON users.id=posts.user_id WHERE  sub_category_name ='$relate_category' AND posts.id!=$id");
+        $store=DB::select("SELECT * FROM stores WHERE  user_id=$user_id");
+        if(count($product)){
+            return Response::json(array(
+                'product'    =>  $product,
+                'user'=>$user,
+                'store'=>$store,
+                'relate_posts'=>$relate_posts
+            ),
+                200
+            );
+        }
+        return Response::json(array(
+            'error'    =>  "There is no result for this product id"),
+            200
+        );
+
     }
 
     /**
@@ -89,7 +114,7 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+
     }
 
     /**
