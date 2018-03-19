@@ -55,6 +55,8 @@ class SingUpController extends Controller
         $name = $last_name . " " . $first_name;
         $user = new User();
         $user->name = $name;
+        $user->last_name=$last_name;
+        $user->first_name=$first_name;
         $user->email = $email;
         $user->password = $password;
         $user->image = URL::to('/') . "/images/" . $fileUpload;
