@@ -41,4 +41,7 @@ Route::get('/test',function (){
 
         $post->save();
     }
+
 });
+Route::post('sign_up',['uses'=>'SingUpController@postSignUp','as'=>'signup']);
+Route::get('register',['uses'=>'SingUpController@register','as'=>'register_api']);
