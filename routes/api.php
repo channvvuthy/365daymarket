@@ -17,10 +17,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::resource('category', 'CategoryController');
+
 Route::resource('location', 'LocationController');
+
 Route::resource('product', 'PostController');
+
 Route::resource('user', 'UserController');
+
 Route::resource('auth', 'AuthController');
+
+Route::resource('save','SaveController');
 
 Route::post('register', [
     'uses' => 'SingUpController@postSignUp',
@@ -40,5 +46,9 @@ Route::post('edit-profile',[
     'as'=>'postProfile'
 ]);
 
+Route::get('product-by-category',[
+    'uses'=>'PostController@getProductByCategory',
+    'as'=>'pcat'
+]);
 
 
