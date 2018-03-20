@@ -14,7 +14,7 @@ class SaveController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**

@@ -93,6 +93,28 @@ class PostController extends Controller
 
     }
 
+    public function getProductByCategory(Request $request){
+        $offset=0;
+        $limit=30;
+        if(!empty($request->offset)){
+            $offset=$request->offset;
+        }
+        if(!empty($request->limit)){
+            $limit=$request->limit;
+        }
+        $product=DB::select("SELECT name,price,images,location_name,sub_category_name,created_at,updated_at FROM posts ORDER BY id DESC LIMIT $offset,$limit ");
+        if(!empty($request->category)){
+            $q=$request->category;
+            $product=DB::select("SELECT name,price,images,location_name,sub_category_name ,created_at,updated_at FROM posts WHERE sub_category_name ='$q' ORDER BY id DESC LIMIT $offset,$limit ");
+        }
+
+
+        return Response::json(array(
+            'products'    =>  $product),
+            200
+        );
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
