@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Response;
 
 class PostController extends Controller
 {
+
+    public function __construct()
+    {
+        
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,10 +30,10 @@ class PostController extends Controller
         if(!empty($request->limit)){
             $limit=$request->limit;
         }
-        $product=DB::select("SELECT name,price,images,location_name,created_at,updated_at FROM posts ORDER BY id DESC LIMIT $offset,$limit ");
+        $product=DB::select("SELECT id,name,price,images,location_name,created_at,updated_at FROM posts ORDER BY id DESC LIMIT $offset,$limit ");
         if(!empty($request->q)){
             $q=$request->q;
-            $product=DB::select("SELECT name,price,images,location_name ,created_at,updated_at FROM posts WHERE name LIKE  '%".$q."%' ORDER BY id DESC LIMIT $offset,$limit ");
+            $product=DB::select("SELECT id,name,price,images,location_name ,created_at,updated_at FROM posts WHERE name LIKE  '%".$q."%' ORDER BY id DESC LIMIT $offset,$limit ");
         }
 
 
@@ -74,7 +80,7 @@ class PostController extends Controller
         foreach ($product as $relate){
             $relate_category=$relate->sub_category_name;
         }
-       $relate_posts=DB::select("SELECT users.* FROM users INNER JOIN posts ON users.id=posts.user_id WHERE  sub_category_name ='$relate_category' AND posts.id!=$id");
+        $relate_posts=DB::select("SELECT posts.* FROM posts WHERE  sub_category_name ='$relate_category' AND posts.id!=$id");
         $store=DB::select("SELECT * FROM stores WHERE  user_id=$user_id");
         if(count($product)){
             return Response::json(array(
@@ -102,10 +108,10 @@ class PostController extends Controller
         if(!empty($request->limit)){
             $limit=$request->limit;
         }
-        $product=DB::select("SELECT name,price,images,location_name,sub_category_name,created_at,updated_at FROM posts ORDER BY id DESC LIMIT $offset,$limit ");
+        $product=DB::select("SELECT id,name,price,images,location_name,sub_category_name,created_at,updated_at FROM posts ORDER BY id DESC LIMIT $offset,$limit ");
         if(!empty($request->category)){
             $q=$request->category;
-            $product=DB::select("SELECT name,price,images,location_name,sub_category_name ,created_at,updated_at FROM posts WHERE sub_category_name ='$q' ORDER BY id DESC LIMIT $offset,$limit ");
+            $product=DB::select("SELECT id,name,price,images,location_name,sub_category_name ,created_at,updated_at FROM posts WHERE sub_category_name ='$q' ORDER BY id DESC LIMIT $offset,$limit ");
         }
 
 

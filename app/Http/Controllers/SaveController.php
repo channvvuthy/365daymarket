@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Save;
 use Illuminate\Http\Request;
+use Auth;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class SaveController extends Controller
 {
@@ -30,7 +32,7 @@ class SaveController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -41,7 +43,7 @@ class SaveController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Save  $save
+     * @param  \App\Save $save
      * @return \Illuminate\Http\Response
      */
     public function show(Save $save)
@@ -52,7 +54,7 @@ class SaveController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Save  $save
+     * @param  \App\Save $save
      * @return \Illuminate\Http\Response
      */
     public function edit(Save $save)
@@ -63,8 +65,8 @@ class SaveController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Save  $save
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Save $save
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Save $save)
@@ -75,11 +77,19 @@ class SaveController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Save  $save
+     * @param  \App\Save $save
      * @return \Illuminate\Http\Response
      */
     public function destroy(Save $save)
     {
         //
+    }
+
+    public function getSaveProductToFavorite(Request $request)
+    {
+        $pid = $request->product_id;
+        $user = JWTAuth::parseToken()->authenticate();
+        $userId =$user['id'];
+
     }
 }

@@ -26,7 +26,7 @@ Route::resource('user', 'UserController');
 
 Route::resource('auth', 'AuthController');
 
-Route::resource('save','SaveController');
+Route::resource('save', 'SaveController');
 
 Route::post('register', [
     'uses' => 'SingUpController@postSignUp',
@@ -37,18 +37,23 @@ Route::post('login', [
     'uses' => 'SignInController@postLogin',
     'as' => 'login'
 ]);
-Route::get('profile',[
-    'uses'=>'SignInController@getProfile',
-    'as'=>'getProfile'
+Route::get('profile', [
+    'uses' => 'SignInController@getProfile',
+    'as' => 'getProfile'
 ]);
-Route::post('edit-profile',[
-    'uses'=>'SignInController@postProfile',
-    'as'=>'postProfile'
+Route::post('edit-profile', [
+    'uses' => 'SignInController@postProfile',
+    'as' => 'postProfile'
 ]);
 
-Route::get('product-by-category',[
-    'uses'=>'PostController@getProductByCategory',
-    'as'=>'pcat'
+Route::get('product-by-category', [
+    'uses' => 'PostController@getProductByCategory',
+    'as' => 'pcat'
+]);
+Route::get('save-product-to-favorite', [
+    'uses' => 'SaveController@getSaveProductToFavorite',
+    'as' => 'save-product',
+    'middleware'=>'jwt.auth'
 ]);
 
 
