@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Save;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Facades\Response;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use DB;
 
 class SaveController extends Controller
 {
@@ -89,7 +91,23 @@ class SaveController extends Controller
     {
         $pid = $request->product_id;
         $user = JWTAuth::parseToken()->authenticate();
-        $userId =$user['id'];
+        $userId = $user['id'];
+        $check = DB::select("SELECT * FROM saves WHERE post_id=$pid AND user_id=$userId");
+        if (count($check)) {
+            DB::table('saves')->where('post_id', $pid)->where('user_id', $userId)->delete();
+            return Response::json(array(
+                'message' => 'You have been unsave success!',
+            ),
+                202
+            );
+        } else {
+            DB::table('saves')->insert(['post_id' => $pid, 'user_id' => $userId,'created_at'=>\Carbon\Carbon::now(),'updated_at'=>\Carbon\Carbon::now()]);
+            return Response::json(array(
+                'message' => 'You have been saved success!',
+            ),
+                202
+            );
+        }
 
     }
 }
