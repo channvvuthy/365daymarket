@@ -7,6 +7,7 @@ use DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use App\Store;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UserController extends Controller
 {
@@ -135,24 +136,30 @@ class UserController extends Controller
         $image="";
         if(!empty($photo)){
             $fileName=$photo->getClientOriginalName();
+            $newFile=md5(rand(1,100)).$fileName;
             $allow_ex=["jpg","PNG","png","gif"];
             $ex=$photo->getClientOriginalExtension();
             if(in_array($ex,$allow_ex)){
                 return response()->json(['success' => false, 'error' => "Please upload image that validate extensions"]);
 
             }
-            $image=$fileName;
-            $photo->move("images",$image);
+            $photo->move("images",$newFile);
+            $image=URL::to('/').'/images/'.$newFile;
         }
-        $store=new Store();
-        $store->user_id=$userId;
-        $store->name=$name;
-        $store->address=$address;
-        $store->phone=$phone;
-        $store->google_map=$google_map;
-        $store->photo=$image;
-        $store->save();
-        return response()->json(['success' => true, 'message' => "Your store has been update completed!"]);
+        try{
+            $store=Store::where('user_id',$userId)->first();
+            $store->user_id=$userId;
+            $store->name=$name;
+            $store->address=$address;
+            $store->phone=$phone;
+            $store->google_map=$google_map;
+            $store->photo=$image;
+            $store->save();
+            return response()->json(['success' => true, 'message' => "Your store has been update completed!"]);
+        }  catch (\Exception $exception){
+            return response()->json(['success' => false, 'message' => $exception->getMessage()]);
+
+        }
 
 
 

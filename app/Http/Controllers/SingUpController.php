@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use function GuzzleHttp\Psr7\str;
 use Illuminate\Http\Request;
 use File;
 use Illuminate\Support\Facades\Password;
@@ -10,6 +11,7 @@ use App\User;
 use Illuminate\Support\Facades\Validator;
 use URL;
 use Mail;
+use App\Store;
 
 class SingUpController extends Controller
 {
@@ -73,12 +75,22 @@ class SingUpController extends Controller
                     $mail->subject($subject);
                 });
         }
+        $store=new Store();
+        $store->name=$name;
+        $store->address="";
+        $store->phone=$phone;
+        $store->google_map="";
+        $store->verification_code=  $verification_code;
+        $store->save();
         return response()->json(['success' => true, 'message' => 'Thanks for signing up! Please check your email to complete your registration.']);
     }
 
     public function getVerify($code)
     {
         $user = User::where('verification_code', $code)->first();
+        $store=Store::where('verification_code',$code)->first();
+        $store->user_id=$user->id;
+        $store->save();
         if (!is_null($user)) {
             if ($user->verified == 1) {
                 return response()->json([

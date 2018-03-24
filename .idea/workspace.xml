@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a08c0cf7-6603-461d-ae7a-a8b6f794177e" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/SingUpController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/SingUpController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/api.php" afterPath="$PROJECT_DIR$/routes/api.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,28 +22,54 @@
       <file leaf-file-name="PostController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PostController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="179" column="7" lean-forward="true" selection-start-line="179" selection-start-column="7" selection-end-line="180" selection-end-column="30" />
+            <state relative-caret-position="180">
+              <caret line="10" column="34" lean-forward="false" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
               <folding>
                 <element signature="e#40#53#0#PHP" expanded="true" />
-                <marker date="1521868138370" expanded="true" signature="681:787" ph="SELECT name,... posts" />
-                <marker date="1521868138370" expanded="true" signature="898:1037" ph="SELECT name,... posts" />
-                <marker date="1521868138370" expanded="true" signature="1779:1809" ph="SELECT * FRO... posts" />
-                <marker date="1521868138370" expanded="true" signature="1844:1928" ph="SELECT users... users" />
-                <marker date="1521868138370" expanded="true" signature="2163:2248" ph="SELECT users... users" />
-                <marker date="1521868138370" expanded="true" signature="2284:2320" ph="SELECT * FRO... stores" />
-                <marker date="1521868138370" expanded="true" signature="3072:3196" ph="SELECT name,... posts" />
-                <marker date="1521868138370" expanded="true" signature="3321:3476" ph="SELECT name,... posts" />
+                <marker date="1521871075650" expanded="true" signature="715:821" ph="SELECT name,... posts" />
+                <marker date="1521871075650" expanded="true" signature="932:1071" ph="SELECT name,... posts" />
+                <marker date="1521871075650" expanded="true" signature="1813:1843" ph="SELECT * FRO... posts" />
+                <marker date="1521871075650" expanded="true" signature="1878:1962" ph="SELECT users... users" />
+                <marker date="1521871075650" expanded="true" signature="2197:2282" ph="SELECT users... users" />
+                <marker date="1521871075650" expanded="true" signature="2318:2354" ph="SELECT * FRO... stores" />
+                <marker date="1521871075650" expanded="true" signature="3106:3230" ph="SELECT name,... posts" />
+                <marker date="1521871075650" expanded="true" signature="3355:3510" ph="SELECT name,... posts" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SingUpController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SingUpController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SingUpController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1224">
-              <caret line="23" column="49" lean-forward="true" selection-start-line="23" selection-start-column="49" selection-end-line="23" selection-end-column="49" />
+            <state relative-caret-position="126">
+              <caret line="92" column="23" lean-forward="false" selection-start-line="92" selection-start-column="23" selection-end-line="92" selection-end-column="23" />
+              <folding>
+                <element signature="e#40#73#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SaveController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SaveController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1422">
+              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="34" />
+              <folding>
+                <marker date="1521606974834" expanded="true" signature="1879:1914" ph="SELECT * FRO... saves" />
+                <marker date="1521606974834" expanded="true" signature="1879:1930" ph="SELECT * FRO... saves" />
+                <marker date="1521606974834" expanded="true" signature="1879:1931" ph="SELECT * FRO... saves" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RegisterController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/RegisterController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1494">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -51,23 +78,23 @@
       <file leaf-file-name="api.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/api.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="67" column="51" lean-forward="true" selection-start-line="67" selection-start-column="51" selection-end-line="67" selection-end-column="51" />
+            <state relative-caret-position="360">
+              <caret line="65" column="23" lean-forward="false" selection-start-line="65" selection-start-column="13" selection-end-line="65" selection-end-column="25" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UserController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/UserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="149" column="8" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="160" selection-end-column="0" />
+            <state relative-caret-position="108">
+              <caret line="147" column="35" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="167" selection-end-column="0" />
               <folding>
                 <element signature="e#40#68#0#PHP" expanded="true" />
-                <marker date="1521870680206" expanded="true" signature="1201:1231" ph="SELECT * FRO... users" />
-                <marker date="1521870680206" expanded="true" signature="1282:1352" ph="SELECT * FRO... posts" />
-                <marker date="1521870680206" expanded="true" signature="1403:1437" ph="SELECT * FRO... saves" />
+                <marker date="1521871217230" expanded="true" signature="1236:1266" ph="SELECT * FRO... users" />
+                <marker date="1521871217230" expanded="true" signature="1317:1387" ph="SELECT * FRO... posts" />
+                <marker date="1521871217230" expanded="true" signature="1438:1472" ph="SELECT * FRO... saves" />
               </folding>
             </state>
           </provider>
@@ -160,7 +187,6 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" />
         <option value="$PROJECT_DIR$/app/Http/Requests/FormRequest.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/SingUpController.php" />
         <option value="$PROJECT_DIR$/app/Exceptions/Handler.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/SignInController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" />
@@ -171,9 +197,10 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/SaveController.php" />
         <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/resources/views/show-form.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/PostController.php" />
         <option value="$PROJECT_DIR$/routes/api.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/PostController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/UserController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/SingUpController.php" />
       </list>
     </option>
   </component>
@@ -551,12 +578,12 @@
       <workItem from="1521464459759" duration="2379000" />
       <workItem from="1521420748058" duration="2109000" />
       <workItem from="1521591674327" duration="6676000" />
-      <workItem from="1521852164045" duration="5443000" />
+      <workItem from="1521852164045" duration="6722000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="77405000" />
+    <option name="totallyTimeSpent" value="78684000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
@@ -591,7 +618,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <option name="time" value="3" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -836,43 +863,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SingUpController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1224">
-          <caret line="23" column="49" lean-forward="true" selection-start-line="23" selection-start-column="49" selection-end-line="23" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/RegisterController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1008">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SaveController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="14" column="76" lean-forward="true" selection-start-line="14" selection-start-column="76" selection-end-line="14" selection-end-column="76" />
-          <folding>
-            <element signature="e#40#53#0#PHP" expanded="true" />
-            <marker date="1521606974834" expanded="true" signature="1879:1914" ph="SELECT * FRO... saves" />
-            <marker date="1521606974834" expanded="true" signature="1879:1930" ph="SELECT * FRO... saves" />
-            <marker date="1521606974834" expanded="true" signature="1879:1931" ph="SELECT * FRO... saves" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/api.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="67" column="51" lean-forward="true" selection-start-line="67" selection-start-column="51" selection-end-line="67" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/show-form.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -886,25 +876,7 @@
         <state relative-caret-position="1512">
           <caret line="102" column="37" lean-forward="true" selection-start-line="102" selection-start-column="37" selection-end-line="102" selection-end-column="37" />
           <folding>
-            <element signature="e#40#68#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PostController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="179" column="7" lean-forward="true" selection-start-line="179" selection-start-column="7" selection-end-line="180" selection-end-column="30" />
-          <folding>
-            <element signature="e#40#53#0#PHP" expanded="true" />
-            <marker date="1521868138370" expanded="true" signature="681:787" ph="SELECT name,... posts" />
-            <marker date="1521868138370" expanded="true" signature="898:1037" ph="SELECT name,... posts" />
-            <marker date="1521868138370" expanded="true" signature="1779:1809" ph="SELECT * FRO... posts" />
-            <marker date="1521868138370" expanded="true" signature="1844:1928" ph="SELECT users... users" />
-            <marker date="1521868138370" expanded="true" signature="2163:2248" ph="SELECT users... users" />
-            <marker date="1521868138370" expanded="true" signature="2284:2320" ph="SELECT * FRO... stores" />
-            <marker date="1521868138370" expanded="true" signature="3072:3196" ph="SELECT name,... posts" />
-            <marker date="1521868138370" expanded="true" signature="3321:3476" ph="SELECT name,... posts" />
+            <element signature="e#40#68#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -917,15 +889,71 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/routes/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="65" column="23" lean-forward="false" selection-start-line="65" selection-start-column="13" selection-end-line="65" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PostController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="10" column="34" lean-forward="false" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
+          <folding>
+            <element signature="e#40#53#0#PHP" expanded="true" />
+            <marker date="1521871075650" expanded="true" signature="715:821" ph="SELECT name,... posts" />
+            <marker date="1521871075650" expanded="true" signature="932:1071" ph="SELECT name,... posts" />
+            <marker date="1521871075650" expanded="true" signature="1813:1843" ph="SELECT * FRO... posts" />
+            <marker date="1521871075650" expanded="true" signature="1878:1962" ph="SELECT users... users" />
+            <marker date="1521871075650" expanded="true" signature="2197:2282" ph="SELECT users... users" />
+            <marker date="1521871075650" expanded="true" signature="2318:2354" ph="SELECT * FRO... stores" />
+            <marker date="1521871075650" expanded="true" signature="3106:3230" ph="SELECT name,... posts" />
+            <marker date="1521871075650" expanded="true" signature="3355:3510" ph="SELECT name,... posts" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/UserController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="149" column="8" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="160" selection-end-column="0" />
+        <state relative-caret-position="108">
+          <caret line="147" column="35" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="167" selection-end-column="0" />
           <folding>
             <element signature="e#40#68#0#PHP" expanded="true" />
-            <marker date="1521870680206" expanded="true" signature="1201:1231" ph="SELECT * FRO... users" />
-            <marker date="1521870680206" expanded="true" signature="1282:1352" ph="SELECT * FRO... posts" />
-            <marker date="1521870680206" expanded="true" signature="1403:1437" ph="SELECT * FRO... saves" />
+            <marker date="1521871217230" expanded="true" signature="1236:1266" ph="SELECT * FRO... users" />
+            <marker date="1521871217230" expanded="true" signature="1317:1387" ph="SELECT * FRO... posts" />
+            <marker date="1521871217230" expanded="true" signature="1438:1472" ph="SELECT * FRO... saves" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SaveController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1422">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="34" />
+          <folding>
+            <marker date="1521606974834" expanded="true" signature="1879:1914" ph="SELECT * FRO... saves" />
+            <marker date="1521606974834" expanded="true" signature="1879:1930" ph="SELECT * FRO... saves" />
+            <marker date="1521606974834" expanded="true" signature="1879:1931" ph="SELECT * FRO... saves" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/RegisterController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1494">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SingUpController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="92" column="23" lean-forward="false" selection-start-line="92" selection-start-column="23" selection-end-line="92" selection-end-column="23" />
+          <folding>
+            <element signature="e#40#73#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
