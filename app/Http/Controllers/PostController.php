@@ -154,4 +154,8 @@ class PostController extends Controller
     {
         //
     }
+
+    public function getForm(){
+        return view('show-form');
+    }
 }
