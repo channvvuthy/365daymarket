@@ -53,6 +53,11 @@ Route::get('product-by-category', [
 Route::get('save-product-to-favorite', [
     'uses' => 'SaveController@getSaveProductToFavorite',
     'as' => 'save-product',
+    'middleware' => 'jwt.auth'
+]);
+Route::post('create-post', [
+    'uses' => 'PostController@postCreatePost',
+    'as' => 'create-post' ,
     'middleware'=>'jwt.auth'
 ]);
 
