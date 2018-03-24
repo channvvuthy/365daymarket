@@ -50,15 +50,23 @@ Route::get('product-by-category', [
     'uses' => 'PostController@getProductByCategory',
     'as' => 'pcat'
 ]);
+
 Route::get('save-product-to-favorite', [
     'uses' => 'SaveController@getSaveProductToFavorite',
     'as' => 'save-product',
     'middleware' => 'jwt.auth'
 ]);
+
 Route::post('create-post', [
     'uses' => 'PostController@postCreatePost',
-    'as' => 'create-post' ,
-    'middleware'=>'jwt.auth'
+    'as' => 'create-post',
+    'middleware' => 'jwt.auth'
+]);
+
+Route::post('update-store', [
+    'uses' => 'UserController@postUpdateStore',
+    'as'=>'update-store' ,
+    'middleware' => 'jwt.auth'
 ]);
 
 

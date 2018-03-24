@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Response;
-use App\Save;
+use Illuminate\Support\Facades\Validator;
+use App\Store;
 
 class UserController extends Controller
 {
@@ -32,7 +33,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -43,26 +44,26 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request$request, $id)
+    public function show(Request $request, $id)
     {
-        $offset=0;
-        $limit=30;
-        if(!empty($request->offset)){
-            $offset=$request->offset;
+        $offset = 0;
+        $limit = 30;
+        if (!empty($request->offset)) {
+            $offset = $request->offset;
         }
-        if(!empty($request->limit)){
-            $limit=$request->limit;
+        if (!empty($request->limit)) {
+            $limit = $request->limit;
         }
-        $user=DB::select("SELECT * FROM users WHERE  id=$id");
-        $product_list_by_user=DB::select("SELECT * FROM posts  WHERE user_id=$id ORDER BY id DESC LIMIT $offset,$limit");
-        $product_favorites=DB::select("SELECT * FROM saves WHERE user_id=$id");
+        $user = DB::select("SELECT * FROM users WHERE  id=$id");
+        $product_list_by_user = DB::select("SELECT * FROM posts  WHERE user_id=$id ORDER BY id DESC LIMIT $offset,$limit");
+        $product_favorites = DB::select("SELECT * FROM saves WHERE user_id=$id");
         return Response::json(array(
-            'user'    =>  $user,
-            'product_list_by_user'=>$product_list_by_user,
-            'product_favorites'=>$product_favorites
+            'user' => $user,
+            'product_list_by_user' => $product_list_by_user,
+            'product_favorites' => $product_favorites
         ),
             200
         );
@@ -71,7 +72,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -82,8 +83,8 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -94,7 +95,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -102,7 +103,8 @@ class UserController extends Controller
         //
     }
 
-    public function postProfile(Request $request){
+    public function postProfile(Request $request)
+    {
         $this->validate($request, [
             'first_name' => 'required',
             'last_name' => 'required',
@@ -110,5 +112,49 @@ class UserController extends Controller
             'email' => 'required|email',
             'password' => 'required|min:6'
         ]);
+    }
+
+    public function postUpdateStore(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'address' => 'required',
+            'phone' => 'required|min:6',
+            'google_map' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'error' => $validator->messages()]);
+        }
+        $user = JWTAuth::parseToken()->authenticate();
+        $userId = $user['id'];
+        $name=$request->name;
+        $address=$request->address;
+        $phone=$request->phone;
+        $google_map=$request->google_map;
+        $photo=$request->file('photo');
+        $image="";
+        if(!empty($photo)){
+            $fileName=$photo->getClientOriginalName();
+            $allow_ex=["jpg","PNG","png","gif"];
+            $ex=$photo->getClientOriginalExtension();
+            if(in_array($ex,$allow_ex)){
+                return response()->json(['success' => false, 'error' => "Please upload image that validate extensions"]);
+
+            }
+            $image=$fileName;
+            $photo->move("images",$image);
+        }
+        $store=new Store();
+        $store->user_id=$userId;
+        $store->name=$name;
+        $store->address=$address;
+        $store->phone=$phone;
+        $store->google_map=$google_map;
+        $store->photo=$image;
+        $store->save();
+        return response()->json(['success' => true, 'message' => "Your store has been update completed!"]);
+
+
+
     }
 }
