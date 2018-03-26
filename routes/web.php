@@ -10,7 +10,40 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', ['uses' => 'HomeController@getIdex', 'as' => 'home']);
+Route::get('/',['uses'=>'HomeController@getIdex','as'=>'home']);
+Route::get('ads-detail.html',[
+    'uses'=>'HomeController@viewdetail',
+    'as'=>'view.ads'
+]);
+Route::get('post-product',[
+    'uses'=>'HomeController@postProduct',
+    'as'=>'post.product'
+]);
+Route::get('search-result',[
+    'uses'=>'HomeController@searchResult',
+    'as'=>'search.result'
+]);
+Route::post('register.post',[
+    'uses'=>'UserController@postRegister',
+    'as'=>'register.post'
+]);
+Route::post('login.user',[
+    'uses'=>'UserController@postLogin',
+    'as'=>'login.user'
+]);
+Route::get('logout.user',[
+    'uses'=>'UserController@logoutUser',
+    'as'=>'logout.user'
+]);
+Route::get('confirm-email',[
+    'uses'=>'UserController@getConfirm',
+    'as'=>'confirm.email'
+]);
+Route::get('brand.category',[
+    'uses'=>'HomeController@getbrandCategory',
+    'as'=>'brand.category'
+]);
+// 
 Route::get('ajax-request-sub-category', ['uses' => 'CategoryController@getAjaxRequestSubCategory', 'as' => 'ajax-request-sub-category']);
 Route::get('/test', function () {
     $faker = Faker\Factory::create();
