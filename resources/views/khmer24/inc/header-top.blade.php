@@ -4,7 +4,7 @@
             <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
                 <div class="logo">
                     <a href="{{ route('home') }}">
-                        <h1 class="margin">khmer168</h1>
+                        <h1 class="margin">365daymarket</h1>
                     </a>
                 </div>
             </div>

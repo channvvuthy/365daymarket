@@ -43,6 +43,10 @@ Route::get('brand.category',[
     'uses'=>'HomeController@getbrandCategory',
     'as'=>'brand.category'
 ]);
+Route::post('save.post',[
+    'uses'=>'HomeController@savePost',
+    'as'=>'save.post'
+]);
 // 
 Route::get('ajax-request-sub-category', ['uses' => 'CategoryController@getAjaxRequestSubCategory', 'as' => 'ajax-request-sub-category']);
 Route::get('/test', function () {

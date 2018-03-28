@@ -6,31 +6,37 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Post;
 use App\Category;
+use App\Location;
 use App\Brand;
+use DB;
+use Auth;
 
 class HomeController extends Controller
 {
     public function getIdex(){
         $lastpost=Post::orderBy('created_at', 'desc')->paginate(8);
         $categoty=Category::where('parent_id','0')->get();
-        return view('khmer24.index')->withLastpost($lastpost)->withCategoty($categoty);
+        $location=Location::where('status','Publish')->get();
+        return view('khmer24.index')->withLastpost($lastpost)->withCategoty($categoty)->withLocation($location);
     }
     public function viewdetail(){
         $categoty=Category::where('parent_id','0')->get();
-    	return view('khmer24.detail-view')->withCategoty($categoty);
+        $location=Location::where('status','Publish')->get();
+    	return view('khmer24.detail-view')->withCategoty($categoty)->withLocation($location);
     }
     public function postProduct(){
         $categoty=Category::where('parent_id','0')->get();
-    	return view('khmer24.post-product')->withCategoty($categoty);
+        $location=Location::where('status','Publish')->get();
+    	return view('khmer24.post-product')->withCategoty($categoty)->withLocation($location);
     }
     public function getbrandCategory(Request $request){
         $id=$request->catid;
-        $catname=$request->catname;
-        $brand=Brand::where('sub_category_name',$catname)->get();
+        $catname=$request->subcatname;
+        $brand=Brand::where('sub_category_name',$catname)->where('status','Publish')->get();
         if (count($brand) > 0) {
             ?>
-                <label class="col-md-3">Type:</label>
-                <select name="variation_type" class="variationselect">
+                <label class="col-md-3">Type <span class="red">*</span>:</label>
+                <select name="variation_type" class="variationselect" required>
                     <?php foreach ($brand as $key => $brandlist): ?>
                     <option value="<?php echo $brandlist->name; ?>"><?php echo $brandlist->name; ?></option>
                     <?php endforeach ?>
@@ -39,8 +45,60 @@ class HomeController extends Controller
         }
         return;
     }
-    public function searchResult(){
+    public function searchResult(Request $request){
+        $category=$request->category;
+        $location=$request->location;
+        $keyword=$request->p;
+
         $categoty=Category::where('parent_id','0')->get();
-    	return view('khmer24.search-result')->withCategoty($categoty);
+        $location=Location::where('status','Publish')->get();
+        // if (!empty($category) && !empty($location) && !empty($keywork)) {
+        //     $post=Post::where('category_name',$category)->where('location_name',$location)->where('name', 'like', '%' . $keyword . '%')->get();
+        // }
+        // if (empty($category) && !empty($location) && !empty($keywork)) {
+        //     $post=Post::where('location_name',$location)->where('name', 'like', '%' . $keyword . '%')->get();
+        // }
+        // if (!empty($category) && empty($location) && !empty($keywork)) {
+        //     $post=Post::where('category_name',$category)->where('name', 'like', '%' . $keyword . '%')->get();
+        // }
+        // if (!empty($category) && !empty($location) && empty($keywork)) {
+        //     $post=Post::where('category_name',$category)->where('location_name',$location)->get();
+        // }
+        // if (empty($category) && empty($location) && !empty($keywork)) {
+        //     $post=Post::where('name', 'like', '%' . $keyword . '%')->get();
+        // }
+        // foreach ($post as $key => $value) {
+        //     echo $value->name;
+        // }
+    	return view('khmer24.search-result')->withCategoty($categoty)->withLocation($location);
+    }
+    public function savePost(Request $request){
+        $url=$request->url;
+        $imageFile=$request->photo;
+        foreach ($imageFile as $key => $imgfile) {
+            if (!empty($imgfile)) {
+                $imageFile.='"'.$url.$imgfile.'",';
+            }
+        }
+        $arr=['array','Array'];
+        $imageFile=rtrim(str_replace($arr, '',$imageFile),',');
+        $imageFile='['.$imageFile.']';
+        $imageFile=$imageFile;
+        $post=new Post();
+        $post->user_id=Auth::user()->id;
+        $post->name=$request->name;
+        $post->brand=$request->variation_type;
+        $post->price=$request->price;
+        $post->description=$request->description;
+        $post->username=$request->username;
+        $post->phone=$request->phone;
+        $post->email=$request->email;
+        $post->location_name=$request->location;
+        $post->sub_category_name=$request->subcategoryname;
+        $post->category_name=$request->categoryname;
+        $post->address=$request->categoryname;
+        $post->images=$imageFile;
+        $post->Save();
+        return redirect()->back()->with('message_save','Your product has been saved!');
     }
 }

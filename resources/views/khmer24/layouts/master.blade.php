@@ -62,28 +62,41 @@
     });
     $(document).on('click','.select_subcat',function(){
         var catid=$(this).attr('data-id');
-        var catname=$(this).attr('data-name');
-        $('.catid').val(catid);
-        $('.choosCate_post').addClass('hidden');
-        $('.post-form ').removeClass('hidden');
-        $('ul li.select_cate').removeClass('active');
-        $('ul li.description_post').addClass('active');
+        var subcatname=$(this).attr('data-name');
+        var catname=$(this).attr('data-cat');
+        // 
         jQuery.ajax({
             url: "{{route('brand.category')}}",
             type: "GET",
-            data: {catid:catid,catname:catname},
+            data: {catid:catid,subcatname:subcatname},
             success: function (data) {
                 console.log(data);
                 $(".brandlist").html(data);
             }
         });
+        // 
+        $('.bt_category').html('<p>'+catname+' => '+subcatname+' <span>Change</span>'+'</p>')
+        $('.catid').val(catid);
+        $('.catname').val(catname);
+        $('.subcatname').val(subcatname);
+        $('.choosCate_post').addClass('hidden');
+        $('.post-form ').removeClass('hidden');
+        $('ul li.select_cate').removeClass('active');
+        $('ul li.description_post').addClass('active');
+        // 
     });
     $(document).on('click','.bt_category',function(){
         $('.choosCate_post').removeClass('hidden');
         $('.post-form ').addClass('hidden');
         $('ul li.select_cate').addClass('active');
         $('ul li.description_post').removeClass('active');
-    })
+    });
+    $('.btn-category').change(function(){
+        $('.btn-category').removeClass('catfirst');
+    });
+    $('.btn-location').change('click','.locaval',function(){
+        $('.btn-location').removeClass('catfirst');
+    });
 </script>
 </body>
 </html>

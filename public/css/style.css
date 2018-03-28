@@ -508,9 +508,10 @@ ul.all_category {
 }
 .choose_cate_title label{color: #444;text-align: right;}
 .choose_cate_title input,.choose_cate_title select{color: #444;}
-select.variationselect {
+select.variationselect,.locations_ {
     padding: 5px 15px;
 }
+span.red{color: red;font-weight: bold;}
 .photo_wrap {
     border: 1px dotted #d6cece;
     padding: 10px !important;
@@ -520,6 +521,7 @@ select.variationselect {
     padding: 5px !important;
     height: 130px;
     margin: 5px 0;
+    cursor: pointer;
 }
 .file_photo img {
     width:  100%;
@@ -528,7 +530,7 @@ select.variationselect {
 select.btn-category,select.btn-location {
     width: 250px;
 }
-select.btn-category{z-index: 3;}
+select.btn-category{z-index: 3 !important;}
 select.btn-location{z-index: 2;}
 .wrapper-search {
     display: block;
@@ -925,4 +927,15 @@ span.price-item {
     padding: 6px 0;
     border-radius: 4px !important;
     margin: 10px 0;
+}
+.catfirst{color: #b5b5b5 !important;font-style: italic;}
+select.btn-category option:first-child,select.btn-location option:first-child {
+    display: none;
+}
+select.btn-category option,select.btn-location option  {
+    color: #000;
+    line-height: 30px;
+}
+select {
+    padding: 10px 5px !important;
 }

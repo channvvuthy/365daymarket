@@ -15,17 +15,19 @@
                                     <li><a href="#its_equal">Phone & Tablet</a></li>
                                     <li><a href="#greather_than">Electronic</a></li>
                                 </ul> --}}
-                                <select name="categoryName" class="btn btn-default dropdown-toggle btn-category">
-                                    <option value="0">All Category</option>
-                                    <option value="option">option</option>
-                                    <option value="option">option</option>
+                                <select name="category" class="btn btn-default dropdown-toggle btn-category catfirst">
+                                    <option value="">Choose category ...</option>
+                                    @foreach ($categoty as $allcategory)
+                                        <option value="{{ $allcategory->name }}" class="catval">{{ $allcategory->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="input-group-btn search-panel">
-                                <select name="categoryName" class="btn btn-default dropdown-toggle btn-location">
-                                    <option value="0">All Location</option>
-                                    <option value="option">option</option>
-                                    <option value="option">option</option>
+                                <select name="location" class="btn btn-default dropdown-toggle btn-location catfirst">
+                                    <option value="">Choose location ...</option>
+                                    @foreach ($location as $locations)
+                                        <option value="{{ $locations->name }}" class="locval">{{ $locations->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <input type="text" class="form-control input-search" name="p" placeholder="What are you looking for...">
@@ -40,7 +42,11 @@
             </div>
             <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
                 {{-- <button class="btn btn-warning btn-post btn-block"><i class="glyphicon glyphicon-plus-sign"></i> POST PRODUCT</button> --}}
-                <a href="{{ route('post.product') }}" class="btn btn-warning btn-post btn-block"><i class="glyphicon glyphicon-plus-sign"></i> POST PRODUCT</a>
+                @if (!empty(Auth::user()))
+                    <a href="{{ route('post.product') }}" class="btn btn-warning btn-post btn-block"><i class="glyphicon glyphicon-plus-sign"></i> POST PRODUCT</a>
+                @else
+                    <a href="#" onclick="login__form();" class="btn btn-warning btn-post btn-block"><i class="glyphicon glyphicon-plus-sign"></i> POST PRODUCT</a>
+                @endif
             </div>
         </div>
     </div>
