@@ -18,20 +18,36 @@
                     <div class="product-list">
                     	<div class="col-xs-12 col-sm-9 col-mg-9 col-lg-9">
 	                        <div class="article_detail col-xs-12 col-sm-12 col-mg-12 col-lg-12">
-	                        	<div class="img-slider">
-	                        		<img src="{{ asset('uploads/1024x1024.jpg') }}" alt="">
-	                        	</div>
-	                        	<div class="img-slider_thu">
-                                    <img src="{{ asset('uploads/1024x1024.jpg') }}" alt="">
-                                    <img src="{{ asset('uploads/1024x1024.jpg') }}" alt="">
-	                        		<img src="{{ asset('uploads/1024x1024.jpg') }}" alt="">
-	                        	</div>
+                                @php
+                                    $postImg=json_decode($post->images);
+                                @endphp
+                                <div class="carousel slide article-slide" id="article-photo-carousel">
+                                    <div class="carousel-inner cont-slider">
+                                    @foreach ($postImg as $imgthum)
+                                        <div class="img-slider item">
+                                          <img alt="" title="" src="{{ $imgthum }}">
+                                        </div>
+                                    @endforeach
+                                    </div>
+                                      <!-- Indicators -->
+                                    <ol class="carousel-indicators">
+                                        @php $i=0; @endphp
+                                        @foreach ($postImg as $imgthum)
+                                        <li class="thum-list" data-slide-to="{{$i++}}" data-target="#article-photo-carousel">
+                                          <img alt="" src="{{ $imgthum }}">
+                                        </li>
+                                        @endforeach
+                                    </ol>
+                                </div>
                                 <div class="dis_article">
                                     <div class="discription_header">
                                         <div class="clear_padding col-xs-12 col-sm-10 col-mg-10 col-lg-10">
-                                            <h2>Headset AKG by Haman Nseries from USA</h2>
-                                            <p class="price_wrap"><span class="price_style"> </span> <span class="price">$1200</span></p>
-                                            <p>Posted On:<span>11-Mar-2018</span> / visitor:<span>1 K</span> </p>
+                                            <h2>{{ $post->name }}</h2>
+                                            <p class="price_wrap"><span class="price_style"> </span> 
+                                            <span class="price">{{ $post->price }}</span></p>
+                                            <div class="post-date">
+                                                <p>Posted On : <span> {{date('d-M-Y', strtotime($post->created_at))}} </span> / visitor : <span>1 K</span> </p>
+                                            </div>
                                         </div>
                                         <div class="padding_right col-xs-12 col-sm-2 col-mg-2 col-lg-2">
                                             <p><i class="icon icon-share text_gray"></i></p>
@@ -39,7 +55,7 @@
                                     </div>
                                     <div class="discription_header">
                                         <h3>Description</h3>
-                                        <p>Dear all customer in our shop just arrived the AKG by Haman (bluetooth headset). It new in box. It was the black color. It&#039;s nice sound. Interest pl call. Thank.Dear all customer in our shop just arrived the AKG by Haman (bluetooth headset). It new in box. It was the black color. It&#039;s nice sound. Interest pl call. Thank.</p>
+                                        <p>{{ $post->description }}</p>
                                     </div>
                                 </div>
 	                        </div>
@@ -67,4 +83,13 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        $('.carousel').carousel({
+          interval: false
+        });
+        $(document).ready(function(){
+            $('.img-slider:first-child').addClass('active');
+            $('.thum-list:first-child').addClass('active');
+        })
+    </script>
 @stop

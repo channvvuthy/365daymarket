@@ -16,7 +16,7 @@
                         @foreach ($lastpost as $lastAds) 
                         <div class="col-xs-12 col-sm-2 col-mg-3 col-lg-3">
                             <div class="homeblock height-items">
-                                <a href="{{ route('view.ads') }}">
+                                <a href="{{ route('view.ads') }}?key={{ bcrypt($lastAds->name) }}&id={{ $lastAds->id }}">
                                 @php
                                     $imgArr=json_decode($lastAds->images,true);
                                 @endphp
@@ -32,25 +32,10 @@
                             </div>
                         </div>
                         @endforeach
-                        {{-- <div class="col-xs-12 col-sm-2 col-mg-3 col-lg-3">
-                            <div class="homeblock">
-                                <a href="{{ route('view.ads') }}">
-                                <div class="home_img">
-                                    <img src="{{ asset('uploads/1024x1024.jpg') }}" alt="">
-                                </div>
-                                </a>
-                                <div class="p">
-                                    <h3><a href="{{ route('view.ads') }}">Image Phone</a></h3>
-                                    <p>Lorem ipsum dolor sit amet,Phnom Penh 271 ....</p>
-                                    <p><span>$150</span></p>
-                                </div>
-                            </div>
-                        </div> --}}
-
-                    <div class="clearfix"></div>
-                    <div class="col-xs-12 col-sm-12 col-mg-12 col-lg-12 viewmore_btn">
-                        <a href="" title="">View More</a>
-                    </div>
+                        <div class="clearfix"></div>
+                        <div class="col-xs-12 col-sm-12 col-mg-12 col-lg-12 viewmore_btn">
+                            <a href="" title="">View More</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -63,123 +48,29 @@
                         </h2>
                     </div>
                     <div class="product-list">
+                        @foreach ($popular as $lastAds) 
                         <div class="col-xs-12 col-sm-2 col-mg-3 col-lg-3">
-                            <div class="homeblock">
-                                <a href="{{ route('view.ads') }}">
+                            <div class="homeblock height-items">
+                                <a href="{{ route('view.ads') }}?key={{ bcrypt($lastAds->name) }}&id={{ $lastAds->id }}">
+                                @php
+                                    $imgArr=json_decode($lastAds->images,true);
+                                @endphp
                                 <div class="home_img">
-                                    <img src="{{ asset('uploads/1024x1024.jpg') }}" alt="">
+                                    <img src="{{ $imgArr[0] }}" alt="">
                                 </div>
                                 </a>
                                 <div class="p">
-                                    <h3><a href="{{ route('view.ads') }}">Image Phone</a></h3>
-                                    <p>Lorem ipsum dolor sit amet,Phnom Penh 271 ....</p>
-                                    <p><span>$150</span></p>
+                                    <h3><a href="{{ route('view.ads') }}">{{ str_limit($lastAds->name,100,'...') }}</a></h3>
+                                    {{-- <p>{{ str_limit($lastAds->description,100,'...') }}</p> --}}
+                                    <p><span class="price-item">$ {{ $lastAds->price }}</span></p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-2 col-mg-3 col-lg-3">
-                            <div class="homeblock">
-                                <a href="{{ route('view.ads') }}">
-                                <div class="home_img">
-                                    <img src="{{ asset('uploads/1024x1024.jpg') }}" alt="">
-                                </div>
-                                </a>
-                                <div class="p">
-                                    <h3><a href="{{ route('view.ads') }}">Image Phone</a></h3>
-                                    <p>Lorem ipsum dolor sit amet,Phnom Penh 271 ....</p>
-                                    <p><span>$150</span></p>
-                                </div>
-                            </div>
+                        @endforeach
+                        <div class="clearfix"></div>
+                        <div class="col-xs-12 col-sm-12 col-mg-12 col-lg-12 viewmore_btn">
+                            <a href="" title="">View More</a>
                         </div>
-                        <div class="col-xs-12 col-sm-2 col-mg-3 col-lg-3">
-                            <div class="homeblock">
-                                <a href="{{ route('view.ads') }}">
-                                <div class="home_img">
-                                    <img src="{{ asset('uploads/1024x1024.jpg') }}" alt="">
-                                </div>
-                                </a>
-                                <div class="p">
-                                    <h3><a href="{{ route('view.ads') }}">Image Phone</a></h3>
-                                    <p>Lorem ipsum dolor sit amet,Phnom Penh 271 ....</p>
-                                    <p><span>$150</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-2 col-mg-3 col-lg-3">
-                            <div class="homeblock">
-                                <a href="{{ route('view.ads') }}">
-                                <div class="home_img">
-                                    <img src="{{ asset('uploads/1024x1024.jpg') }}" alt="">
-                                </div>
-                                </a>
-                                <div class="p">
-                                    <h3><a href="{{ route('view.ads') }}">Image Phone</a></h3>
-                                    <p>Lorem ipsum dolor sit amet,Phnom Penh 271 ....</p>
-                                    <p><span>$150</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-2 col-mg-3 col-lg-3">
-                            <div class="homeblock">
-                                <a href="{{ route('view.ads') }}">
-                                <div class="home_img">
-                                    <img src="{{ asset('uploads/1024x1024.jpg') }}" alt="">
-                                </div>
-                                </a>
-                                <div class="p">
-                                    <h3><a href="{{ route('view.ads') }}">Image Phone</a></h3>
-                                    <p>Lorem ipsum dolor sit amet,Phnom Penh 271 ....</p>
-                                    <p><span>$150</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-2 col-mg-3 col-lg-3">
-                            <div class="homeblock">
-                                <a href="{{ route('view.ads') }}">
-                                <div class="home_img">
-                                    <img src="{{ asset('uploads/1024x1024.jpg') }}" alt="">
-                                </div>
-                                </a>
-                                <div class="p">
-                                    <h3><a href="{{ route('view.ads') }}">Image Phone</a></h3>
-                                    <p>Lorem ipsum dolor sit amet,Phnom Penh 271 ....</p>
-                                    <p><span>$150</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-2 col-mg-3 col-lg-3">
-                            <div class="homeblock">
-                                <a href="{{ route('view.ads') }}">
-                                <div class="home_img">
-                                    <img src="{{ asset('uploads/1024x1024.jpg') }}" alt="">
-                                </div>
-                                </a>
-                                <div class="p">
-                                    <h3><a href="{{ route('view.ads') }}">Image Phone</a></h3>
-                                    <p>Lorem ipsum dolor sit amet,Phnom Penh 271 ....</p>
-                                    <p><span>$150</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-2 col-mg-3 col-lg-3">
-                            <div class="homeblock">
-                                <a href="{{ route('view.ads') }}">
-                                <div class="home_img">
-                                    <img src="{{ asset('uploads/1024x1024.jpg') }}" alt="">
-                                </div>
-                                </a>
-                                <div class="p">
-                                    <h3><a href="{{ route('view.ads') }}">Image Phone</a></h3>
-                                    <p>Lorem ipsum dolor sit amet,Phnom Penh 271 ....</p>
-                                    <p><span>$150</span></p>
-                                </div>
-                            </div>
-                        </div>
-
-                    <div class="clearfix"></div>
-                    <div class="col-xs-12 col-sm-12 col-mg-12 col-lg-12 viewmore_btn">
-                        <a href="" title="">View More</a>
-                    </div>
                     </div>
                 </div>
             </div>

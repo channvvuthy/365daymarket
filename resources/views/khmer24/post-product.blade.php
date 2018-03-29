@@ -16,7 +16,7 @@
                         <span class="border_tappost"></span>
                         <span class="border_tappost"></span>
                         <div class="main_post_wrap post-form hidden">
-                            <form action="{{ route('save.post') }}" method="post" accept-charset="utf-8">
+                            <form action="{{ route('save.post') }}" method="post" accept-charset="utf-8" enctype="multipart/form-data">
                             <div class="choose_cate_title col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <div class="postbox clear_padding col-xs-12 col-sm-12 col-md-8 col-lg-8">
                                     <label class="col-md-3">Category:</label>
@@ -54,6 +54,22 @@
                                     <div class="photo_wrap col-md-9">
                                         <div class="col-md-12 clear_padding">
                                             Please input your ads photo:
+                                        </div>
+                                        <div class="file_photo col-md-3" style="border: 1px solid #eee;">
+                                            <input type="file" class="hidden ph1" name="photo[]">
+                                            <img src="{{ asset('uploads/upload-photo.jpg') }}" alt="" class="uploadphoto1">
+                                        </div>
+                                        <div class="file_photo col-md-3" style="border: 1px solid #eee;">
+                                            <input type="file" class="hidden ph2" name="photo[]">
+                                            <img src="{{ asset('uploads/upload-photo.jpg') }}" alt="" class="uploadphoto2">
+                                        </div>
+                                        <div class="file_photo col-md-3" style="border: 1px solid #eee;">
+                                            <input type="file" class="hidden ph3" name="photo[]">
+                                            <img src="{{ asset('uploads/upload-photo.jpg') }}" alt="" class="uploadphoto3">
+                                        </div>
+                                        <div class="file_photo col-md-3" style="border: 1px solid #eee;">
+                                            <input type="file" class="hidden ph4" name="photo[]">
+                                            <img src="{{ asset('uploads/upload-photo.jpg') }}" alt="" class="uploadphoto4">
                                         </div>
                                         <div class="file_photo col-md-3" style="border: 1px solid #eee;">
                                             <input type="file" class="hidden ph1" name="photo[]">

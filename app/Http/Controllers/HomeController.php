@@ -15,14 +15,17 @@ class HomeController extends Controller
 {
     public function getIdex(){
         $lastpost=Post::orderBy('created_at', 'desc')->paginate(8);
+        $popular=Post::orderBy('views', 'desc')->paginate(8);
         $categoty=Category::where('parent_id','0')->get();
         $location=Location::where('status','Publish')->get();
-        return view('khmer24.index')->withLastpost($lastpost)->withCategoty($categoty)->withLocation($location);
+        return view('khmer24.index')->withLastpost($lastpost)->withCategoty($categoty)->withLocation($location)->withPopular($popular);
     }
     public function viewdetail(){
+        $id=$_GET['id'];
         $categoty=Category::where('parent_id','0')->get();
         $location=Location::where('status','Publish')->get();
-    	return view('khmer24.detail-view')->withCategoty($categoty)->withLocation($location);
+        $post=Post::where('id',$id)->first();
+    	return view('khmer24.detail-view')->withCategoty($categoty)->withLocation($location)->withPost($post);
     }
     public function postProduct(){
         $categoty=Category::where('parent_id','0')->get();
@@ -75,11 +78,18 @@ class HomeController extends Controller
     public function savePost(Request $request){
         $url=$request->url;
         $imageFile=$request->photo;
-        foreach ($imageFile as $key => $imgfile) {
-            if (!empty($imgfile)) {
-                $imageFile.='"'.$url.$imgfile.'",';
-            }
+        foreach ($imageFile as $file) {//this statement will loop through all files.
+            $file_name = $file->getClientOriginalName(); //Get file original name
+            $file->move('uploads/' , $file_name); // move files to destination folder
+            $imageFile.='"'.$url.'uploads/'.$file_name.'",';
         }
+        // foreach ($imageFile as $imgfile) {
+        //     if (!empty($imgfile)) {
+        //         $file_name = $imgfile->getClientOriginalName();
+        //         $imageFile.='"'.$url.'/uploads/'.$imgfile.'",';
+        //         $imageFile->move('uploads/', $file_name);
+        //     }
+        // }
         $arr=['array','Array'];
         $imageFile=rtrim(str_replace($arr, '',$imageFile),',');
         $imageFile='['.$imageFile.']';
@@ -99,6 +109,6 @@ class HomeController extends Controller
         $post->address=$request->categoryname;
         $post->images=$imageFile;
         $post->Save();
-        return redirect()->back()->with('message_save','Your product has been saved!');
+        // return redirect()->back()->with('message_save','Your product has been saved!');
     }
 }

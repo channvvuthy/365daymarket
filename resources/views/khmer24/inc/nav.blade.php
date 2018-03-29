@@ -3,11 +3,11 @@
         <div class="row">
             <div class="col-sm-3 col-md-3 navInner no-padding-right">
                 <div class="panel-group" id="accordion">
-                    <div class="panel panel-default">
+                    <div class="nav-sidebarmenu panel panel-default">
                         <div class="panel-heading button_nav">
                             <h4 class="panel-title">
                                 <a  href="#"><span class="glyphicon glyphicon-list">
-                </span>  Choose Category</a>
+                                </span>  Choose Category</a>
                             </h4>
                         </div>
                         <div id="collapseOne" class="nav_cate_left panel-collapse collapse in hidden">

@@ -188,6 +188,10 @@ class UserController extends Controller
         $user->verification_code=$registerkey;
         $user->save();
 
+        $store=new Store();
+        $store->name=$fullname;
+        $store->user_id=$user->id;
+        $store->save();
         // $to =$request->email;
         // $subject = "Confirmation Email";
         // $message = "
