@@ -15,6 +15,10 @@ Route::get('ads-detail.html',[
     'uses'=>'HomeController@viewdetail',
     'as'=>'view.ads'
 ]);
+Route::get('store.market',[
+    'uses'=>'HomeController@storemarket',
+    'as'=>'store.market'
+]);
 Route::get('post-product',[
     'uses'=>'HomeController@postProduct',
     'as'=>'post.product'

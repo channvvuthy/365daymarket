@@ -1,4 +1,4 @@
-<div class="header-middle">
+<div class="header-middle @if(!empty($_GET['key'])) hidden @endif">
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
@@ -17,7 +17,7 @@
                                 </ul> --}}
                                 <select name="category" class="btn btn-default dropdown-toggle btn-category catfirst">
                                     <option value="">Choose category ...</option>
-                                    @foreach ($categoty as $allcategory)
+                                    @foreach ($subcategory as $allcategory)
                                         <option value="{{ $allcategory->name }}" class="catval">{{ $allcategory->name }}</option>
                                     @endforeach
                                 </select>
@@ -43,7 +43,7 @@
             <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
                 {{-- <button class="btn btn-warning btn-post btn-block"><i class="glyphicon glyphicon-plus-sign"></i> POST PRODUCT</button> --}}
                 @if (!empty(Auth::user()))
-                    <a href="{{ route('post.product') }}" class="btn btn-warning btn-post btn-block"><i class="glyphicon glyphicon-plus-sign"></i> POST PRODUCT</a>
+                    <a href="{{ route('post.product') }}?key=post" class="btn btn-warning btn-post btn-block"><i class="glyphicon glyphicon-plus-sign"></i> POST PRODUCT</a>
                 @else
                     <a href="#" onclick="login__form();" class="btn btn-warning btn-post btn-block"><i class="glyphicon glyphicon-plus-sign"></i> POST PRODUCT</a>
                 @endif

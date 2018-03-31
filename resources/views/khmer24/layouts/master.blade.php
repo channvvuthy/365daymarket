@@ -100,7 +100,7 @@
     $('.btn-category').change(function(){
         $('.btn-category').removeClass('catfirst');
     });
-    $('.btn-location').change('click','.locaval',function(){
+    $('.btn-location').on('change',function(){
         $('.btn-location').removeClass('catfirst');
     });
 </script>
@@ -113,6 +113,8 @@
             $('.nav_cate_sub').removeClass('hidden');
             $('.nav_cate_welcome').addClass('hidden');
             $('.button_nav').removeClass('button_nav');
+            // 
+            $('.categories-list:first').addClass('active');
 
             $(document).ready(function () {
                 var nav=$(".navInner");
@@ -127,5 +129,14 @@
         });
     </script>
 @endif
+<script type="text/javascript">
+    $( document ).ready(function() {
+        $('.categories-list:first').addClass('active');
+    })
+    $(document).on('mousemove','.categories-list',function(){
+        $('.categories-list').removeClass('active');
+        $(this).addClass('active');
+    })
+</script>
 </body>
 </html>

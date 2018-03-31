@@ -17,20 +17,26 @@ class HomeController extends Controller
         $lastpost=Post::orderBy('created_at', 'desc')->paginate(8);
         $popular=Post::orderBy('views', 'desc')->paginate(8);
         $categoty=Category::where('parent_id','0')->get();
+        $subcategory=Category::where('parent_id','!=','0')->get();
         $location=Location::where('status','Publish')->get();
-        return view('khmer24.index')->withLastpost($lastpost)->withCategoty($categoty)->withLocation($location)->withPopular($popular);
+        return view('khmer24.index')->withLastpost($lastpost)->withCategoty($categoty)->withSubcategory($subcategory)->withLocation($location)->withPopular($popular);
     }
     public function viewdetail(){
         $id=$_GET['id'];
         $categoty=Category::where('parent_id','0')->get();
+        $subcategory=Category::where('parent_id','!=','0')->get();
         $location=Location::where('status','Publish')->get();
         $post=Post::where('id',$id)->first();
-    	return view('khmer24.detail-view')->withCategoty($categoty)->withLocation($location)->withPost($post);
+    	return view('khmer24.detail-view')->withCategoty($categoty)->withSubcategory($subcategory)->withLocation($location)->withPost($post);
+    }
+    public function storemarket(){
+        return view('khmer24.user-store');
     }
     public function postProduct(){
         $categoty=Category::where('parent_id','0')->get();
         $location=Location::where('status','Publish')->get();
-    	return view('khmer24.post-product')->withCategoty($categoty)->withLocation($location);
+        $subcategory=Category::where('parent_id','!=','0')->get();
+    	return view('khmer24.post-product')->withCategoty($categoty)->withLocation($location)->withSubcategory($subcategory);
     }
     public function getbrandCategory(Request $request){
         $id=$request->catid;
@@ -49,31 +55,38 @@ class HomeController extends Controller
         return;
     }
     public function searchResult(Request $request){
-        $category=$request->category;
-        $location=$request->location;
-        $keyword=$request->p;
-
         $categoty=Category::where('parent_id','0')->get();
+        $subcategory=Category::where('parent_id','!=','0')->get();
         $location=Location::where('status','Publish')->get();
-        // if (!empty($category) && !empty($location) && !empty($keywork)) {
-        //     $post=Post::where('category_name',$category)->where('location_name',$location)->where('name', 'like', '%' . $keyword . '%')->get();
-        // }
-        // if (empty($category) && !empty($location) && !empty($keywork)) {
-        //     $post=Post::where('location_name',$location)->where('name', 'like', '%' . $keyword . '%')->get();
-        // }
-        // if (!empty($category) && empty($location) && !empty($keywork)) {
-        //     $post=Post::where('category_name',$category)->where('name', 'like', '%' . $keyword . '%')->get();
-        // }
-        // if (!empty($category) && !empty($location) && empty($keywork)) {
-        //     $post=Post::where('category_name',$category)->where('location_name',$location)->get();
-        // }
-        // if (empty($category) && empty($location) && !empty($keywork)) {
-        //     $post=Post::where('name', 'like', '%' . $keyword . '%')->get();
-        // }
-        // foreach ($post as $key => $value) {
-        //     echo $value->name;
-        // }
-    	return view('khmer24.search-result')->withCategoty($categoty)->withLocation($location);
+        // 
+        $categoryName=$_GET['category'];
+        $locationName=$_GET['location'];
+        $keyword=$_GET['p'];
+        if (!empty($categoryName) && !empty($locationName) && !empty($keyword)) {
+            $post=Post::where('sub_category_name',$categoryName)->where('location_name',$locationName)->where('name', 'like', '%' . $keyword . '%')->paginate(8);
+        }
+        if (!empty($categoryName) && !empty($locationName) && empty($keywork)) {
+            $post=Post::where('sub_category_name',$categoryName)->where('location_name',$locationName)->where('name', 'like', '%' . $keyword . '%')->paginate(8);
+        }
+        if (!empty($categoryName) && empty($locationName) && empty($keywork)) {
+            $post=Post::where('sub_category_name',$categoryName)->paginate(8);
+        }
+        if (empty($categoryName) && !empty($locationName) && empty($keywork)) {
+            $post=Post::where('location_name',$locationName)->paginate(8);
+        }
+        if (empty($categoryName) && empty($locationName) && !empty($keywork)) {
+            return $post=Post::where('name', 'like', '%' . $keyword . '%')->paginate(8);
+        }
+        if (empty($categoryName) && !empty($locationName) && !empty($keyword)) {
+            $post=Post::where('location_name',$locationName)->where('name', 'like', '%' . $keyword . '%')->paginate(8);
+        }
+        if (empty($categoryName) && empty($locationName) && !empty($keyword)) {
+            $post=Post::where('name', 'like', '%' . $keyword . '%')->paginate(8);
+        }
+        if (empty($categoryName) && empty($locationName) && empty($keyword)) {
+            $post=Post::where('name', 'like', '%' . $keyword . '%')->paginate(8);
+        }
+    	return view('khmer24.search-result')->withCategoty($categoty)->withSubcategory($subcategory)->withLocation($location)->withPost($post);
     }
     public function savePost(Request $request){
         $url=$request->url;

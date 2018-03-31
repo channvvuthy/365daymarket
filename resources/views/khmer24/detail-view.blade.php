@@ -1,6 +1,6 @@
 @extends('khmer24.layouts.master')
 @section('title')
-    Khmer24
+    365daymarket.com
 @stop
 @section('content')
     <div class="content">
@@ -46,7 +46,7 @@
                                             <p class="price_wrap"><span class="price_style"> </span> 
                                             <span class="price">{{ $post->price }}</span></p>
                                             <div class="post-date">
-                                                <p>Posted On : <span> {{date('d-M-Y', strtotime($post->created_at))}} </span> / visitor : <span>1 K</span> </p>
+                                                <p>Posted On : <span class="detail-date"> {{date('d-M-Y', strtotime($post->created_at))}} </span>  Views : <span>{{ $post->views }}</span> </p>
                                             </div>
                                         </div>
                                         <div class="padding_right col-xs-12 col-sm-2 col-mg-2 col-lg-2">
@@ -73,7 +73,7 @@
                             <div class="store_description">
                                 <p><i class="glyphicon glyphicon-phone-alt"></i> 098 777 888 / 090 888 888</p>
                                 <p><i class="glyphicon glyphicon-map-marker"></i> Phnom Penh , Beng Kang KongII, Street 310, #419C</p>
-                                <p><i class="glyphicon glyphicon-globe"></i> <a href="https://www.khmer168.com/LyvannPhoneShop" title="">{{ str_limit("https://www.khmer168.com/LyvannPhoneShop", 30,'...') }}</a></p>
+                                <p><i class="glyphicon glyphicon-globe"></i> <a href="{{ route('store.market') }}" title="">{{ str_limit("https://www.khmer168.com/LyvannPhoneShop", 30,'...') }}</a></p>
                             </div>
 	                    </div>
 
