@@ -91,6 +91,7 @@ class HomeController extends Controller
     public function savePost(Request $request){
         $url=$request->url;
         $imageFile=$request->photo;
+ 
         foreach ($imageFile as $file) {//this statement will loop through all files.
             $file_name = $file->getClientOriginalName(); //Get file original name
             $file->move('uploads/' , $file_name); // move files to destination folder
@@ -122,6 +123,6 @@ class HomeController extends Controller
         $post->address=$request->categoryname;
         $post->images=$imageFile;
         $post->Save();
-        // return redirect()->back()->with('message_save','Your product has been saved!');
+        return redirect()->back()->with('message_save','Your product has been saved!');
     }
 }

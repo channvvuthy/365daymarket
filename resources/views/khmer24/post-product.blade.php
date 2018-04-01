@@ -47,12 +47,13 @@
                                 </div>
                                 <div class="postbox clear_padding col-xs-12 col-sm-12 col-md-8 col-lg-8">
                                     <label class="col-md-3">Description <span class="red">*</span>:</label>
-                                    <textarea name="description" cols="40" rows="5" class="clear_padding col-md-9" required></textarea>
+                                    <textarea name="description" cols="40" rows="5" class="clear_padding col-md-9 description_post" required></textarea>
                                 </div>
                                 <div class="postbox clear_padding col-xs-12 col-sm-12 col-md-8 col-lg-8">
                                     <label class="col-md-3">Ad Photo <span class="red">*</span>:</label>
                                     <div class="photo_wrap col-md-9">
                                         <div class="col-md-12 clear_padding">
+                                            <input type="text" name="" class="checkfilephoto" value="" required>
                                             Please input your ads photo:
                                         </div>
                                         <div class="file_photo col-md-3" style="border: 1px solid #eee;">
@@ -72,20 +73,20 @@
                                             <img src="{{ asset('uploads/upload-photo.jpg') }}" alt="" class="uploadphoto4">
                                         </div>
                                         <div class="file_photo col-md-3" style="border: 1px solid #eee;">
-                                            <input type="file" class="hidden ph1" name="photo[]">
-                                            <img src="{{ asset('uploads/upload-photo.jpg') }}" alt="" class="uploadphoto1">
+                                            <input type="file" class="hidden ph5" name="photo[]">
+                                            <img src="{{ asset('uploads/upload-photo.jpg') }}" alt="" class="uploadphoto5">
                                         </div>
                                         <div class="file_photo col-md-3" style="border: 1px solid #eee;">
-                                            <input type="file" class="hidden ph2" name="photo[]">
-                                            <img src="{{ asset('uploads/upload-photo.jpg') }}" alt="" class="uploadphoto2">
+                                            <input type="file" class="hidden ph6" name="photo[]">
+                                            <img src="{{ asset('uploads/upload-photo.jpg') }}" alt="" class="uploadphoto6">
                                         </div>
                                         <div class="file_photo col-md-3" style="border: 1px solid #eee;">
-                                            <input type="file" class="hidden ph3" name="photo[]">
-                                            <img src="{{ asset('uploads/upload-photo.jpg') }}" alt="" class="uploadphoto3">
+                                            <input type="file" class="hidden ph7" name="photo[]">
+                                            <img src="{{ asset('uploads/upload-photo.jpg') }}" alt="" class="uploadphoto7">
                                         </div>
                                         <div class="file_photo col-md-3" style="border: 1px solid #eee;">
-                                            <input type="file" class="hidden ph4" name="photo[]">
-                                            <img src="{{ asset('uploads/upload-photo.jpg') }}" alt="" class="uploadphoto4">
+                                            <input type="file" class="hidden ph8" name="photo[]">
+                                            <img src="{{ asset('uploads/upload-photo.jpg') }}" alt="" class="uploadphoto8">
                                         </div>
 
                                     </div>
@@ -114,7 +115,7 @@
                                 
                                 <div class="save-wrap clear_padding col-xs-12 col-sm-12 col-md-8 col-lg-8">
                                     <label class="col-md-3"></label>
-                                    <input type="submit" name="save" value="Save">
+                                    <input type="submit" name="save" value="Save" class="savepost">
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="posting_rule col-xs-12 col-sm-12 col-md-4 col-lg-4">
@@ -236,5 +237,80 @@
         function imageIsLoaded4(e) {
             $('.uploadphoto4').attr('src', e.target.result);
         };
+        // 
+        $(document).on("click",".uploadphoto5",function(){
+            $(this).prev().click();
+            // $(this).find('div.hasImg_menu').removeClass('hidden');
+        });
+        $(function () {
+            $("input.ph5").change(function () {
+                // if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = imageIsLoaded5;
+                    reader.readAsDataURL(this.files[0]);
+                // }
+            });
+        });
+        function imageIsLoaded5(e) {
+            $('.uploadphoto5').attr('src', e.target.result);
+        };
+        // 
+        $(document).on("click",".uploadphoto6",function(){
+            $(this).prev().click();
+            // $(this).find('div.hasImg_menu').removeClass('hidden');
+        });
+        $(function () {
+            $("input.ph6").change(function () {
+                // if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = imageIsLoaded6;
+                    reader.readAsDataURL(this.files[0]);
+                // }
+            });
+        });
+        function imageIsLoaded6(e) {
+            $('.uploadphoto6').attr('src', e.target.result);
+        };
+        // 
+        $(document).on("click",".uploadphoto7",function(){
+            $(this).prev().click();
+            // $(this).find('div.hasImg_menu').removeClass('hidden');
+        });
+        $(function () {
+            $("input.ph7").change(function () {
+                // if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = imageIsLoaded7;
+                    reader.readAsDataURL(this.files[0]);
+                // }
+            });
+        });
+        function imageIsLoaded7(e) {
+            $('.uploadphoto7').attr('src', e.target.result);
+        };
+        // 
+        $(document).on("click",".uploadphoto8",function(){
+            $(this).prev().click();
+            // $(this).find('div.hasImg_menu').removeClass('hidden');
+        });
+        $(function () {
+            $("input.ph8").change(function () {
+                // if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = imageIsLoaded8;
+                    reader.readAsDataURL(this.files[0]);
+                // }
+            });
+        });
+        function imageIsLoaded8(e) {
+            $('.uploadphoto8').attr('src', e.target.result);
+        };
+        $('.savepost').mouseover(function(){
+            var valuefile=$('input[type="file"').val();
+            if (valuefile != '') {
+                alert('has')
+                $('.checkfilephoto').val('hasphoto');
+            }
+        });
     </script>
 @stop

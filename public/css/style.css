@@ -934,6 +934,16 @@ span.price-item {
     border-radius: 4px !important;
     margin: 10px 0;
 }
+input.checkfilephoto {
+    line-height: 0;
+    margin:  0;
+    padding:  0 !important;
+    height: 1px;
+    position:  absolute;
+    border: none;
+    width: 100%;
+}
+.description_post{padding:5px 10px !important;}
 .catfirst{color: #b5b5b5 !important;font-style: italic;}
 select.btn-category option:first-child,select.btn-location option:first-child,.location-search option:first-child {
     display: none;
