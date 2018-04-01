@@ -65,11 +65,20 @@
                                                 @endforeach
                                             </select>
                                             <div class="price-filter">
+                                                <form action="{{ route('search.result') }}" method="get" accept-charset="utf-8">
                                                 <label>Price : </label>
-                                                <input type="number" name="pricefrom" class="prices" placeholder="1...">
+                                                <input type="hidden" name="_token" value="{{ bcrypt('ww') }}" class="postby">
+                                                <input type="number" name="pricefrom" class="prices" placeholder="">
                                                 <span>-</span>
-                                                <input type="number" name="pricefrom" class="prices" placeholder="10...">
+                                                <input type="number" name="priceto" class="prices" placeholder="">
                                                 <input type="submit" name="" value=">" class="price-submit">
+                                                {{--  --}}
+                                                <input type="hidden" name="category" value="@if (!empty($_GET['category'])){{$_GET['category']}}@endif" class="category">
+                                                <input type="hidden" name="location" value="@if (!empty($_GET['location'])){{$_GET['location']}}@endif" class="location">
+                                                <input type="hidden" name="p" value="@if (!empty($_GET['p'])){{$_GET['p']}}@endif" class="p">
+                                                <input type="hidden" name="postby" value="@if (!empty($_GET['postby'])){{$_GET['postby']}}@endif" class="postby">
+                                                <input type="hidden" name="endkey" value="{{ bcrypt('wwwww') }}" class="postby">
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

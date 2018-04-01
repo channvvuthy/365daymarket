@@ -20,7 +20,7 @@
                                         <ul>
                                             @foreach ($Categories->hasSubcategory as $subcategory)
                                                 <li><a href="{{ route('search.result') }}?_token={{ bcrypt($subcategory->name) }}&category={{ $subcategory->name }}&location=&p=" title="">
-                                                    <span>{{ $subcategory->name }}</span>
+                                                    <span>{{ str_limit($subcategory->name,25,'...') }}</span>
                                                     <div class="icon">
                                                         @if (!empty($subcategory->icon))
                                                             <img src="{{ $subcategory->icon }}" alt="">

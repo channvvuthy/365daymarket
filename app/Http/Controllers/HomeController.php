@@ -63,28 +63,76 @@ class HomeController extends Controller
         $locationName=$_GET['location'];
         $keyword=$_GET['p'];
         if (!empty($categoryName) && !empty($locationName) && !empty($keyword)) {
-            $post=Post::where('sub_category_name',$categoryName)->where('location_name',$locationName)->where('name', 'like', '%' . $keyword . '%')->paginate(8);
+            if (!empty($_GET['pricefrom']) || !empty($_GET['priceto'])) {
+                $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->where('sub_category_name',$categoryName)->where('location_name',$locationName)->where('name', 'like', '%' . $keyword . '%')->paginate(8);
+            }else{
+                $post=Post::where('sub_category_name',$categoryName)->where('location_name',$locationName)->where('name', 'like', '%' . $keyword . '%')->paginate(8);
+            }
         }
         if (!empty($categoryName) && !empty($locationName) && empty($keywork)) {
-            $post=Post::where('sub_category_name',$categoryName)->where('location_name',$locationName)->where('name', 'like', '%' . $keyword . '%')->paginate(8);
+            if (!empty($_GET['pricefrom']) || !empty($_GET['priceto'])) {
+                $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->where('sub_category_name',$categoryName)->where('location_name',$locationName)->where('name', 'like', '%' . $keyword . '%')->paginate(8);
+            }else{
+                $post=Post::where('sub_category_name',$categoryName)->where('location_name',$locationName)->where('name', 'like', '%' . $keyword . '%')->paginate(8);
+            }
         }
         if (!empty($categoryName) && empty($locationName) && empty($keywork)) {
-            $post=Post::where('sub_category_name',$categoryName)->paginate(8);
+            if (!empty($_GET['pricefrom']) || !empty($_GET['priceto'])) {
+                $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->where('sub_category_name',$categoryName)->paginate(8);
+            }else{
+                $post=Post::where('sub_category_name',$categoryName)->paginate(8);
+            }
         }
         if (empty($categoryName) && !empty($locationName) && empty($keywork)) {
-            $post=Post::where('location_name',$locationName)->paginate(8);
+            if (!empty($_GET['pricefrom']) || !empty($_GET['priceto'])) {
+                $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->where('location_name',$locationName)->paginate(8);
+            }else{
+                $post=Post::where('location_name',$locationName)->paginate(8);
+            }
         }
         if (empty($categoryName) && empty($locationName) && !empty($keywork)) {
-            return $post=Post::where('name', 'like', '%' . $keyword . '%')->paginate(8);
+            if (!empty($_GET['pricefrom']) || !empty($_GET['priceto'])) {
+                return $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->where('name', 'like', '%' . $keyword . '%')->paginate(8);
+            }else{
+                return $post=Post::where('name', 'like', '%' . $keyword . '%')->paginate(8);
+            }
         }
         if (empty($categoryName) && !empty($locationName) && !empty($keyword)) {
-            $post=Post::where('location_name',$locationName)->where('name', 'like', '%' . $keyword . '%')->paginate(8);
+            if (!empty($_GET['pricefrom']) || !empty($_GET['priceto'])) {
+                $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->where('location_name',$locationName)->where('name', 'like', '%' . $keyword . '%')->paginate(8);
+            }else{
+                $post=Post::where('location_name',$locationName)->where('name', 'like', '%' . $keyword . '%')->paginate(8);
+            }
         }
         if (empty($categoryName) && empty($locationName) && !empty($keyword)) {
-            $post=Post::where('name', 'like', '%' . $keyword . '%')->paginate(8);
+            if (!empty($_GET['pricefrom']) || !empty($_GET['priceto'])) {
+                $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->where('name', 'like', '%' . $keyword . '%')->paginate(8);
+            }else{
+                $post=Post::where('name', 'like', '%' . $keyword . '%')->paginate(8);
+            }
         }
         if (empty($categoryName) && empty($locationName) && empty($keyword)) {
-            $post=Post::where('name', 'like', '%' . $keyword . '%')->paginate(8);
+            if (!empty($_GET['pricefrom']) || !empty($_GET['priceto'])) {
+                $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->where('name', 'like', '%' . $keyword . '%')->paginate(8);
+            }else{
+                $post=Post::where('name', 'like', '%' . $keyword . '%')->paginate(8);
+            }
+        }
+        if (!empty($_GET['postby'])) {
+            if ($_GET['postby']=='last') {
+                if (!empty($_GET['pricefrom']) || !empty($_GET['priceto'])) {
+                    $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->orderBy('created_at', 'desc')->paginate(8);
+                }else{
+                    $post=Post::orderBy('created_at', 'desc')->paginate(8);
+                }
+            }
+            if ($_GET['postby']=='popular') {
+                if (!empty($_GET['pricefrom']) || !empty($_GET['priceto'])) {
+                    $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->orderBy('views', 'desc')->paginate(8);
+                }else{
+                    $post=Post::orderBy('views', 'desc')->paginate(8);
+                }
+            }
         }
     	return view('khmer24.search-result')->withCategoty($categoty)->withSubcategory($subcategory)->withLocation($location)->withPost($post);
     }

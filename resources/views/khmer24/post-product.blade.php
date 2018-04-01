@@ -1,6 +1,6 @@
 @extends('khmer24.layouts.master')
 @section('title')
-    Khmer24
+    365daymarket.com
 @stop
 @section('content')
     <div class="content">

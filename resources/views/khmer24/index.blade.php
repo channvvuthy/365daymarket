@@ -34,7 +34,7 @@
                         @endforeach
                         <div class="clearfix"></div>
                         <div class="col-xs-12 col-sm-12 col-mg-12 col-lg-12 viewmore_btn">
-                            <a href="" title="">View More</a>
+                            <a href="{{ route('search.result') }}?postby=last" title="">View More</a>
                         </div>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                         @endforeach
                         <div class="clearfix"></div>
                         <div class="col-xs-12 col-sm-12 col-mg-12 col-lg-12 viewmore_btn">
-                            <a href="" title="">View More</a>
+                            <a href="{{ route('search.result') }}?postby=popular" title="">View More</a>
                         </div>
                     </div>
                 </div>
