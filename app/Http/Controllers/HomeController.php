@@ -118,6 +118,17 @@ class HomeController extends Controller
                 $post=Post::where('name', 'like', '%' . $keyword . '%')->paginate(8);
             }
         }
+        // 
+        $keysearch = array();
+        if ($categoryName != "") {
+            $keysearch[] = ['posts.sub_category_name',$categoryName];
+        }
+        if ($locationName != "") {
+            $keysearch[] = ['posts.location_name',$locationName];
+        }
+        if ($keyword != "") {
+            $keysearch[] = ['posts.name', 'LIKE', '%' . $keyword . '%'];
+        }
         if (!empty($_GET['postby'])) {
             if ($_GET['postby']=='last') {
                 if (!empty($_GET['pricefrom']) || !empty($_GET['priceto'])) {

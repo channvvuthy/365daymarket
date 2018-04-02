@@ -948,7 +948,10 @@ input.checkfilephoto {
 select.btn-category option:first-child,select.btn-location option:first-child,.location-search option:first-child {
     display: none;
 }
-select.location-search{cursor: pointer;}
+form.formlocation {
+    display: inline-block;
+}
+select.location-search{cursor: pointer;padding: 8px 0 !important;}
 select.btn-category option,select.btn-location option  {
     color: #000;
     line-height: 30px;

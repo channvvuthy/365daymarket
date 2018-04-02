@@ -57,17 +57,24 @@
                                         </div>
                                         <div class="clearfix"></div>
                                         <div class="all-location">
+                                            <form action="{{ route('search.result') }}" method="get" accept-charset="utf-8" class="formlocation">
                                             <label>City/Province : </label>
-                                            <select name="loaction" class="location-search">
-                                                <option value="option">All City/Province</option>
-                                                @foreach ($location as $locations)
-                                                <option value="{{ $locations->name }}">{{ $locations->name }}</option>
-                                                @endforeach
-                                            </select>
+                                                <input type="hidden" name="_token" value="{{ bcrypt('a') }}" class="postby">
+                                                <select name="location" class="location-search">
+                                                    <option value="option">All City/Province</option>
+                                                    @foreach ($location as $locations)
+                                                    <option value="{{ $locations->name }}">{{ $locations->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <input type="hidden" name="category" value="@if (!empty($_GET['category'])){{$_GET['category']}}@endif" class="category">
+                                                <input type="hidden" name="p" value="@if (!empty($_GET['p'])){{$_GET['p']}}@endif" class="p">
+                                                <input type="hidden" name="postby" value="@if (!empty($_GET['postby'])){{$_GET['postby']}}@endif" class="postby">
+                                                <input type="hidden" name="endkey" value="{{ bcrypt('a') }}" class="postby">
+                                            </form>
                                             <div class="price-filter">
                                                 <form action="{{ route('search.result') }}" method="get" accept-charset="utf-8">
                                                 <label>Price : </label>
-                                                <input type="hidden" name="_token" value="{{ bcrypt('ww') }}" class="postby">
+                                                <input type="hidden" name="_token" value="{{ bcrypt('a') }}" class="postby">
                                                 <input type="number" name="pricefrom" class="prices" placeholder="">
                                                 <span>-</span>
                                                 <input type="number" name="priceto" class="prices" placeholder="">
@@ -77,7 +84,7 @@
                                                 <input type="hidden" name="location" value="@if (!empty($_GET['location'])){{$_GET['location']}}@endif" class="location">
                                                 <input type="hidden" name="p" value="@if (!empty($_GET['p'])){{$_GET['p']}}@endif" class="p">
                                                 <input type="hidden" name="postby" value="@if (!empty($_GET['postby'])){{$_GET['postby']}}@endif" class="postby">
-                                                <input type="hidden" name="endkey" value="{{ bcrypt('wwwww') }}" class="postby">
+                                                <input type="hidden" name="endkey" value="{{ bcrypt('a') }}" class="postby">
                                                 </form>
                                             </div>
                                         </div>
@@ -186,5 +193,8 @@
             $(".item-content").addClass('LR_padding');
             $('.img_thum').addClass('hidden')
         });
+        $(document).on('change','.location-search',function(){
+            $('.formlocation').submit();
+        })
     </script>
 @stop
