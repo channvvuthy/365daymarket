@@ -944,7 +944,7 @@ input.checkfilephoto {
     width: 100%;
 }
 .description_post{padding:5px 10px !important;}
-.catfirst{color: #b5b5b5 !important;font-style: italic;}
+.catfirst{color: #000 !important;font-style: italic;}
 select.btn-category option:first-child,select.btn-location option:first-child,.location-search option:first-child {
     display: none;
 }
@@ -1069,3 +1069,7 @@ ul.pagination {
     clear:  both;
     overflow:  hidden;
 }
+.all-location {
+    position: relative;
+}
+.sortfilterby{padding: 5px !important;}

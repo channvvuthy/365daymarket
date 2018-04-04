@@ -63,7 +63,13 @@
                                                 <select name="location" class="location-search">
                                                     <option value="option">All City/Province</option>
                                                     @foreach ($location as $locations)
-                                                    <option value="{{ $locations->name }}">{{ $locations->name }}</option>
+                                                    <option value="{{ $locations->name }}" 
+                                                        @if (!empty($_GET['location']))
+                                                        @if ($locations->name == $_GET['location'])
+                                                        selected="selected"
+                                                        @endif
+                                                        @endif>
+                                                    {{ $locations->name }}</option>
                                                     @endforeach
                                                 </select>
                                                 <input type="hidden" name="category" value="@if (!empty($_GET['category'])){{$_GET['category']}}@endif" class="category">
@@ -75,9 +81,9 @@
                                                 <form action="{{ route('search.result') }}" method="get" accept-charset="utf-8">
                                                 <label>Price : </label>
                                                 <input type="hidden" name="_token" value="{{ bcrypt('a') }}" class="postby">
-                                                <input type="number" name="pricefrom" class="prices" placeholder="">
+                                                <input type="number" name="pricefrom" class="prices" min="1" max="100">
                                                 <span>-</span>
-                                                <input type="number" name="priceto" class="prices" placeholder="">
+                                                <input type="number" name="priceto" class="prices" min="1" max="100">
                                                 <input type="submit" name="" value=">" class="price-submit">
                                                 {{--  --}}
                                                 <input type="hidden" name="category" value="@if (!empty($_GET['category'])){{$_GET['category']}}@endif" class="category">
@@ -98,12 +104,18 @@
                                             <span class="grid-layout"><i class="glyphicon glyphicon-th-large"></i></span>
                                         </div>
                                         <div class="sort-by">
+                                            <form action="{{ route('search.result') }}" class="sortfilter" method="get" accept-charset="utf-8">
+                                            <input type="hidden" name="_token" value="{{ bcrypt('a') }}" >
                                             <label>Sort :</label>
-                                            <select name="sort_by">
-                                                <option value="New ads">New ads</option>
-                                                <option value="New ads">Last ads</option>
-                                                <option value="New ads">Most View</option>
-                                            </select>
+                                                <select name="postby" class="sortfilterby">
+                                                    <option value="last" @if ($_GET['postby']=='last') selected="selected" @endif>New ads</option>
+                                                    <option value="popular" @if ($_GET['postby']=='popular') selected="selected" @endif>Most View</option>
+                                                </select>
+                                                {{--  --}}
+                                                <input type="hidden" name="category" value="@if (!empty($_GET['category'])){{$_GET['category']}}@endif" class="category">
+                                                <input type="hidden" name="location" value="@if (!empty($_GET['location'])){{$_GET['location']}}@endif" class="location">
+                                                <input type="hidden" name="p" value="@if (!empty($_GET['p'])){{$_GET['p']}}@endif" class="p">
+                                            </form>
                                         </div>
                                         </div>
                                         <div class="product-items">
@@ -195,6 +207,9 @@
         });
         $(document).on('change','.location-search',function(){
             $('.formlocation').submit();
-        })
+        });
+        $(document).on('change','.sortfilterby',function(){
+            $('.sortfilter').submit();
+        });
     </script>
 @stop

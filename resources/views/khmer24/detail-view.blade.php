@@ -90,6 +90,6 @@
         $(document).ready(function(){
             $('.img-slider:first-child').addClass('active');
             $('.thum-list:first-child').addClass('active');
-        })
+        });
     </script>
 @stop

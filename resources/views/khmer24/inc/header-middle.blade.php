@@ -18,7 +18,13 @@
                                 <select name="category" class="btn btn-default dropdown-toggle btn-category catfirst">
                                     <option value="">Choose category ...</option>
                                     @foreach ($subcategory as $allcategory)
-                                        <option value="{{ $allcategory->name }}" class="catval">{{ $allcategory->name }}</option>
+                                        <option value="{{ $allcategory->name }}" class="catval"
+                                            @if (!empty($_GET['category']))
+                                            @if ($allcategory->name == $_GET['category'])
+                                            selected="selected"
+                                            @endif
+                                            @endif
+                                        >{{ $allcategory->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -26,7 +32,13 @@
                                 <select name="location" class="btn btn-default dropdown-toggle btn-location catfirst">
                                     <option value="">Choose location ...</option>
                                     @foreach ($location as $locations)
-                                        <option value="{{ $locations->name }}" class="locval">{{ $locations->name }}</option>
+                                        <option value="{{ $locations->name }}" class="locval"
+                                            @if (!empty($_GET['location']))
+                                            @if ($locations->name == $_GET['location'])
+                                            selected="selected"
+                                            @endif
+                                            @endif
+                                        >{{ $locations->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
