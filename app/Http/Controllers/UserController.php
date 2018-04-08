@@ -192,32 +192,41 @@ class UserController extends Controller
         $store->name=$fullname;
         $store->user_id=$user->id;
         $store->save();
-        // $to =$request->email;
-        // $subject = "Confirmation Email";
-        // $message = "
-        // <html>
-        // <head><title>Please Confirmation Email!</title></head>
-        // <body>
-        // <h2>Welcome to 365daymarket.com/</h2>
-        // <a href='http://365daymarket.com/confirm?".$registerkey."'>Click Here</a>
-        // <p>Thank for register with us!</p>
-        // <p>Sincerely,</p><p>The Jongnhams Team.</p>
-        // </body>
-        // </html>
-        // ";
-        // // Always set content-type when sending HTML email
-        // $headers = "MIME-Version: 1.0" . "\r\n";
-        // $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        $to =$request->email;
+        $subject = "Confirmation Email";
+        $message = "
+        <html>
+        <head><title>Please Confirmation Email!</title></head>
+        <body>
+        <h2>Welcome to 365daymarket.com/</h2>
+        <a href='http://365daymarket.com/confirm.email/".$registerkey."'>Click Here</a>
+        <p>Thank for register with us!</p>
+        <p>Sincerely,</p><p>The 365daymarket Team.</p>
+        </body>
+        </html>
+        ";
+        // Always set content-type when sending HTML email
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
-        // // More headers
-        // $headers .= 'From: <moeun.djsmart@gmail.com>' . "\r\n";
-        // if(mail($to,$subject,$message,$headers)){
+        // More headers
+        $headers .= 'From: <channvuthyit@gmail.com>' . "\r\n";
+        if(mail($to,$subject,$message,$headers)){
             return redirect()->back()->with('message','Please Confirm Your Email Address');
-        // }
+        }
 
     }
-    public function getConfirm(Request $request){
-        
+    public function getConfirm($key){
+        if($user=User::where('verification_code',$key)->first()){
+         $userAccess=$user;
+         $user->verified=1;
+         $user->save();
+         Auth::login($userAccess);
+         $username=Auth::user()->username;
+         return redirect()->route('home');
+      }else{
+         return "Access denied";
+      }
     }
     public function postLogin(Request $request){
         // $this->validate($request,[

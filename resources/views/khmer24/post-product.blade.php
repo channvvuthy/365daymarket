@@ -308,7 +308,7 @@
         $('.savepost').mouseover(function(){
             var valuefile=$('input[type="file"').val();
             if (valuefile != '') {
-                alert('has')
+                // alert('has')
                 $('.checkfilephoto').val('hasphoto');
             }
         });

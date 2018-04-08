@@ -39,7 +39,7 @@ Route::get('logout.user',[
     'uses'=>'UserController@logoutUser',
     'as'=>'logout.user'
 ]);
-Route::get('confirm-email',[
+Route::get('confirm.email/{keygenerate}',[
     'uses'=>'UserController@getConfirm',
     'as'=>'confirm.email'
 ]);
