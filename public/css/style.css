@@ -573,7 +573,7 @@ ul.pangkisi-list {
 }
 ul.pangkisi-list li {
     float:  left;
-    margin-right: 15px;
+    margin-right: 10px;
 }
 .ads-banner {
     display: block;
@@ -945,8 +945,14 @@ input.checkfilephoto {
 }
 .description_post{padding:5px 10px !important;}
 .catfirst{color: #000 !important;font-style: italic;}
-select.btn-category option:first-child,select.btn-location option:first-child,.location-search option:first-child {
+/*select.btn-category option:first-child,select.btn-location option:first-child,.location-search option:first-child {
     display: none;
+}*/
+select.btn-category option:first-child,select.btn-location option:first-child,.location-search option:first-child {
+    border-bottom: 1px solid #888;
+}
+span.menu-list {
+    font-size: 10px;
 }
 form.formlocation {
     display: inline-block;
@@ -1073,3 +1079,9 @@ ul.pagination {
     position: relative;
 }
 .sortfilterby{padding: 5px !important;}
+a:focus, a:hover {
+    text-decoration:  none !important;
+    color: #e37a01!important;
+}
+.categorylist{padding-left: 20px;}
+.categorylist a.active{color: #e37a01!important;}
