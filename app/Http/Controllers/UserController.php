@@ -64,7 +64,7 @@ class UserController extends Controller
         }
         $user = DB::select("SELECT * FROM users WHERE  id=$id");
         $product_list_by_user = DB::select("SELECT * FROM posts  WHERE user_id=$id ORDER BY id DESC LIMIT $offset,$limit");
-        $product_favorites = DB::select("SELECT * FROM saves WHERE user_id=$id");
+        $product_favorites = DB::select("SELECT * FROM posts INNER  JOIN  saves ON posts.id=saves.post_id WHERE saves.user_id=$id");
         return Response::json(array(
             'user' => $user,
             'product_list_by_user' => $product_list_by_user,
