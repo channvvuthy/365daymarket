@@ -1,7 +1,7 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: VUTHY
- * Date: 2/17/2018
- * Time: 11:40 AM
- */
+<div class="container-fluid footer">
+	<div class="container">
+		<div class="clear_padding col-md-12">
+			<p>Copy right 2018</p>
+		</div>
+	</div>
+</div>

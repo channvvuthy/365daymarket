@@ -7,6 +7,10 @@ use DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use App\Store;
+use Auth;
+use Mail;
+use App\Save;
+use App\User;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UserController extends Controller
@@ -163,5 +167,86 @@ class UserController extends Controller
 
 
 
+    }
+        // 
+    public function postRegister(Request $request){
+        $this->validate($request,[
+            'email'=>'required|unique:users',
+            'password'=>'required|min:5',
+            'cpassword'=>'required|min:5',
+        ]);
+
+        $user=new User();
+        $string = $request->email;
+        $string = substr($string, 0, strpos($string, '@'));
+        $fullname= preg_replace('/[0-9]+/', '', $string);
+        $user->name=$fullname;
+        $user->email=$request->email;
+        $user->password=bcrypt($request->password);
+        $registerkey=bcrypt($request->email);
+        $registerkey=str_replace("/","",$registerkey);
+        $user->verification_code=$registerkey;
+        $user->save();
+
+        $store=new Store();
+        $store->name=$fullname;
+        $store->user_id=$user->id;
+        $store->save();
+        $to =$request->email;
+        $subject = "Confirmation Email";
+        $message = "
+        <html>
+        <head><title>Please Confirmation Email!</title></head>
+        <body>
+        <h2>Welcome to 365daymarket.com/</h2>
+        <a href='http://365daymarket.com/confirm.email/".$registerkey."'>Click Here</a>
+        <p>Thank for register with us!</p>
+        <p>Sincerely,</p><p>The 365daymarket Team.</p>
+        </body>
+        </html>
+        ";
+        // Always set content-type when sending HTML email
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+        // More headers
+        $headers .= 'From: <channvuthyit@gmail.com>' . "\r\n";
+        if(mail($to,$subject,$message,$headers)){
+            return redirect()->back()->with('message','Please Confirm Your Email Address');
+        }
+
+    }
+    public function getConfirm($key){
+        if($user=User::where('verification_code',$key)->first()){
+         $userAccess=$user;
+         $user->verified=1;
+         $user->save();
+         Auth::login($userAccess);
+         $username=Auth::user()->username;
+         return redirect()->route('home');
+      }else{
+         return "Access denied";
+      }
+    }
+    public function postLogin(Request $request){
+        // $this->validate($request,[
+        //     'email'=>'required|unique:users',
+        // ]);
+        // $oldUrl=URL::previous();
+        $email=$request->email;
+        $password=$request->password;
+        if(Auth::attempt(['email'=>$email,'password'=>$password])){
+           if(Auth::user()->verified =="1"){
+             return redirect()->back();
+           }else{
+               Auth::logout();
+               return redirect()->back()->with('message_login_error','<a href="https://mail.google.com/">Please confirm your email address to login</a>');
+           }
+        }
+        return redirect()->back()->withInput()->withErrors(['message__error'=>'Incorrect Email or Password']);
+    }
+    public function logoutUser(){
+        Auth::logout();
+        return redirect()->back();
     }
 }
