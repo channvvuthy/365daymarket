@@ -8,6 +8,7 @@ use App\Post;
 use App\Category;
 use App\Location;
 use App\Brand;
+use App\Banner;
 use DB;
 use Auth;
 
@@ -62,6 +63,9 @@ class HomeController extends Controller
         $categoty=Category::where('parent_id','0')->get();
         $subcategory=Category::where('parent_id','!=','0')->get();
         $location=Location::where('status','Publish')->get();
+        $adsleft=Banner::where('status','Publish')->where('position','Left')->get();
+        $adsright=Banner::where('status','Publish')->where('position','Right')->get();
+        $adstop=Banner::where('status','Publish')->where('position','Top')->get();
         if (!empty($_GET['cats'])) {
             $varcate=str_replace('||','&',$_GET['cats']);
             $post=Post::where('category_name',$varcate)->paginate(8);
@@ -174,7 +178,7 @@ class HomeController extends Controller
             }
         // 
         }
-    	return view('khmer24.search-result')->withCategoty($categoty)->withSubcategory($subcategory)->withLocation($location)->withPost($post);
+    	return view('khmer24.search-result')->withCategoty($categoty)->withSubcategory($subcategory)->withLocation($location)->withPost($post)->withAdsleft($adsleft)->withAdstop($adstop)->withAdsright($adsright);
     }
     public function savePost(Request $request){
         $url=$request->url;

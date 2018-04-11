@@ -11,7 +11,7 @@
                         <ul class="pangkisi-list">
                             <li><a href="{{ asset('') }}" title=""><i class="glyphicon glyphicon-home"></i> Home</a></li>
                             @if (!empty($_GET['category']) || !empty($_GET['cats']))
-                                <li><span class="menu-list">》</span> <a href="{{ route('search.result') }}?_token={{ bcrypt('1') }}" title="">All Category</a></li>
+                                <li><span class="menu-list">》</span> <a href="{{ route('search.result') }}?_token={{ bcrypt('1') }}&category=&location=&p=&search_param=all&keycod={{ bcrypt('1') }}" title="">All Categories</a></li>
                             @else
                                 <li><span class="menu-list">》</span> All ads in cambodia</li>
                             @endif
@@ -38,22 +38,35 @@
                                     <h3>Select a category</h3>
                                     <ul>
                                         @if (!empty($_GET['category']) || !empty($_GET['cats']))
-                                            <li><a href="{{ route('search.result') }}?_token={{ bcrypt('1') }}" title=""><span class="icon-prev"></span> All Categories</a></li>
+                                            <li><a href="{{ route('search.result') }}?_token={{ bcrypt('1') }}&category=&location=&p=&search_param=all&keycod={{ bcrypt('1') }}" title=""><span class="icon-prev"></span> All Categories</a></li>
                                         @endif
                                         {{--  --}}
-                                        @if (!empty($_GET['cats']))
+                                        @if (!empty($_GET['cats']) )
                                             @php
-                                                $allcategories=App\Category::where('parent_id','0')->orderBy('id','ASC')->get();
+                                                $catname=str_replace('||','&',$_GET['cats']);
+                                                $catid=App\Category::where('name',$catname)->first();
+                                                $allcategories=App\Category::where('parent_id',$catid->id)->orderBy('id','ASC')->get();
                                             @endphp
                                             @foreach ($allcategories as $categoriesAll)
                                             <li class="categorylist">
-                                                <a href="{{ route('search.result') }}?_token={{ bcrypt('1') }}&cats={{ str_replace('&','||',$categoriesAll->name) }}" @if($categoriesAll->name == str_replace('||','&',$_GET['cats'])) class="active" @endif>
+                                                <a href="{{ route('search.result') }}?_token={{ bcrypt('1') }}&category={{ str_replace('&','||',$categoriesAll->name) }}" @if($categoriesAll->name == str_replace('||','&',$_GET['cats'])) class="active" @endif>
                                                 <img src="{{ $categoriesAll->icon }}" alt="">
                                                 <span>{{ $categoriesAll->name }}</span>
                                                 </a>
                                             </li>
                                             @endforeach
                                         @endif
+                                        @if (empty($_GET['category']) && empty($_GET['location']) && empty($_GET['p']) && !empty($_GET['search_param']))
+                                            @foreach ($categoty as $Categories)
+                                                <li class="categorylist">
+                                                    <a href="{{ route('search.result') }}?_token={{ bcrypt('1') }}&cats={{ str_replace('&','||',$Categories->name) }}">
+                                                    <img src="{{ $Categories->icon }}" alt="">
+                                                    <span>{{ $Categories->name }}</span>
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        @endif
+
                                         {{--  --}}
                                         @if (!empty($_GET['category']))
                                             @php
@@ -78,19 +91,32 @@
                                     </ul>
                                 </div>
                                 <div class="ads-left-banner">
-                                    <img src="{{ asset('uploads/side.jpg') }}" alt="">
+                                @if (count($adsleft)>0)
+                                    @foreach ($adsleft as $adsleft)
+                                    @php
+                                        $adsleft=json_decode($adsleft->image,true);
+                                    @endphp
+                                    <img src="{{ $adsleft[0] }}" alt="">
+                                    @endforeach
+                                @endif
                                 </div>
                             </div>
                             <div class="search_center">
                                 <div class="ads-banner col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                    <img src="{{ asset('uploads/banner-center.jpg') }}" alt="">
-                                    <img src="{{ asset('uploads/banner-center.jpg') }}" alt="">
+                                    @if (count($adstop)>0)
+                                        @foreach ($adstop as $adsleft)
+                                        @php
+                                            $adsleft=json_decode($adsleft->image,true);
+                                        @endphp
+                                        <img src="{{ $adsleft[0] }}" alt="">
+                                        @endforeach
+                                    @endif
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="brand-location">
                                         <div class="bland-list">
                                             <ul>
-                                                <li>wwwww</li>
+                                                {{-- <li>wwwww</li>
                                                 <li>wwwww eeeeeee</li>
                                                 <li>wwwww</li>
                                                 <li>wwwww eeeeeee</li>
@@ -99,7 +125,7 @@
                                                 <li>wwwww</li>
                                                 <li>wwwww eeeeeee</li>
                                                 <li>wwwww</li>
-                                                <li>wwwww eeeeeee</li>
+                                                <li>wwwww eeeeeee</li> --}}
                                             </ul>
                                         </div>
                                         <div class="clearfix"></div>
@@ -221,7 +247,14 @@
                             </div>
                             <div class="side_right">
                                 <div class="ads-banner-r">
-                                    <img src="{{ asset('uploads/side.jpg') }}" alt="">
+                                    @if (count($adsright)>0)
+                                        @foreach ($adsright as $adsleft)
+                                        @php
+                                            $adsleft=json_decode($adsleft->image,true);
+                                        @endphp
+                                        <img src="{{ $adsleft[0] }}" alt="">
+                                        @endforeach
+                                    @endif
                                 </div>
                             </div>
                         </div>

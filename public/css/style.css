@@ -583,13 +583,13 @@ ul.pangkisi-list li {
     margin-bottom: 5px;
 }
 .ads-banner-r{display: block;}
-.ads-banner-r img{display: block; width: 100%;}
 .ads-left-banner {
     display:  block;
     padding: 10px 0;
 }
-.ads-left-banner img {
+.ads-left-banner img,.ads-banner-r img {
     width: 100%;
+    margin-bottom: 10px;
 }
 .category_sidebar ul li {
     display:  block;
@@ -1083,5 +1083,6 @@ a:focus, a:hover {
     text-decoration:  none !important;
     color: #e37a01!important;
 }
+.logo a:focus,.logo a:hover,.menus.pull-right a:hover,a.btn-post:hover{color: #e4e4e4 !important;}
 .categorylist{padding-left: 20px;}
 .categorylist a.active{color: #e37a01!important;}
