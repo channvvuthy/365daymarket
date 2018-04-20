@@ -9,9 +9,25 @@
                 <div class="wrapper-search">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <ul class="pangkisi-list">
-                            <li>Home</li>
-                            <li>All Category</li>
-                            <li>Phone / Number</li>
+                            <li><a href="{{ asset('') }}" title=""><i class="glyphicon glyphicon-home"></i> Home</a></li>
+                            @if (!empty($_GET['category']) || !empty($_GET['cats']))
+                                <li><span class="menu-list">》</span> <a href="{{ route('search.result') }}?_token={{ bcrypt('1') }}&category=&location=&p=&search_param=all&keycod={{ bcrypt('1') }}" title="">All Categories</a></li>
+                            @else
+                                <li><span class="menu-list">》</span> All ads in cambodia</li>
+                            @endif
+                            @if (!empty($_GET['cats']))
+                                <li><span class="menu-list">》</span> {{ str_replace('||','&',$_GET['cats']) }}</li>
+                            @endif
+                            @if (!empty($_GET['category']))
+                                @php
+                                    $categorys=App\Category::where('name',$_GET['category'])->first();
+                                    $catsID=$categorys->parent_id;
+                                    $cats=App\Category::where('id',$catsID)->first();
+                                @endphp
+
+                                <li><span class="menu-list">》</span> <a href="{{ route('search.result') }}?_token={{ bcrypt('1') }}&cats={{ str_replace('&','||',$cats->name) }}" title="">{{ $cats->name }}</a></li>
+                                <li><span class="menu-list">》</span> {{ $_GET['category'] }}</li>
+                            @endif
                         </ul>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -21,29 +37,86 @@
                                 <div class="category_sidebar">
                                     <h3>Select a category</h3>
                                     <ul>
-                                        <li>
-                                            <a href="#" title="">
-                                            <img src="{{ asset('uploads/icons.ico') }}" alt="">
-                                            <span>111111111111s</span>
-                                            </a>
+                                        @if (!empty($_GET['category']) || !empty($_GET['cats']))
+                                            <li><a href="{{ route('search.result') }}?_token={{ bcrypt('1') }}&category=&location=&p=&search_param=all&keycod={{ bcrypt('1') }}" title=""><span class="icon-prev"></span> All Categories</a></li>
+                                        @endif
+                                        {{--  --}}
+                                        @if (!empty($_GET['cats']) )
+                                            @php
+                                                $catname=str_replace('||','&',$_GET['cats']);
+                                                $catid=App\Category::where('name',$catname)->first();
+                                                $allcategories=App\Category::where('parent_id',$catid->id)->orderBy('id','ASC')->get();
+                                            @endphp
+                                            @foreach ($allcategories as $categoriesAll)
+                                            <li class="categorylist">
+                                                <a href="{{ route('search.result') }}?_token={{ bcrypt('1') }}&category={{ str_replace('&','||',$categoriesAll->name) }}" @if($categoriesAll->name == str_replace('||','&',$_GET['cats'])) class="active" @endif>
+                                                <img src="{{ $categoriesAll->icon }}" alt="">
+                                                <span>{{ $categoriesAll->name }}</span>
+                                                </a>
+                                            </li>
+                                            @endforeach
+                                        @endif
+                                        @if (empty($_GET['category']) && empty($_GET['location']) && empty($_GET['p']) && !empty($_GET['search_param']))
+                                            @foreach ($categoty as $Categories)
+                                                <li class="categorylist">
+                                                    <a href="{{ route('search.result') }}?_token={{ bcrypt('1') }}&cats={{ str_replace('&','||',$Categories->name) }}">
+                                                    <img src="{{ $Categories->icon }}" alt="">
+                                                    <span>{{ $Categories->name }}</span>
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        @endif
 
-                                        </li>
+                                        {{--  --}}
+                                        @if (!empty($_GET['category']))
+                                            @php
+                                                $categorys=App\Category::where('name',$_GET['category'])->first();
+                                                $catsID=$categorys->parent_id;
+                                                $cats=App\Category::where('id',$catsID)->first();
+                                                $allcategories=App\Category::where('parent_id',$catsID)->get();
+                                            @endphp
+                                            <li>
+                                                <a href="{{ route('search.result') }}?_token={{ bcrypt('1') }}&cats={{ str_replace('&','||',$cats->name) }}">
+                                                <img src="{{ $cats->icon }}" alt="">
+                                                <span>{{ $cats->name }}</span>
+                                                </a>
+                                            </li>
+                                            @foreach ($allcategories as $allCategory)
+                                            <li class="categorylist">
+                                                <a href="{{ route('search.result') }}?_token={{ bcrypt('1') }}&category={{ str_replace('&','||',$allCategory->name) }}" title="" 
+                                                @if ($allCategory->name == $_GET['category']) class="active" @endif>- <span>{{ $allCategory->name }}</span></a>
+                                            </li>
+                                            @endforeach
+                                        @endif
                                     </ul>
                                 </div>
                                 <div class="ads-left-banner">
-                                    <img src="{{ asset('uploads/side.jpg') }}" alt="">
+                                @if (count($adsleft)>0)
+                                    @foreach ($adsleft as $adsleft)
+                                    @php
+                                        $adsleft=json_decode($adsleft->image,true);
+                                    @endphp
+                                    <img src="{{ $adsleft[0] }}" alt="">
+                                    @endforeach
+                                @endif
                                 </div>
                             </div>
                             <div class="search_center">
                                 <div class="ads-banner col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                    <img src="{{ asset('uploads/banner-center.jpg') }}" alt="">
-                                    <img src="{{ asset('uploads/banner-center.jpg') }}" alt="">
+                                    @if (count($adstop)>0)
+                                        @foreach ($adstop as $adsleft)
+                                        @php
+                                            $adsleft=json_decode($adsleft->image,true);
+                                        @endphp
+                                        <img src="{{ $adsleft[0] }}" alt="">
+                                        @endforeach
+                                    @endif
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="brand-location">
                                         <div class="bland-list">
                                             <ul>
-                                                <li>wwwww</li>
+                                                {{-- <li>wwwww</li>
                                                 <li>wwwww eeeeeee</li>
                                                 <li>wwwww</li>
                                                 <li>wwwww eeeeeee</li>
@@ -52,7 +125,7 @@
                                                 <li>wwwww</li>
                                                 <li>wwwww eeeeeee</li>
                                                 <li>wwwww</li>
-                                                <li>wwwww eeeeeee</li>
+                                                <li>wwwww eeeeeee</li> --}}
                                             </ul>
                                         </div>
                                         <div class="clearfix"></div>
@@ -61,7 +134,7 @@
                                             <label>City/Province : </label>
                                                 <input type="hidden" name="_token" value="{{ bcrypt('a') }}" class="postby">
                                                 <select name="location" class="location-search">
-                                                    <option value="option">All City/Province</option>
+                                                    <option value="">All City/Province</option>
                                                     @foreach ($location as $locations)
                                                     <option value="{{ $locations->name }}" 
                                                         @if (!empty($_GET['location']))
@@ -174,7 +247,14 @@
                             </div>
                             <div class="side_right">
                                 <div class="ads-banner-r">
-                                    <img src="{{ asset('uploads/side.jpg') }}" alt="">
+                                    @if (count($adsright)>0)
+                                        @foreach ($adsright as $adsleft)
+                                        @php
+                                            $adsleft=json_decode($adsleft->image,true);
+                                        @endphp
+                                        <img src="{{ $adsleft[0] }}" alt="">
+                                        @endforeach
+                                    @endif
                                 </div>
                             </div>
                         </div>
