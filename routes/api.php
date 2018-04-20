@@ -69,4 +69,5 @@ Route::post('update-store', [
     'middleware' => 'jwt.auth'
 ]);
 
+Route::get('',[]);
 
