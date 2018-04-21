@@ -51,6 +51,11 @@ Route::get('product-by-category', [
     'as' => 'pcat'
 ]);
 
+Route::get('product-by-sub-category',[
+    'uses' => 'PostController@getProductBySubCategory',
+    'as' => 'scat'
+]);
+
 Route::get('save-product-to-favorite', [
     'uses' => 'SaveController@getSaveProductToFavorite',
     'as' => 'save-product',
