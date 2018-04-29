@@ -43,6 +43,10 @@ Route::get('confirm.email/{keygenerate}',[
     'uses'=>'UserController@getConfirm',
     'as'=>'confirm.email'
 ]);
+Route::get('user.profile',[
+    'uses'=>'UserController@getUserprofile',
+    'as'=>'user.profile'
+]);
 Route::get('brand.category',[
     'uses'=>'HomeController@getbrandCategory',
     'as'=>'brand.category'
@@ -51,7 +55,52 @@ Route::post('save.post',[
     'uses'=>'HomeController@savePost',
     'as'=>'save.post'
 ]);
+Route::get('confirm-forgot',[
+    'uses'=>'UserController@getConfirmforgot',
+    'as'=>'confirm.forgot'
+]);
+Route::get('update_password',[
+        'uses'=>'HomeController@getUpdatePassword',
+        'as'=>'user.reset.password'
+]);
+Route::get('reset-password',[
+    'uses'=>'UserController@getResetPassword',
+    'as'=>'reset.password'
+]);
+Route::post('change.profile',[
+    'uses'=>'UserController@changeProfile',
+    'as'=>'change.profile'
+]);
+Route::get('edit.profile',[
+    'uses'=>'UserController@editUserprofile',
+    'as'=>'edit.profile'
+]);
+Route::post('edit.product',[
+    'uses'=>'UserController@editProductuser',
+    'as'=>'edit.product'
+]);
+Route::get('stores/{user_id}/{name}',[
+    'uses'=>'HomeController@getstore',
+    'as'=>'stores'
+]);
+Route::get('remove.photo',[
+    'uses'=>'UserController@removePhoto',
+    'as'=>'remove.photo'
+]);
+Route::get('select.subcategories',[
+    'uses'=>'UserController@getSubcategories',
+    'as'=>'select.subcategories'
+]);
+Route::get('category.getbrand',[
+    'uses'=>'UserController@categoryGetbrand',
+    'as'=>'category.getbrand'
+]);
+Route::get('remove.ads/{id}',[
+    'uses'=>'UserController@removeAdsuser',
+    'as'=>'remove.ads'
+]);
 // 
+
 Route::get('ajax-request-sub-category', ['uses' => 'CategoryController@getAjaxRequestSubCategory', 'as' => 'ajax-request-sub-category']);
 Route::get('/test', function () {
     $faker = Faker\Factory::create();

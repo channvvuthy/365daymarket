@@ -5,6 +5,13 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {{--  --}}
+        <meta property="og:url"           content="https://www.your-domain.com/your-page.html" />
+        <meta property="og:type"          content="website" />
+        <meta property="og:title"         content="Your Website Title" />
+        <meta property="og:description"   content="Your description" />
+        <meta property="og:image"         content="https://www.your-domain.com/path/image.jpg" />
+    {{--  --}}
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/emoji.css')}}">
     <link rel="stylesheet" href="{{asset('css/icon.css')}}">
@@ -23,10 +30,21 @@
             font-family: myFirstFont;
             src: url("{{asset('fonts/Pasajero.otf')}}");
         }
-
+        @font-face {
+            font-family: Arimo-Bold;
+            src: url("{{asset('fonts/\enfont/Arimo-Bold.ttf')}}");
+        }
+        @font-face {
+            font-family: khmer-365day;
+            src: url("{{asset('fonts/\enfont/SithiManuss.ttf')}}");
+        }
+        @font-face {
+          font-family: logofong;
+          src: url("{{asset('fonts/enfont/Bevan.ttf')}}");
+      }
     </style>
 </head>
-<body>
+<body style="font-family: 'Arimo-Bold','khmer-365day';">
 @include('khmer24.inc.header-top')
 @include('khmer24.inc.header-middle')
 @include('khmer24.inc.nav')

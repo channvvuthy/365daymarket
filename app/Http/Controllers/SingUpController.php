@@ -27,6 +27,7 @@ class SingUpController extends Controller
         if ($validator->fails()) {
             return response()->json(['success' => false, 'error' => $validator->messages()]);
         }
+
         $fileUpload = null;
         $image = $request->file("image");
         $file_random = md5(rand(1, 1000));

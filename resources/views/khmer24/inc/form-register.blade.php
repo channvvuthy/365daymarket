@@ -144,6 +144,166 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+<!-- /.modal -->
+<div class="modal modal__message_save fade __clear__border" id="modal-1">
+    <div class="modal-dialog __clear__border" role="document">
+        <div class="modal-content __clear__border form_register">
+            <div class="modal-header form-hf">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title text-center"><a href="#" title="">Your product has been saved!</a></h4>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!--Modal Forgot Password-->
+<div class="modal fade modal_forgot_password " id="modal-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content __clear__border ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">Reset Password</h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-success hidden">
+                    <p>Please confirm your email address</p>
+                </div>
+                <div class="alert alert-danger hidden">
+                    <p>Your email address does not exist</p>
+                </div>
+                <div class="alert alert-danger hidden enterEmail">
+                    <p>Please enter your email address</p>
+                </div>
+                <div class="progress hidden">
+                    <div class="progress-bar progress-bar-striped active" role="progressbar"
+                         aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                        Checking email....
+                    </div>
+                </div>
+                <div class="form-group form_confirm">
+                    <input type="email" class="form-control email_reset" placeholder="Enter your email address">
+                </div>
+            </div>
+            <div class="modal-footer form_confirm">
+                <button type="button" class="btn btn-secondary __clear__border" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary __clear__border btn_forgot">Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!--End modal forgot password-->
+<div class="modal fade modalResetPassword" id="modal-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content __clear__border">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">Reset Password</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="email" readonly class="form-control emailFromGmail"
+                           value="@if(!empty($_GET['email'])) {{$_GET['email']}} @endif">
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Enter new password" class="form-control oldPassword">
+                    <label for="" class="errorPassword hidden error">Please enter password</label>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Confirm new password" class="form-control newPassword">
+                    <label for="" class="error hidden errorNewPassword">Password not matched</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary __clear__border" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary __clear__border bntResetPassword">Reset Password</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+    {{-- // Show Modal resest password --}}
+    @if(empty(Auth::check()))
+    @if(!empty($reset_password))
+    <script type="text/javascript">
+        $(".modalResetPassword").modal('show');
+        // 
+        $("body").on('click', '.bntResetPassword', function () {
+            var email = $(".emailFromGmail").val();
+            var oldPassword = $(".oldPassword").val();
+            var newPassword = $(".newPassword").val();
+            if (oldPassword == "") {
+                $(".errorPassword ").removeClass('hidden');
+                return;
+            } else {
+                $(".errorPassword ").addClass('hidden');
+            }
+            if (oldPassword != newPassword) {
+                $(".errorNewPassword").removeClass('hidden');
+                return;
+            } else {
+                $(".errorNewPassword").addClass('hidden');
+            }
+            jQuery.ajax({
+                url: "{{route('reset.password')}}",
+                type: "GET",
+                dataType: "json",
+                data: {email: email, oldPassword: oldPassword},
+                success: function (data) {
+                    location.reload(true);
+                },
+                complete:function () {
+                    location.reload(true);
+                }
+            });
+        });
+    </script>
+    @endif
+    @endif
+<script type="text/javascript">
+    // 
+    $(".btn_forgot").click(function () {
+        var email = $(".email_reset").val();
+        if (email == "") {
+            $(".enterEmail").removeClass('hidden');
+        } else {
+            $(".enterEmail").addClass('hidden');
+            jQuery.ajax({
+                url: "{{route('confirm.forgot')}}",
+                type: "GET",
+                dataType: "json",
+                data: {email: email},
+                beforeSend: function () {
+                    $(".progress").removeClass('hidden');
+                },
+                success: function (data) {
+                    console.log(data)
+                    if (data == "1") {
+                        $(".modal_forgot_password  .alert-success").removeClass('hidden');
+                        $(".modal_forgot_password  .alert-danger").addClass('hidden');
+                        $(".form_confirm").addClass('hidden');
+                    } else {
+                        $(".modal_forgot_password  .alert-success").addClass('hidden');
+                        $(".modal_forgot_password  .alert-danger").removeClass('hidden');
+                        $(".enterEmail").addClass('hidden');
+                    }
+                },
+                complete: function () {
+                    $(".progress").addClass('hidden');
+                }
+            });
+        }
+    });
+</script>
 @if(session()->has('message_login_error'))
     <script>
     $(".message_login_error").modal('show');
@@ -152,6 +312,11 @@
 @if(session()->has('message'))
     <script>
     $(".modal__message").modal('show');
+    </script>
+@endif
+@if(session()->has('message_save'))
+    <script>
+    $(".modal__message_save").modal('show');
     </script>
 @endif
   @if($errors->first('email'))

@@ -8,11 +8,11 @@
             <div class="row">
                 <div class="latest-ads detail_page_wrap">
                     <div class="pang_kisi col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <ul>
-                        	<li><a href="">Home</a></li>
-                            <li><a href="">> Category</a></li>
-                            <li><a href="">> Sub category</a></li>
-                        	<li><a href="">> type</a></li>
+                        <ul class="pangkisi-list">
+                            <li><a href="{{ asset('') }}" title=""><i class="glyphicon glyphicon-home"></i> Home</a></li>
+                            <li><span class="menu-list">》</span> <a href="{{ route('search.result') }}?_token={{ bcrypt('1') }}&category=&location=&p=&search_param=all&keycod={{ bcrypt('1') }}" title="">All Categories</a></li>
+                            <li><span class="menu-list">》</span> <a href="{{ route('search.result') }}?_token={{ bcrypt('1') }}&cats={{ str_replace('&','||',$post->category_name) }}" title="">{{$post->category_name}}</a></li>
+                            <li><span class="menu-list">》</span> <a href="{{ route('search.result') }}?_token={{ bcrypt('1') }}&category={{ str_replace('&','||',$post->sub_category_name) }}" title=""><span>{{$post->sub_category_name}}</a></li>
                         </ul>
                     </div>
                     <div class="product-list">
@@ -50,7 +50,7 @@
                                             </div>
                                         </div>
                                         <div class="padding_right col-xs-12 col-sm-2 col-mg-2 col-lg-2">
-                                            <p><i class="icon icon-share text_gray"></i></p>
+                                            <p><a href="{{Share::load()->facebook()}}" title="" target="_blank"><i class="icon icon-share text_gray"></i></a></p>
                                         </div>
                                     </div>
                                     <div class="discription_header">
@@ -62,18 +62,39 @@
 	                    </div>
 	                    <div class="right_sidebar padding_left col-xs-12 col-sm-3 col-mg-3 col-lg-3">
                             <div class="store_title">
+                                @php
+                                  $userstore=App\Store::where('user_id',$post->user_id)->first();
+                                  $getuser=App\User::where('id',$post->user_id)->first();
+                                @endphp
                                 <div class="cover-store clear_padding col-xs-12 col-sm-4 col-mg-4 col-lg-4">
-        	                    	<img src="{{ asset('uploads/1024x1024.jpg') }}" alt="" class="img-responsive">
+                                    @if (!empty($getuser->image))
+                                    <img src="{{ $getuser->image }}" alt="" class="img-responsive">
+                                    @else
+                                    <img src="{{ asset('uploads/1024x1024.jpg') }}" alt="" class="img-responsive">
+                                    @endif
                                 </div>
-                                <div class="title col-xs-12 col-sm-8 col-mg-8 col-lg-8">
-                                    <h3>Store Name HD</h3>
-                                    <p>wwwwwwwwwwwwwwwwwwwwww wwwww</p>
+                                <div class="title col-xs-12 col-sm-8 col-mg-8 col-lg-8 item-stores-cover">
+                                    <h3>{{ $userstore->name }}</h3>
+                                    <p><a href="{{ route('stores',['id'=>$post->user_id,'name'=>$userstore->name]) }}" title="">Show all products</a></p>
                                 </div>
                             </div>
                             <div class="store_description">
-                                <p><i class="glyphicon glyphicon-phone-alt"></i> 098 777 888 / 090 888 888</p>
-                                <p><i class="glyphicon glyphicon-map-marker"></i> Phnom Penh , Beng Kang KongII, Street 310, #419C</p>
-                                <p><i class="glyphicon glyphicon-globe"></i> <a href="{{ route('store.market') }}" title="">{{ str_limit("https://www.khmer168.com/LyvannPhoneShop", 30,'...') }}</a></p>
+                                <p><i class="glyphicon glyphicon-phone-alt"></i> {{ $userstore->phone }}</p>
+                                <p><i class="glyphicon glyphicon-map-marker"></i> {{ $userstore->address }}</p>
+                                <p><i class="glyphicon glyphicon-globe"></i> <a href="{{ route('stores',['id'=>$post->user_id,'name'=>$userstore->name]) }}" title="">{{ str_limit(route('stores',['id'=>$post->user_id,'name'=>$userstore->name]),40) }}</a></p>
+                                <div class="clearfix"></div>
+                                @if (!empty($userstore->maplon))
+                                <h2 class="map-location"><i class="glyphicon glyphicon-map-marker"></i> Location :</h2>
+                                <div class="__google__map">
+                                    <div id="map" style="height:300px;">
+                                        <iframe width="100%" height="300" frameborder="0" scrolling="no" marginheight="0"
+                                                marginwidth="0"
+                                                src="https://maps.google.com/maps?q={{$userstore->maplat}},{{$userstore->maplon}}&hl=es;z=17.5&amp;output=embed"></iframe>
+                                    </div>
+                                    <script async defer
+                                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB301j39-PCrbDTVZhn95hif4AB7JG5K_Q&callback=initMap"></script>
+                                </div>
+                                @endif
                             </div>
 	                    </div>
 

@@ -22,6 +22,23 @@ class HomeController extends Controller
         $location=Location::where('status','Publish')->get();
         return view('khmer24.index')->withLastpost($lastpost)->withCategoty($categoty)->withSubcategory($subcategory)->withLocation($location)->withPopular($popular);
     }
+    public function getUpdatePassword(Request $request){
+        if(!empty($request->email)){
+            $user=User::where('email',$request->email)->first();
+            if($request->token==$user->register_key){
+                $lastpost=Post::orderBy('created_at', 'desc')->paginate(8);
+                $popular=Post::orderBy('views', 'desc')->paginate(8);
+                $categoty=Category::where('parent_id','0')->get();
+                $subcategory=Category::where('parent_id','!=','0')->get();
+                $location=Location::where('status','Publish')->get();
+                return view('khmer24.index')->withLastpost($lastpost)->withCategoty($categoty)->withSubcategory($subcategory)->withLocation($location)->withPopular($popular)->with('reset_password','Reset your password');
+            }else{
+                return response("Your email request does no exist");
+            }
+        }else{
+            return response("Page requrest not found");
+        }
+    }
     public function viewdetail(){
         $id=$_GET['id'];
         $categoty=Category::where('parent_id','0')->get();
@@ -216,5 +233,9 @@ class HomeController extends Controller
         $post->images=$imageFile;
         $post->Save();
         return redirect()->back()->with('message_save','Your product has been saved!');
+    }
+    public function getstore($id,$name){
+        $post=Post::where('user_id',$id)->where('status','Published')->orderBy('id','desc')->paginate(10);
+        return view('user-stores')->withPost($post)->withId($id);
     }
 }

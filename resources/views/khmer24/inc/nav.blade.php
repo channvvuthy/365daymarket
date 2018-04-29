@@ -65,7 +65,18 @@
             </div>
             <div class="nav_cate_sub nav_cate_welcome col-xs-12 col-sm-9 col-md-9 col-lg-9 no-padding-left">
                 <div class="sub-menu_">
-                    <p>Welcome to khmer168, the biggest online market in Cambodia.</p>
+                    @php
+                        $newAds=App\Post::where('status','Published')->orderBy('id','desc')->limit(10)->get();
+                    @endphp
+                    <marquee direction="left" onmouseover="this.stop()" onmouseout="this.start()" scrollamount="8">
+                    <ul class="marquee-newads">
+                    @foreach ($newAds as $marqueeAds)
+                        <li><i class="glyphicon glyphicon-hand-right"></i>
+                            <a href="{{ route('view.ads') }}?key={{ bcrypt($marqueeAds->name) }}&id={{ $marqueeAds->id }}" title=""> {{ str_limit($marqueeAds->name,40,'...') }}</a>
+                        </li>
+                    @endforeach
+                    </ul>
+                    </marquee>
                 </div>
             </div>
         </div>
