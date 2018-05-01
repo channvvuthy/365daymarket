@@ -9,6 +9,7 @@ use App\Category;
 use App\Location;
 use App\Brand;
 use App\Banner;
+use App\Information;
 use DB;
 use Auth;
 
@@ -49,7 +50,7 @@ class HomeController extends Controller
         $postview=Post::find($id);
         $postview->views=$view;
         $postview->save();
-    	return view('khmer24.detail-view')->withCategoty($categoty)->withSubcategory($subcategory)->withLocation($location)->withPost($post);
+    	return view('khmer24.detail-view')->withCategoty($categoty)->withSubcategory($subcategory)->withLocation($location)->withPost($post)->with('product_detail','product_detail');
     }
     public function storemarket(){
         return view('khmer24.user-store');
@@ -58,7 +59,8 @@ class HomeController extends Controller
         $categoty=Category::where('parent_id','0')->get();
         $location=Location::where('status','Publish')->get();
         $subcategory=Category::where('parent_id','!=','0')->get();
-    	return view('khmer24.post-product')->withCategoty($categoty)->withLocation($location)->withSubcategory($subcategory);
+        $rulepost=Information::where('type','Post-rule')->first();
+    	return view('khmer24.post-product')->withCategoty($categoty)->withLocation($location)->withSubcategory($subcategory)->withRulepost($rulepost);
     }
     public function getbrandCategory(Request $request){
         $id=$request->catid;
@@ -237,5 +239,19 @@ class HomeController extends Controller
     public function getstore($id,$name){
         $post=Post::where('user_id',$id)->where('status','Published')->orderBy('id','desc')->paginate(10);
         return view('user-stores')->withPost($post)->withId($id);
+    }
+    public function getHowtouse(){
+        $categoty=Category::where('parent_id','0')->get();
+        $subcategory=Category::where('parent_id','!=','0')->get();
+        $location=Location::where('status','Publish')->get();
+        $howtouse=Information::where('type','Use')->get();
+        return view('how-to-use')->withHowtouse($howtouse)->withCategoty($categoty)->withSubcategory($subcategory)->withLocation($location);
+    }
+    public function getUpgradebusiness(){
+        $categoty=Category::where('parent_id','0')->get();
+        $subcategory=Category::where('parent_id','!=','0')->get();
+        $location=Location::where('status','Publish')->get();
+        $business=Information::where('type','Business')->get();
+        return view('upgrade-business')->withBusiness($business)->withCategoty($categoty)->withSubcategory($subcategory)->withLocation($location);
     }
 }

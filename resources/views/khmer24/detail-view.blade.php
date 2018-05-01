@@ -50,22 +50,62 @@
                                             </div>
                                         </div>
                                         <div class="padding_right col-xs-12 col-sm-2 col-mg-2 col-lg-2">
-                                            <p><a href="{{Share::load()->facebook()}}" title="" target="_blank"><i class="icon icon-share text_gray"></i></a></p>
+                                            <p><a href="https://www.facebook.com/sharer/sharer.php?u={{ route('view.ads') }}?id={{ $post->id }}" title="" target="_blank"><i class="icon icon-share text_gray"></i></a></p>
                                         </div>
                                     </div>
                                     <div class="discription_header">
                                         <h3>Description</h3>
                                         <p>{{ $post->description }}</p>
                                     </div>
+                                    {{--  --}}
                                 </div>
-	                        </div>
-	                    </div>
-	                    <div class="right_sidebar padding_left col-xs-12 col-sm-3 col-mg-3 col-lg-3">
+                                <div class="more-adsstores">
+                                    @php
+                                      $userstore=App\Store::where('user_id',$post->user_id)->first();
+                                      $getuser=App\User::where('id',$post->user_id)->first();
+                                    @endphp
+                                    <div class="more-adsheader">
+                                        @if (!empty($getuser->image))
+                                        <img src="{{ $getuser->image }}" alt="" class="img-responsive">
+                                        @else
+                                        <img src="{{ asset('uploads/1024x1024.jpg') }}" alt="" class="img-responsive">
+                                        @endif
+                                        <h2><a href="{{ route('stores',['id'=>$getuser->user_id,'name'=>$getuser->name]) }}" title="">{{ $getuser->name }}</a></h2>
+                                        <p><a href="{{ route('stores',['id'=>$post->user_id,'name'=>$getuser->name]) }}" title="{{ $getuser->image }}-Shop">{{ route('stores',['id'=>$post->user_id,'name'=>$getuser->name]) }}</a></p>
+                                        <div class="gotostore">
+                                            <a href="{{ route('stores',['id'=>$post->user_id,'name'=>$getuser->name]) }}" title="{{ $getuser->image }}-Shop"><i class="glyphicon glyphicon-shopping-cart"></i> Go to shop</a>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    @php
+                                        $postmore=App\Post::where('user_id',$post->user_id)->where('status','Published')->orderBy('updated_at','desc')->limit(6)->get();
+                                    @endphp
+                                    @foreach ($postmore as $getAds)
+                                    <div class="col-xs-12 col-sm-4 col-mg-4 col-lg-4 mor-body">
+                                        <div class="item-moreads">
+                                            @php
+                                                $imgItem=json_decode($getAds->images,true);
+                                            @endphp
+                                            <div class="moreImg">
+                                                <a href="{{ route('view.ads') }}?key={{ bcrypt($adsItems->name) }}&id={{ $adsItems->id }}" title="">
+                                                <img src="{{ $imgItem[0] }}" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="morep">
+                                                <a href="{{ route('view.ads') }}?key={{ bcrypt($adsItems->name) }}&id={{ $adsItems->id }}" title="">
+                                                <h2>{{ $getAds->name }}</h2>
+                                                </a>
+                                                <P>{{ $getAds->price }}</P>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+                                {{--  --}}
+                            </div>
+                        </div>
+                        <div class="right_sidebar padding_left col-xs-12 col-sm-3 col-mg-3 col-lg-3">
                             <div class="store_title">
-                                @php
-                                  $userstore=App\Store::where('user_id',$post->user_id)->first();
-                                  $getuser=App\User::where('id',$post->user_id)->first();
-                                @endphp
                                 <div class="cover-store clear_padding col-xs-12 col-sm-4 col-mg-4 col-lg-4">
                                     @if (!empty($getuser->image))
                                     <img src="{{ $getuser->image }}" alt="" class="img-responsive">
@@ -112,5 +152,6 @@
             $('.img-slider:first-child').addClass('active');
             $('.thum-list:first-child').addClass('active');
         });
+        // 
     </script>
 @stop

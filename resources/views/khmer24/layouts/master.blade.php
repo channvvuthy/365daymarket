@@ -6,16 +6,23 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {{--  --}}
-        <meta property="og:url"           content="https://www.your-domain.com/your-page.html" />
-        <meta property="og:type"          content="website" />
-        <meta property="og:title"         content="Your Website Title" />
-        <meta property="og:description"   content="Your description" />
-        <meta property="og:image"         content="https://www.your-domain.com/path/image.jpg" />
+    @if (!empty($product_detail))
+    <meta property="og:url"           content="{{ route('view.ads') }}?key={{ bcrypt($post->name) }}&id={{ $post->id }}" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="{{ $post->name }}" />
+    <meta property="og:description"   content="{{ htmlspecialchars($post->description) }}" />
+    @php
+        $imgpost=json_decode($post->images,true);
+    @endphp
+    <meta property="og:image"         content="{{ $imgpost[0] }}" />
+    @endif
     {{--  --}}
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/emoji.css')}}">
     <link rel="stylesheet" href="{{asset('css/icon.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/font-awesome.min.css')}}">
+    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/jquery.matchHeight.js')}}"></script>

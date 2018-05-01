@@ -99,7 +99,7 @@
     <!-- Footer -->
     <footer class="footer-wrapper">
       <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; <span class="web">365daymarket</span> 2018</p>
+        <p class="m-0 text-center text-white">Copyright &copy; 2018 <span class="web">365daymarket</span> .All rights reserved
       </div>
       <!-- /.container -->
     </footer>

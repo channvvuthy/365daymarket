@@ -33,13 +33,17 @@
                             <p>Email : {{ Auth::user()->email }}</p>
                         </div>
                         <div class="col-md-3 col-xs-12 col-sm-3 col-lg-3 upgrade-business">
-                            <a href="#">Upgrade To Business Account</a>
+                            <a href="{{ route('upgrade.business') }}">Upgrade To Business Account</a>
                         </div>
                         {{--  --}}
                         <div class="clearfix"></div>
                         {{--  --}}
                         @if (!empty($_GET['user-option']))
                             @if ($_GET['user-option'] == 'Info')
+                                <ul class="nav-tap">
+                                    <li><a href="{{ route('user.profile') }}" class=""><i class="glyphicon glyphicon-folder-open"></i> My Ads</a></li>
+                                    <li><a href="#" class="active"><i class="glyphicon glyphicon-cog"></i> Update Information</a></li>
+                                </ul>
                                 <div class="clearfix"></div>
                                 <div class="user-adsitem edit-info">
                                     <div class="adsitem">
@@ -65,7 +69,7 @@
                                                 <label class="col-md-3 col-xs-12 col-sm-3 col-lg-3">City/Province <span style="color: red;">*</span> : </label>
                                                 <select name="location" class="col-md-8 col-xs-12 col-sm-9 col-lg-9 location-edit" required>
                                                     @foreach ($location as $locations)
-                                                    <option value="{{ $locations->name }}">{{ $locations->name }}</option>
+                                                    <option value="{{ $locations->name }}" @if ($locations->name == Auth::user()->location ) selected="selected" @endif>{{ $locations->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -279,6 +283,11 @@
                                 </div>
                             @endif
                             @if ($_GET['user-option'] == 'edit-ads')
+                                <ul class="nav-tap">
+                                    <li><a href="{{ route('user.profile') }}" class=""><i class="glyphicon glyphicon-folder-open"></i> My Ads</a></li>
+                                    <li><a href="#" class="active"><i class="glyphicon glyphicon-cog"></i> Update Product</a></li>
+                                </ul>
+                                {{--  --}}
                                 <div class="user-adsitem edit-info">
                                     @if(session()->has('updated_success'))
                                         <div class="alert alert-success">
@@ -427,23 +436,15 @@
                                     </div>
                                     {{--  --}}
                                     <div class="posting_rule rule_edit col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                                        <h3>Posting rule</h3>
-                                        <p>wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</p>
-                                        <p>wwwwwwwwwwwwwwwwwwww</p>
-                                        <p>wwwwwwwwwwwwwwwwwwww</p>
-                                        <p>wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</p>
-                                        <p>wwwwwwwwwwwwwwwwwwww</p>
-                                        <p>wwwwwwwwwwwwwwwwwwww</p>
-                                        <p>wwwwwwwwwwwwwwwwwwww</p>
-                                        <p>wwwwwwwwwwwwwwwwwwww</p>
-                                        <p>wwwwwwwwwwwwwwwwwwww</p>
+                                        <h3>{{ $rulepost->name }}</h3>
+                                        {!!$rulepost->description !!}
                                     </div>
                                 </div>
                             @endif
                         @else
                             <ul class="nav-tap">
-                                <li><a href="#" class="active"><i class="glyphicon glyphicon-folder-open"></i> My Ads</a></li>
-                                <li><a href="#"><i class="glyphicon glyphicon-cog"></i> Setting</a></li>
+                                <li><a href="{{ route('user.profile') }}" class="active"><i class="glyphicon glyphicon-folder-open"></i> My Ads</a></li>
+                                {{-- <li><a href="#"><i class="glyphicon glyphicon-cog"></i> Setting</a></li> --}}
                             </ul>
                             <div class="clearfix"></div>
                             <div class="user-adsitem">

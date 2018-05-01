@@ -38,11 +38,13 @@
                 </form>
                 <div class="row">
                     <div class="col-md-12">
+                    <div class="fb-loginfram">
                         <div class="__or text-center">OR</div>
                         <p class="text-center">Register with Facebook account</p>
                         <div class="__facebook__social">
-                            <span class="fa fa-facebook"></span><a href="{{-- {{route('facebook.login')}} --}}" id="fb-register">Facebook</a>
+                            <a href="{{-- {{route('facebook.login')}} --}}" id="fb-register"><i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -87,7 +89,7 @@
                                 <input type="hidden" placeholder="" id="log-save-store" name="getSave" class="form-control" value="">
                             </div>
                             <div class="form-group text-center">
-                                <button class="btn btn-danger  __clear__border" id="__botton__register" type="submit" value="">
+                                <button class="btn btn-danger btn-loginform __clear__border" id="__botton__register" type="submit" value="">
                                     Log in
                                 </button>
                                 <a href="#" onclick="forgotPassword()"> Forget your password?</a>
@@ -97,11 +99,13 @@
                 </form> 
                 <div class="row">
                     <div class="col-md-12">
+                    <div class="fb-loginfram">
                         <div class="__or text-center">OR</div>
                         <p class="text-center">Log in with Facebook account</p>
                         <div class="__facebook__social">
-                            <span class="fa fa-facebook"></span><a href="{{-- {{route('facebook.login')}} --}}" id="fb-save-store">Facebook</a>
+                            <a href="{{-- {{route('facebook.login')}} --}}" id="fb-save-store"><i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>

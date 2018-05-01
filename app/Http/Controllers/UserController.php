@@ -17,6 +17,7 @@ use App\Category;
 use App\Location;
 use App\Brand;
 use App\Banner;
+use App\Information;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UserController extends Controller
@@ -286,7 +287,8 @@ class UserController extends Controller
             $location=Location::where('status','Publish')->get();
             if (!empty($_GET['adsID'])) {
                 $post=Post::find($_GET['adsID']);
-                return view('user-manage')->withCategoty($categoty)->withSubcategory($subcategory)->withLocation($location)->withPost($post);
+                $rulepost=Information::where('type','Post-rule')->first();
+                return view('user-manage')->withCategoty($categoty)->withSubcategory($subcategory)->withLocation($location)->withPost($post)->withRulepost($rulepost);
             }else{
                return view('user-manage')->withCategoty($categoty)->withSubcategory($subcategory)->withLocation($location); 
             }
