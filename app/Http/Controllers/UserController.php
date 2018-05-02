@@ -11,6 +11,13 @@ use Auth;
 use Mail;
 use App\Save;
 use App\User;
+
+use App\Post;
+use App\Category;
+use App\Location;
+use App\Brand;
+use App\Banner;
+use App\Information;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UserController extends Controller
@@ -248,5 +255,195 @@ class UserController extends Controller
     public function logoutUser(){
         Auth::logout();
         return redirect()->back();
+    }
+
+    public function getConfirmforgot(Request $request){
+        $email=$request->email;
+        $user=User::where('email',$email)->first();
+        if($user){
+            $register_key=bcrypt($user->id);
+            $data=['email'=>$email,'userName'=>$user->username,'register_key'=>$register_key];
+            $user->register_key=$register_key;
+            $user->save();
+            try{
+                Mail::send('email.forgot-pwd', $data, function ($message) use($email) {
+                    $message->from('channvuthyit@gmail.com', '365daymarket');
+                    $message->to($email)->subject('Confirm Email');
+                });
+                return 1;
+
+            }catch (\Exception $ex){
+                return $ex->getMessage();
+            }
+
+        }else{
+            return 0;
+        }
+    }
+    public function getUserprofile(){
+        if (!empty(Auth::user())){
+            $categoty=Category::where('parent_id','0')->get();
+            $subcategory=Category::where('parent_id','!=','0')->get();
+            $location=Location::where('status','Publish')->get();
+            if (!empty($_GET['adsID'])) {
+                $post=Post::find($_GET['adsID']);
+                $rulepost=Information::where('type','Post-rule')->first();
+                return view('user-manage')->withCategoty($categoty)->withSubcategory($subcategory)->withLocation($location)->withPost($post)->withRulepost($rulepost);
+            }else{
+               return view('user-manage')->withCategoty($categoty)->withSubcategory($subcategory)->withLocation($location); 
+            }
+        }else{
+            return redirect()->route('home');
+        }
+    }
+    public function removePhoto(Request $request){
+        $id=$request->id;
+        $old=$request->old;
+        $photo=$request->photo;
+        $checkfile=str_replace($photo,'',$old);
+        $arr=['"",','""',',""'];
+        $checkfile=str_replace($arr,'',$checkfile);
+        $checkfile=rtrim($checkfile,',');
+        $getpost=Post::find($id);
+        if ($checkfile != '') {
+            $getpost->images='['.$checkfile.']';
+        }
+        $getpost->save();
+        // return;
+    }
+    public function getResetPassword(Request $request){
+        $email=$request->email;
+        $oldPassword=$request->oldPassword;
+        if(!empty($email)){
+            $user=User::where('email',$email)->first();
+            if(count($user)){
+                Auth::login($user);
+                $user->password=bcrypt($oldPassword);
+                $user->save();
+                return "Password reset successful";
+            }
+        }
+        return "Fail!";
+
+    }
+    public function changeProfile(Request $request){
+        $id=Auth::user()->id;
+        $user=User::find($id);
+        $url=$request->url;
+        $photo=$request->file('profile');
+        $randName=rand(0,99999);
+        $file_name = $randName.$photo->getClientOriginalName();
+        $photo->move('uploads/' , $file_name);
+        $imageFile=$url.'uploads/'.$file_name;
+        $user->image=$imageFile;
+        $user->save();
+        return redirect()->back();
+    }
+    public function editUserprofile(Request $request){
+        $id=$request->id;
+        $userID=Auth::user()->id;
+        $name=$request->name;
+        $email=$request->email;
+        $phone=$request->phone;
+        $location=$request->location;
+        $address=$request->address;
+        $maplat=$request->maplat;
+        $maplon=$request->maplon;
+
+        $user=User::find($userID);
+        $user->name=$name;
+        $user->email=$email;
+        $user->phone=$phone;
+        $user->location=$location;
+        $user->save();
+
+        $store=Store::find($id);
+        $store->name=$name;
+        $store->address=$address;
+        $store->phone=$phone;
+        $store->maplat=$maplat;
+        $store->maplon=$maplon;
+        $store->save();
+
+        return redirect()->back();
+    }
+    public function editProductuser(Request $request){
+        $id=$request->id;
+        $url=$request->url;
+        $oldphoto=$request->oldphoto;
+        $imageFile=$request->photo;
+        if (!empty($imageFile)) {
+            foreach ($imageFile as $file) {//this statement will loop through all files.
+                $file_name = $file->getClientOriginalName(); //Get file original name
+                $file->move('uploads/' , $file_name); // move files to destination folder
+                $imageFile.='"'.$url.'uploads/'.$file_name.'",';
+            }
+            $arr=['array','Array'];
+            $imageFile=rtrim(str_replace($arr, '',$imageFile),',');
+            $imageFile=$imageFile;
+            if (!empty($oldphoto)) {
+                $photos=$oldphoto.','.$imageFile;
+                $photos='['.$photos.']';
+            }else{
+                $photos='['.$imageFile.']';
+            }
+        }else{
+            $photos='['.$oldphoto.']';
+        }
+
+        $post=Post::find($id);
+        $post->user_id=Auth::user()->id;
+        $post->name=$request->name;
+        $post->brand=$request->variation_type;
+        $post->price=$request->price;
+        $post->description=$request->description;
+        $post->username=$request->username;
+        $post->phone=$request->phone;
+        $post->email=$request->email;
+        $post->location_name=$request->location;
+        $post->category_name=$request->categoryname;
+        $post->sub_category_name=$request->subcategoryname;
+        // $post->address=$request->categoryname;
+        $post->images=$photos;
+        $post->Save();
+        return redirect()->back()->with('updated_success','Your product has been updated!');
+    }
+    public function getSubcategories(Request $request){
+        $id=$request->id;
+        $catName=$request->cat;
+        $subcategories=Category::where('parent_id',$id)->get();
+        ?>
+        <label class="col-md-3">Sub category </label>
+        <select name="subcategory" class="col-md-6 getsub_category" required>
+        <option value="">Choose subcategory ...</option>
+            <?php
+            foreach ($subcategories as $categories){
+            ?>
+            <option value="<?php echo $categories->name; ?>"><?php echo $categories->name; ?></option>
+            <?php
+            }
+            ?>
+        </select>
+        <?php
+        return;
+    }
+    public function categoryGetbrand(Request $request){
+        $catName=$request->cat;
+        $brand=Brand::where('sub_category_name',$catName)->where('status','Publish')->get();
+        if (count($brand) > 0) {
+            ?>
+                <label class="col-md-3">Type <span class="red">*</span>:</label>
+                <select name="variation_type" class="variationselect" required>
+                    <?php foreach ($brand as $key => $brandlist): ?>
+                    <option value="<?php echo $brandlist->name; ?>"><?php echo $brandlist->name; ?></option>
+                    <?php endforeach ?>
+                </select>
+            <?php
+        }
+        return;
+    }
+    public function removeAdsuser(Request $request,$id){
+        $id=$request->id;
+        return redirect()->back()->with('delete_success','Your product is deleted!');
     }
 }

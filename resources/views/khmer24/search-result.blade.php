@@ -93,10 +93,10 @@
                                 <div class="ads-left-banner">
                                 @if (count($adsleft)>0)
                                     @foreach ($adsleft as $adsleft)
-                                    @php
+                                    {{-- @php
                                         $adsleft=json_decode($adsleft->image,true);
-                                    @endphp
-                                    <img src="{{ $adsleft[0] }}" alt="">
+                                    @endphp --}}
+                                    <img src="{{ $adsleft->image }}" alt="">
                                     @endforeach
                                 @endif
                                 </div>
@@ -105,10 +105,10 @@
                                 <div class="ads-banner col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     @if (count($adstop)>0)
                                         @foreach ($adstop as $adsleft)
-                                        @php
+                                        {{-- @php
                                             $adsleft=json_decode($adsleft->image,true);
-                                        @endphp
-                                        <img src="{{ $adsleft[0] }}" alt="">
+                                        @endphp --}}
+                                        <img src="{{ $$adsleft->image }}" alt="">
                                         @endforeach
                                     @endif
                                 </div>
@@ -116,16 +116,7 @@
                                     <div class="brand-location">
                                         <div class="bland-list">
                                             <ul>
-                                                {{-- <li>wwwww</li>
-                                                <li>wwwww eeeeeee</li>
-                                                <li>wwwww</li>
-                                                <li>wwwww eeeeeee</li>
-                                                <li>wwwww</li>
-                                                <li>wwwww eeeeeee</li>
-                                                <li>wwwww</li>
-                                                <li>wwwww eeeeeee</li>
-                                                <li>wwwww</li>
-                                                <li>wwwww eeeeeee</li> --}}
+                                                {{--    --}}
                                             </ul>
                                         </div>
                                         <div class="clearfix"></div>
@@ -249,10 +240,10 @@
                                 <div class="ads-banner-r">
                                     @if (count($adsright)>0)
                                         @foreach ($adsright as $adsleft)
-                                        @php
+                                        {{-- @php
                                             $adsleft=json_decode($adsleft->image,true);
-                                        @endphp
-                                        <img src="{{ $adsleft[0] }}" alt="">
+                                        @endphp --}}
+                                        <img src="{{ $adsleft->image }}" alt="">
                                         @endforeach
                                     @endif
                                 </div>

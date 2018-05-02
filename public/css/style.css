@@ -1,5 +1,6 @@
 body {
     background: #f3f2f2;
+    font-family: 
 }
 *{
     border-radius: 0px !important;
@@ -24,6 +25,8 @@ body {
 }
 .logo {
     margin-top: 11px;
+    font-size: 24px;
+    font-family: 'logofong';
 }
 .logo a{
     text-decoration: none;
@@ -210,7 +213,7 @@ div.icon {
     padding: 5px 0;
 }
 div.icon img {
-    height: 100%;
+    /* height: 100%; */
 }
 li.li:nth-child(2) div.icon{
     background-position: -48px 0px;
@@ -294,7 +297,9 @@ h2 {
     border: none;
     background: #fff;
 }.sub-menu_ p{
-    line-height: 39px;
+    line-height: 14px;
+    padding: 14px 0 5px 0;
+    margin: 0;
 }
 .button_nav:hover,.button_nav_h:hover{background: #eee;}
 .button_nav,.button_nav_h{cursor: pointer;}
@@ -484,6 +489,8 @@ ul.all_category {
     margin: 0 !important;
     padding: 5px 0 !important;
     font-weight:  bold;
+    margin-bottom: 5px !important;
+    border-bottom: 1px solid #eae3e3;
 }
 .posting_rule:before {
     content:  '';
@@ -776,16 +783,16 @@ p.price {
 .store_title .title h3 {
     margin: 0;
     color:  #fff;
-    padding-top: 14px;
+    font-size: 25px;
 }
 .store_title .title p {
     color: #dedede;
     font-size: 13px;
 }
 .cover-store {
-    height: 80px !important;
+    max-height: 85px !important;
     overflow:  hidden;
-    border-radius: 100% !important;
+    border-radius: 100px !important;
 }
 .img-slider_thu img {
     width: 60px;
@@ -857,7 +864,7 @@ i.icon.icon-share.text_gray {
     color: #fff;
     border-radius: 40px !important;
 }
-.footer{background: #0167a0;}
+.footer{background: #0167a0;padding: 10px 0;padding-bottom: 0;}
 .footer p {
     padding: 10px 0;
     color:#fff;
@@ -898,6 +905,18 @@ div.p h3 {
     color: #fff;
     width: 100px;
 }
+.fb-loginfram {
+    border: 1px solid #eee;
+    overflow: hidden;
+}
+.__facebook__social {
+    overflow: hidden;
+    display: block;
+}
+.__facebook__social a {
+    padding: 15px;
+    line-height: 27px;
+}
 button#__botton__register {
     width: 100px;
     padding: 5px 0;
@@ -914,7 +933,7 @@ button#__botton__register {
     margin: 0 auto;
 }
 .form-hf{
-    background: #00a1ff;
+    background: #eeeeee;
     color: #1a1a1a;
 }
 .form-hf a {
@@ -924,6 +943,9 @@ button#__botton__register {
     background: #eee;
     margin-bottom: 10px;
     font-weight:  bold;
+}
+.sign-upNow.form-hf a,a.alreadyaccount {
+    color: #0a87cd;
 }
 span.price-item {
     font-weight:  bold;
@@ -944,12 +966,13 @@ span.price-item {
     display:  block;
     margin:  auto;
 }
+.edit-info input,.edit-info textarea{color: #000;padding: 0 5px !important;}
 .save-wrap input {
     background: #007abf;
     border:  none;
     color:  #fff;
     width:  100px;
-    padding: 6px 0;
+    padding: 6px 0 !important;
     border-radius: 4px !important;
     margin: 10px 0;
 }
@@ -962,7 +985,7 @@ input.checkfilephoto {
     border: none;
     width: 100%;
 }
-.description_post{padding:5px 10px !important;}
+/*.description_post{padding:5px 10px !important;}*/
 .catfirst{color: #000 !important;font-style: italic;}
 /*select.btn-category option:first-child,select.btn-location option:first-child,.location-search option:first-child {
     display: none;
@@ -1203,7 +1226,16 @@ td.action-adspost {
 .edit-info {
     overflow: hidden;
     border-top: 10px solid #007abf;
+    position: relative;
 }
+.rule_edit {
+    background: #fff !important;
+    border: 2px dotted #d6d6d6;
+    border-top: none;
+    box-shadow: -2px 2px 1px 0px #f3f2f2;
+    padding-right: 20px !important;
+}
+.rule_edit p{font-weight: normal !important;}
 .left-edit label {
     text-align:right;
     padding-left: 0;
@@ -1212,6 +1244,15 @@ td.action-adspost {
     clear:  both;
     margin: 10px 0;
     overflow: hidden;
+}
+nav.navbar.fixed-top {
+    background: #007abf;
+    padding: 10px 0;
+    font-family: 'logofong';
+}
+nav.navbar.fixed-top a {
+    color: #fff !important;
+    font-size: 26px;
 }
 .left-edit {
     padding-left: 0;
@@ -1229,10 +1270,195 @@ td.action-adspost {
     background: #007abf;
     border: none;
     color: #fff;
-    padding: 5px 20px;
+    padding: 5px 20px !important;
     overflow: hidden;
     border-radius: 3px !important;
 }
 .right-edit{padding-right: 0;}
 .map-edit{padding:0;}
 .controls.google-search{width: 50%;line-height: 23px;}
+.location-edit {
+    padding: 5px 10px !important;
+}
+.right-edit label {
+    text-align: right;
+}
+.remove_photo {
+    position: absolute;
+    right: 10px;
+    z-index: 9999;
+    top: 10px;
+    line-height: 0;
+    padding: 0;
+    color: #f00;
+    font-size: 19px;
+}
+.storeAll-items h1{font-size: 25px;font-family: 'logofong';}
+.storeAll-items h2.all-ads{font-size: 25px;border-bottom: 3px double #e0e0e0;}
+.storeAll-items h2{font-size: 20px;}
+h2.card-title {
+    margin-bottom: 5px;
+}
+.store-item{overflow: hidden;margin-bottom: 10px;background: #e8e8e8;}
+img.store-itemphoto {
+    width: 100%;
+}
+.ads-body {
+    overflow: hidden;
+    padding: 10px 10px 10px 0;
+    display:  table;
+}
+.img-wrap {
+    max-height: 170px;
+    overflow:  hidden;
+}
+.store-itemprice{color: red;font-weight: bold;}
+h2.map-location {
+    border: 1px solid #ffffff;
+    padding: 10px;
+    background: #e8e8e8;
+    border-bottom: none;
+    font-size: 20px;
+}
+h2.map-location i {
+    color: #eb4434;
+    text-shadow: 1px 1px 1px #000;
+}
+ul.marquee-newads {
+    padding:  0;
+    margin:0;
+    padding-top: 13px;
+}
+ul.marquee-newads li {
+    display: inline-block;
+    margin-right: 20px;
+    position: relative;
+}
+ul.marquee-newads li i{color: red;}
+h2.card-header {
+    background: #007abf;
+    color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.card-body p {
+    margin-bottom: 0;
+}
+.store-profile img {
+    float:  left;
+    width: 100px;
+    padding-left: 0;
+}
+.store-profile {
+    overflow: hidden;
+    display:  block;
+    background: #eee;
+    max-height: 90px;
+    margin-bottom: 20px;
+}
+footer.footer-wrapper {
+    background: #e8e8e8;
+    color: #000;
+    padding-top: 10px;
+}
+span.web{font-family: 'logofong';padding:0 4px;}
+.item-stores-cover p a {
+    font-size: 14px;
+    color: #eee;
+}
+.topheader-advertice {
+    display: block;
+    overflow:  hidden;
+    width: 100%;
+    max-height: 100px;
+}
+.topheader-advertice img {
+    height: 100%;
+    float: right;
+}
+.how_to_use {
+    border: 1px solid #f3f2f2;
+    overflow:  hidden;
+}
+.how_to_use_wrapper {
+    background: #eee;
+}
+.article-howtouse {
+    border-left: 1px solid #eee;
+}
+.article-howtouse hr,.business-upgrade_wrapper hr{margin:2px 0;}
+.business-upgrade_wrapper h2 {
+    font-size: 25px;
+    font-weight:  bold;
+}
+.how_to_use h2{font-size: 20px;background: #f3f2f2;padding: 10px;}
+.how_to_use h3{font-size: 16px;}
+.more-adsstores {
+    margin-top: 20px;
+}
+.more-adsheader {
+    background:  #fff;
+    overflow:  hidden;
+    display:  block;
+    padding: 10px;
+    max-height: 80px;
+    border-bottom: 5px solid #c9c9c9;
+    position:  relative;
+}
+.more-adsheader img {
+    float:  left;
+    width: 88px;
+    margin-right: 10px;
+}
+.more-adsheader h2 {
+    text-transform: capitalize;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 22px;
+}
+.gotostore {
+    position:  absolute;
+    top: 10px;
+    right: 10px;
+    background: #ff8900;
+    padding: 5px 10px;
+    border-radius: 35px !important;
+}
+.gotostore a {
+    color: #fff;
+}
+.gotostore a:hover {
+    color:#eee !important;
+}
+.item-stores-cover p a:hover {
+    color: #fff !important;
+}
+.item-moreads {overflow:  hidden;background: #fff;margin-top: 10px;margin-bottom: 10px;margin-right: 10px;padding: 0;border: 2px solid #fff;border-radius: 4px !important;box-shadow: 0px 0px 1px #a6a4a4;}
+.item-moreads img {
+    display:  block;
+    height: 100%;
+    margin:  auto;
+}
+.moreImg {
+    height: 150px;
+    background: #eee;
+}
+.morep {
+    padding: 10px;
+}
+.morep h2,.morep p {
+    margin: 0 !important;
+}
+.mor-body {
+    padding: 0;
+}
+.btn-loginform,#__botton__register {
+    background: #0096de !important;
+    border-color: #0096de !important;
+    border-radius: 6px !important;
+}
+.btn-loginform:hover{opacity: .8}
+.business-upgrade_wrapper{background: #eee;margin: auto;padding: 0 60px;float: none;}
+@media (min-width: 768px){
+    .modal__login .modal-dialog,.modal__register .modal-dialog{width: 390px !important;}
+}

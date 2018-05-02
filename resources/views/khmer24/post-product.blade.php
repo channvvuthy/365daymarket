@@ -119,16 +119,8 @@
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="posting_rule col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                                    <h3>Posting rule</h3>
-                                    <p>wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</p>
-                                    <p>wwwwwwwwwwwwwwwwwwww</p>
-                                    <p>wwwwwwwwwwwwwwwwwwww</p>
-                                    <p>wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</p>
-                                    <p>wwwwwwwwwwwwwwwwwwww</p>
-                                    <p>wwwwwwwwwwwwwwwwwwww</p>
-                                    <p>wwwwwwwwwwwwwwwwwwww</p>
-                                    <p>wwwwwwwwwwwwwwwwwwww</p>
-                                    <p>wwwwwwwwwwwwwwwwwwww</p>
+                                    <h3>{{ $rulepost->name }}</h3>
+                                    {!!$rulepost->description!!}
                                 </div>
                             </div>
                             </form>
