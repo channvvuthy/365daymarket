@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use URL;
 use Tymon\JWTAuth\Facades\JWTAuth;
+
 class PostController extends Controller
 {
 
@@ -171,8 +172,8 @@ class PostController extends Controller
             'description' => 'required',
             'location_name' => 'required|min:6',
             'sub_category_name' => 'required',
-            'username' => 'required'  ,
-            'phone'=>'required'
+            'username' => 'required',
+            'phone' => 'required'
         ]);
         if ($validator->fails()) {
             return response()->json(['success' => false, 'error' => $validator->messages()]);
@@ -187,37 +188,63 @@ class PostController extends Controller
         $user_name = $request->user_name;
         $email = $request->email;
         $phone = $request->phone;
-        $image = $request->file('image');
+        $images = $request->image;
+        $images = explode(",", $images);
+
         $sub_category_name = $request->sub_category_name;
         $imageInsert = array();
-        if (!empty($image)) {
-            foreach ($image as $img) {
+        if (count($images) > 0) {
+            foreach ($images as $image) {
                 $rand = md5(rand(1, 100));
-                $file_name = $img->getClientOriginalName();
-                $new_file_name = URL::to('/').'/images/'.$rand . $file_name;
-                array_push($imageInsert, $new_file_name);
-                $img->move('images',$new_file_name);
-
+                $upload_folder = "images";
+                $path = "$upload_folder/$rand.jpg";
+                if (file_put_contents($path, base64_decode($image)) != false) {
+                    array_push($imageInsert,URL::to('/').'/'.$path);
+                }
             }
         }
-        $imageInsert=json_encode($imageInsert);
-        $post=new Post();
-        $post->name=$name;
-        $post->price=$price;
-        $post->description=$description;
-        $post->location_name=$location_name;
-        $post->address=$address;
-        $post->user_id=$request->user_id;
-        $post->username=$user_name;
-        $post->sub_category_name=$sub_category_name;
-        $post->brand=$request->brand;
-        $post->email=$email;
-        $post->phone=$phone;
-        $post->images=$imageInsert;
-        $post->user_id=$userId;
+        $imageInsert = json_encode($imageInsert);
+        $post = new Post();
+        $post->name = $name;
+        $post->price = $price;
+        $post->description = $description;
+        $post->location_name = $location_name;
+        $post->address = $address;
+        $post->user_id = $request->user_id;
+        $post->username = $user_name;
+        $post->sub_category_name = $sub_category_name;
+        $post->brand = $request->brand;
+        $post->email = $email;
+        $post->phone = $phone;
+        $post->images = $imageInsert;
+        $post->user_id = $userId;
         $post->save();
         return response()->json(['success' => true, 'message' => 'Your product has been created!']);
 
 
+    }
+
+
+    public function getProductBySubCategory(Request $request)
+    {
+        $offset = 0;
+        $limit = 30;
+        if (!empty($request->offset)) {
+            $offset = $request->offset;
+        }
+        if (!empty($request->limit)) {
+            $limit = $request->limit;
+        }
+        $product = DB::select("SELECT id,name,price,images,location_name,sub_category_name,created_at,updated_at FROM posts ORDER BY id DESC LIMIT $offset,$limit ");
+        if (!empty($request->sub_category)) {
+            $q = $request->sub_category;
+            $product = DB::select("SELECT id,name,price,images,location_name,sub_category_name ,created_at,updated_at FROM posts WHERE sub_category_name ='$q' ORDER BY id DESC LIMIT $offset,$limit ");
+        }
+
+
+        return Response::json(array(
+            'products' => $product),
+            200
+        );
     }
 }
