@@ -35,7 +35,7 @@
     <style>
         @font-face {
             font-family: myFirstFont;
-            src: url("{{asset('fonts/Pasajero.otf')}}");
+            src: url("{{asset('fonts/Oswald-Bold.ttf')}}");
         }
         @font-face {
             font-family: Arimo-Bold;

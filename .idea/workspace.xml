@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a08c0cf7-6603-461d-ae7a-a8b6f794177e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" />
     </list>
@@ -574,12 +573,12 @@
       <workItem from="1524280688731" duration="5452000" />
       <workItem from="1524449474118" duration="217000" />
       <workItem from="1524793201211" duration="1268000" />
-      <workItem from="1525256178383" duration="190000" />
+      <workItem from="1525256178383" duration="785000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="90501000" />
+    <option name="totallyTimeSpent" value="91096000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />

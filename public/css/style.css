@@ -24,9 +24,8 @@ body {
     margin-top: 10px;
 }
 .logo {
-    margin-top: 11px;
-    font-size: 24px;
-    font-family: 'logofong';
+    font-size: 25px;
+    font-family: myFirstFont;
 }
 .logo a{
     text-decoration: none;
@@ -143,8 +142,9 @@ h2.title-latest.text-center {
 }
 
 h2.title-popular.text-center {
+    font-family: myFirstFont;
     position: relative;
-    font-size: 24px;
+    font-size: 20px;
     margin: 10px 0;
 }
 h2.title-popular.text-center:before,h2.title-latest.text-center:before{

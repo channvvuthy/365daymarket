@@ -4,7 +4,7 @@
             <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
                 <div class="logo">
                     <a href="{{ route('home') }}">
-                        {{-- <img src="{{asset('images/logo.png')}}" alt=""> --}}
+                        <!-- <img src="{{asset('images/logo.png')}}" alt=""> -->
                         365daymarket
                     </a>
                 </div>
