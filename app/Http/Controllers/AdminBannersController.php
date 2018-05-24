@@ -36,7 +36,7 @@
 			$this->col[] = ["label"=>"Status","name"=>"status"];
 			$this->col[] = ["label"=>"Position","name"=>"position"];
 			$this->col[] = ["label"=>"Order","name"=>"order"];
-			$this->col[] = ["label"=>"Store Name","name"=>"store_id","join"=>"stores,id"];
+			$this->col[] = ["label"=>"Store Name","name"=>"store_id","join"=>"stores,name"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
 
 			# START FORM DO NOT REMOVE THIS LINE
@@ -47,7 +47,7 @@
 			$this->form[] = ['label'=>'Status','name'=>'status','type'=>'select2','validation'=>'required|min:1|max:255','width'=>'col-sm-10','dataenum'=>'Publish;Draft;Unpublished'];
 			$this->form[] = ['label'=>'Order','name'=>'order','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','dataenum'=>'Publish;Draft;Unpublished'];
 			$this->form[] = ['label'=>'Position','name'=>'position','type'=>'select2','validation'=>'required|min:1|max:255','width'=>'col-sm-10','dataenum'=>'Top;Left;Right;Button;Top-Left;Top-Right;Middle;Top-Header;To-Content;Top-Ads'];
-			$this->form[] = ['label'=>'Store Name','name'=>'store_id','type'=>'select2','validation'=>'required|integer|min:0','width'=>'col-sm-10','datatable'=>'stores,id'];
+			$this->form[] = ['label'=>'Store Name','name'=>'store_id','type'=>'select2','validation'=>'required|integer|min:0','width'=>'col-sm-10','datatable'=>'stores,name'];
 			# END FORM DO NOT REMOVE THIS LINE
 
 			# OLD START FORM

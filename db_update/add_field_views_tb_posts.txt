@@ -1,1 +1,0 @@
-ALTER TABLE `posts` ADD `views` INT NOT NULL DEFAULT '0' AFTER `address`;

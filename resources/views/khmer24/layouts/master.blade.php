@@ -21,8 +21,6 @@
     <link rel="stylesheet" href="{{asset('css/emoji.css')}}">
     <link rel="stylesheet" href="{{asset('css/icon.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('css/font-awesome.min.css')}}">
-    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/jquery.matchHeight.js')}}"></script>
@@ -35,15 +33,15 @@
     <style>
         @font-face {
             font-family: myFirstFont;
-            src: url("{{asset('fonts/Oswald-Bold.ttf')}}");
+            src: url("{{asset('fonts/Pasajero.otf')}}");
         }
         @font-face {
             font-family: Arimo-Bold;
-            src: url("{{asset('fonts/\enfont/Arimo-Bold.ttf')}}");
+            src: url("{{asset('fonts/enfont/texgyretermes-regular.otf')}}");
         }
         @font-face {
             font-family: khmer-365day;
-            src: url("{{asset('fonts/\enfont/SithiManuss.ttf')}}");
+            src: url("{{asset('fonts/enfont/SithiManuss.ttf')}}");
         }
         @font-face {
           font-family: logofong;
@@ -51,7 +49,7 @@
       }
     </style>
 </head>
-<body style="font-family: 'Arimo-Bold','khmer-365day';">
+<body style="font-family: 'Arimo-Bold','khmer-365day' !important;">
 @include('khmer24.inc.header-top')
 @include('khmer24.inc.header-middle')
 @include('khmer24.inc.nav')
@@ -161,7 +159,11 @@
     $(document).on('mousemove','.categories-list',function(){
         $('.categories-list').removeClass('active');
         $(this).addClass('active');
-    })
+    });
+    $(document).on('click','.__facebook__social a',function(e){
+    	e.preventDefault();
+    	alert('Login with Facebook is under construction!.');
+    });
 </script>
 </body>
 </html>

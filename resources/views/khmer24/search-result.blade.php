@@ -66,6 +66,41 @@
                                                 </li>
                                             @endforeach
                                         @endif
+                                        @if ((empty($_GET['category']) && empty($_GET['location']) && empty($_GET['p']) && empty($_GET['search_param'])) || ((empty($_GET['category']) && empty($_GET['location']) && !empty($_GET['p']))))
+                                            {{-- @foreach ($categoty as $Categories)
+                                                <li class="categorylist">
+                                                    <a href="{{ route('search.result') }}?_token={{ bcrypt('1') }}&cats={{ str_replace('&','||',$Categories->name) }}">
+                                                    <img src="{{ $Categories->icon }}" alt="">
+                                                    <span>{{ $Categories->name }}</span>
+                                                    </a>
+                                                </li>
+                                            @endforeach --}}
+                                            @if (!empty($_GET['cats']))
+                                                @php
+                                                    $catname=str_replace('||','&',$_GET['cats']);
+                                                    $catid=App\Category::where('name',$catname)->first();
+                                                    $allcategories=App\Category::where('parent_id',$catid->id)->orderBy('id','ASC')->get();
+                                                @endphp
+                                                @foreach ($allcategories as $categoriesAll)
+                                                <li class="categorylist">
+                                                    <a href="{{ route('search.result') }}?_token={{ bcrypt('1') }}&category={{ str_replace('&','||',$categoriesAll->name) }}" @if($categoriesAll->name == str_replace('||','&',$_GET['cats'])) class="active" @endif>
+                                                    <img src="{{ $categoriesAll->icon }}" alt="">
+                                                    <span>{{ $categoriesAll->name }}</span>
+                                                    </a>
+                                                </li>
+                                                @endforeach
+                                            @endif
+                                        @endif
+                                        @if (empty($_GET['category']) && !empty($_GET['location']))
+                                            @foreach ($categoty as $Categories)
+                                                <li class="categorylist">
+                                                    <a href="{{ route('search.result') }}?_token={{ bcrypt('1') }}&cats={{ str_replace('&','||',$Categories->name) }}">
+                                                    <img src="{{ $Categories->icon }}" alt="">
+                                                    <span>{{ $Categories->name }}</span>
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        @endif
 
                                         {{--  --}}
                                         @if (!empty($_GET['category']))
@@ -96,7 +131,9 @@
                                     {{-- @php
                                         $adsleft=json_decode($adsleft->image,true);
                                     @endphp --}}
+                                    <a href="{{ $adsleft->external_url }}" target="_blank">
                                     <img src="{{ $adsleft->image }}" alt="">
+                                    </a>
                                     @endforeach
                                 @endif
                                 </div>
@@ -105,20 +142,18 @@
                                 <div class="ads-banner col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     @if (count($adstop)>0)
                                         @foreach ($adstop as $adsleft)
-                                        {{-- @php
-                                            $adsleft=json_decode($adsleft->image,true);
-                                        @endphp --}}
-                                        <img src="{{ $$adsleft->image }}" alt="">
+                                        <a href="{{ $adsleft->external_url }}" target="_blank">
+                                        <img src="{{ $adsleft->image }}" alt="">
+                                        </a>
                                         @endforeach
                                     @endif
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="brand-location">
-                                        <div class="bland-list">
+                                        {{-- <div class="bland-list">
                                             <ul>
-                                                {{--    --}}
                                             </ul>
-                                        </div>
+                                        </div> --}}
                                         <div class="clearfix"></div>
                                         <div class="all-location">
                                             <form action="{{ route('search.result') }}" method="get" accept-charset="utf-8" class="formlocation">
@@ -145,9 +180,9 @@
                                                 <form action="{{ route('search.result') }}" method="get" accept-charset="utf-8">
                                                 <label>Price : </label>
                                                 <input type="hidden" name="_token" value="{{ bcrypt('a') }}" class="postby">
-                                                <input type="number" name="pricefrom" class="prices" min="1" max="100">
+                                                <input type="number" name="pricefrom" class="prices" min="1" max="100000">
                                                 <span>-</span>
-                                                <input type="number" name="priceto" class="prices" min="1" max="100">
+                                                <input type="number" name="priceto" class="prices" min="1" max="10000000">
                                                 <input type="submit" name="" value=">" class="price-submit">
                                                 {{--  --}}
                                                 <input type="hidden" name="category" value="@if (!empty($_GET['category'])){{$_GET['category']}}@endif" class="category">
@@ -194,7 +229,14 @@
                                                     $imgArr=json_decode($product->images,true);
                                                 @endphp
                                                 <div class="clear_padding item-photo col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                                                    <img src="{{ $imgArr[0] }}" alt="">
+                                                   @if(!empty($product->img_thum))
+			                              @php
+				                          $imgthum=json_decode($product->img_thum,true);
+				                      @endphp
+			                              <img src="{{ $imgthum[0] }}" alt="">
+			                           @else
+			                              <img src="{{ $imgArr[0] }}" alt="">
+			                           @endif
                                                 </div>
                                                 </a>
                                                 <div class="padding_right item-content col-xs-12 col-sm-12 col-md-8 col-lg-8">
@@ -202,7 +244,7 @@
                                                         <a href="{{ route('view.ads') }}?key={{ bcrypt($product->name) }}&id={{ $product->id }}">{{ str_limit($product->name,30,'...') }}</a>
                                                     </h2>
                                                     <p>{{ str_limit($product->address,30,'...') }} <span class="datepost">/ Post On : {{date('d-M-Y', strtotime($product->created_at))}}</span></p>
-                                                    <p class="price">{{ $product->price }} $</p>
+                                                    <p class="price">{{ $product->price }} @if(strpos($product->price, '$') === false) $ @endif </p>
                                                     <div class="img_thum">
                                                         @foreach ($imgArr as $productimg)
                                                             <img src="{{ $productimg }}" alt="">
@@ -240,10 +282,9 @@
                                 <div class="ads-banner-r">
                                     @if (count($adsright)>0)
                                         @foreach ($adsright as $adsleft)
-                                        {{-- @php
-                                            $adsleft=json_decode($adsleft->image,true);
-                                        @endphp --}}
+                                        <a href="{{ $adsleft->external_url }}" target="_blank">
                                         <img src="{{ $adsleft->image }}" alt="">
+                                        </a>
                                         @endforeach
                                     @endif
                                 </div>

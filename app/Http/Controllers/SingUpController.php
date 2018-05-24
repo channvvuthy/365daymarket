@@ -70,7 +70,7 @@ class SingUpController extends Controller
             $subject = "Please verify your email address.";
             Mail::send('email.verify', ['name' => $name, 'verification_code' => $verification_code],
                 function ($mail) use ($email, $name, $subject) {
-                    $mail->from(getenv('FROM_EMAIL_ADDRESS'), "channvuthyit@gmail.com");
+                    $mail->from(getenv('FROM_EMAIL_ADDRESS'), "info@365daymarket.com");
                     $mail->to($email, $name);
                     $mail->subject($subject);
                 });

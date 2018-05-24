@@ -44,7 +44,7 @@
                                         <div class="clear_padding col-xs-12 col-sm-10 col-mg-10 col-lg-10">
                                             <h2>{{ $post->name }}</h2>
                                             <p class="price_wrap"><span class="price_style"> </span> 
-                                            <span class="price">{{ $post->price }}</span></p>
+                                            <span class="price">{{ $post->price }} @if(strpos($post->price, '$') === false) $ @endif </span></p>
                                             <div class="post-date">
                                                 <p>Posted On : <span class="detail-date"> {{date('d-M-Y', strtotime($post->created_at))}} </span>  Views : <span>{{ $post->views }}</span> </p>
                                             </div>
@@ -56,6 +56,17 @@
                                     <div class="discription_header">
                                         <h3>Description</h3>
                                         <p>{{ $post->description }}</p>
+                                        <br>
+                                        <p>
+                                        @if (!empty($post->phone))
+                                        <span class="viewphone"><i class="glyphicon glyphicon-phone-alt"></i> {{ $post->phone }}</span>
+                                        @endif
+                                        </p>
+                                        <p>
+                                        @if (!empty($post->email))
+                                        <span class="viewmail"><i class="glyphicon glyphicon-envelope"></i>{{ $post->email }}</span>
+                                        @endif
+                                        </p>
                                     </div>
                                     {{--  --}}
                                 </div>
@@ -68,7 +79,7 @@
                                         @if (!empty($getuser->image))
                                         <img src="{{ $getuser->image }}" alt="" class="img-responsive">
                                         @else
-                                        <img src="{{ asset('uploads/1024x1024.jpg') }}" alt="" class="img-responsive">
+                                        <img src="{{ asset('uploads/shopping_logo.png') }}" alt="" class="img-responsive">
                                         @endif
                                         <h2><a href="{{ route('stores',['id'=>$getuser->user_id,'name'=>$getuser->name]) }}" title="">{{ $getuser->name }}</a></h2>
                                         <p><a href="{{ route('stores',['id'=>$post->user_id,'name'=>$getuser->name]) }}" title="{{ $getuser->image }}-Shop">{{ route('stores',['id'=>$post->user_id,'name'=>$getuser->name]) }}</a></p>
@@ -82,20 +93,20 @@
                                     @endphp
                                     @foreach ($postmore as $getAds)
                                     <div class="col-xs-12 col-sm-4 col-mg-4 col-lg-4 mor-body">
-                                        <div class="item-moreads">
+                                        <div class="item-moreads height-items">
                                             @php
                                                 $imgItem=json_decode($getAds->images,true);
                                             @endphp
                                             <div class="moreImg">
-                                                <a href="{{ route('view.ads') }}?key={{ bcrypt($adsItems->name) }}&id={{ $adsItems->id }}" title="">
+                                                <a href="{{ route('view.ads') }}?key={{ bcrypt($getAds->name) }}&id={{ $getAds->id }}" title="">
                                                 <img src="{{ $imgItem[0] }}" alt="">
                                                 </a>
                                             </div>
                                             <div class="morep">
-                                                <a href="{{ route('view.ads') }}?key={{ bcrypt($adsItems->name) }}&id={{ $adsItems->id }}" title="">
+                                                <a href="{{ route('view.ads') }}?key={{ bcrypt($getAds->name) }}&id={{ $getAds->id }}" title="">
                                                 <h2>{{ $getAds->name }}</h2>
                                                 </a>
-                                                <P>{{ $getAds->price }}</P>
+                                                <P><span class="price-item">{{ $getAds->price }} @if(strpos($getAds->price, '$') === false) $ @endif </span></P>
                                             </div>
                                         </div>
                                     </div>
@@ -110,7 +121,7 @@
                                     @if (!empty($getuser->image))
                                     <img src="{{ $getuser->image }}" alt="" class="img-responsive">
                                     @else
-                                    <img src="{{ asset('uploads/1024x1024.jpg') }}" alt="" class="img-responsive">
+                                    <img src="{{ asset('uploads/shopping_logo.png') }}" alt="" class="img-responsive">
                                     @endif
                                 </div>
                                 <div class="title col-xs-12 col-sm-8 col-mg-8 col-lg-8 item-stores-cover">
@@ -119,9 +130,15 @@
                                 </div>
                             </div>
                             <div class="store_description">
-                                <p><i class="glyphicon glyphicon-phone-alt"></i> {{ $userstore->phone }}</p>
+                                @if (!empty($userstore->phone))
+                                  <p><i class="glyphicon glyphicon-phone-alt"></i> {{ $userstore->phone }}</p>
+                                @else
+                                <p><i class="glyphicon glyphicon-phone-alt"></i> {{ $post->phone }}</p>
+                                @endif
+                                @if (!empty($userstore->address))
                                 <p><i class="glyphicon glyphicon-map-marker"></i> {{ $userstore->address }}</p>
-                                <p><i class="glyphicon glyphicon-globe"></i> <a href="{{ route('stores',['id'=>$post->user_id,'name'=>$userstore->name]) }}" title="">{{ str_limit(route('stores',['id'=>$post->user_id,'name'=>$userstore->name]),40) }}</a></p>
+                                @endif
+                                <p><i class="glyphicon glyphicon-globe"></i> <a href="{{ route('stores',['id'=>$post->user_id,'name'=>$userstore->name]) }}" title="">{{ str_limit(route('stores',['id'=>$post->user_id,'name'=>$userstore->name]),50) }}</a></p>
                                 <div class="clearfix"></div>
                                 @if (!empty($userstore->maplon))
                                 <h2 class="map-location"><i class="glyphicon glyphicon-map-marker"></i> Location :</h2>
@@ -134,7 +151,25 @@
                                     <script async defer
                                             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB301j39-PCrbDTVZhn95hif4AB7JG5K_Q&callback=initMap"></script>
                                 </div>
+                                @else
+                        	<h2 class="map-location"><i class="glyphicon glyphicon-map-marker"></i> Location :</h2>
+                                <div class="__google__map">
+                                    <div id="map" style="height:300px;">
+                                        <iframe width="100%" height="300" frameborder="0" scrolling="no" marginheight="0"
+                                                marginwidth="0"
+                                                src="https://maps.google.com/maps?q=0,0&hl=es;z=4&amp;output=embed"></iframe>
+                                    </div>
+                                    <script async defer
+                                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB301j39-PCrbDTVZhn95hif4AB7JG5K_Q&callback=initMap"></script>
+                                </div>
                                 @endif
+                                @if (count($adsright)>0)
+	                          @foreach ($adsright as $adsleft)
+                              <a href="{{ $adsleft->external_url }}" target="_blank">
+	                          <img src="{{ $adsleft->image }}" alt="" class="rightside-ads">
+                              </a>
+	                          @endforeach
+	                        @endif
                             </div>
 	                    </div>
 

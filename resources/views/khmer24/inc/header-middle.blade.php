@@ -1,4 +1,4 @@
-<div class="header-middle @if(!empty($_GET['key'])) hidden @endif">
+<div class="header-middle @if(!empty($_GET['key'])) hidden_ @endif">
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">

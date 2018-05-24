@@ -19,6 +19,7 @@ use App\Brand;
 use App\Banner;
 use App\Information;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Image;
 
 class UserController extends Controller
 {
@@ -217,7 +218,7 @@ class UserController extends Controller
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
         // More headers
-        $headers .= 'From: <channvuthyit@gmail.com>' . "\r\n";
+        $headers .= 'From: <info@365daymarket.com>' . "\r\n";
         if(mail($to,$subject,$message,$headers)){
             return redirect()->back()->with('message','Please Confirm Your Email Address');
         }
@@ -267,7 +268,7 @@ class UserController extends Controller
             $user->save();
             try{
                 Mail::send('email.forgot-pwd', $data, function ($message) use($email) {
-                    $message->from('channvuthyit@gmail.com', '365daymarket');
+                    $message->from('info@365daymarket.com', '365daymarket');
                     $message->to($email)->subject('Confirm Email');
                 });
                 return 1;
@@ -299,7 +300,7 @@ class UserController extends Controller
     public function removePhoto(Request $request){
         $id=$request->id;
         $old=$request->old;
-        $photo=$request->photo;
+        $photo=str_replace('\/','/',$request->photo);
         $checkfile=str_replace($photo,'',$old);
         $arr=['"",','""',',""'];
         $checkfile=str_replace($arr,'',$checkfile);
@@ -375,17 +376,52 @@ class UserController extends Controller
         if (!empty($imageFile)) {
             foreach ($imageFile as $file) {//this statement will loop through all files.
                 $file_name = $file->getClientOriginalName(); //Get file original name
-                $file->move('uploads/' , $file_name); // move files to destination folder
-                $imageFile.='"'.$url.'uploads/'.$file_name.'",';
+                //$file->move('uploads/' , $file_name); // move files to destination folder
+                //$imageFile.='"'.$url.'uploads/'.$file_name.'",';
+                //
+                    $file_name = $file->getClientOriginalName(); //Get file original name
+	            //
+	    	    list($width, $height) = getimagesize($file);
+	    	    
+	            //
+	            $wm=$width / 2;
+	            $hm=$height / 2;
+	            $img = Image::make($file);
+	            
+	            $img->text('365daymarket.com', $wm, $hm, function($font) {
+	                // $font->file('foo/bar.ttf');
+	                $font->file(public_path('fonts/enfont/Arimo-Bold.ttf'));
+	                $font->size(34);
+	                // $font->color('#444');
+	                $font->color(array(245, 248, 255, 0.80));
+	                $font->valign( 'center' );
+	                $font->align( 'center' );
+	                // $font->angle(45);
+	            });
+	            // draw transparent text
+	
+	            $path = public_path('uploads/');
+	            $today = date('Y-m-d H-i-s');
+	
+	           // $file->move('uploads/' , $file_name); // move files to destination folder
+	            $img->save($path . $today .'-'. $file_name);
+	            $img->fit(280, null)->save($path . $today .'_thum_'. $file_name); //create thum
+	            
+	            $imageFile.='"'.$url.'uploads/'.$today.'-'.$file_name.'",';
+	            $imageThum.='"'.$url.'uploads/'.$today.'_thum_'.$file_name.'",';
             }
             $arr=['array','Array'];
             $imageFile=rtrim(str_replace($arr, '',$imageFile),',');
+            $imageThum=rtrim(str_replace($arr, '',$imageThum),',');// img thum
+            
             $imageFile=$imageFile;
             if (!empty($oldphoto)) {
                 $photos=$oldphoto.','.$imageFile;
                 $photos='['.$photos.']';
+                $imageThum='['.$imageThum.']';
             }else{
                 $photos='['.$imageFile.']';
+                $imageThum='['.$imageThum.']';
             }
         }else{
             $photos='['.$oldphoto.']';
@@ -405,6 +441,9 @@ class UserController extends Controller
         $post->sub_category_name=$request->subcategoryname;
         // $post->address=$request->categoryname;
         $post->images=$photos;
+        if(!empty($request->photo)){
+        $post->img_thum=$imageThum;
+        }
         $post->Save();
         return redirect()->back()->with('updated_success','Your product has been updated!');
     }
@@ -444,6 +483,147 @@ class UserController extends Controller
     }
     public function removeAdsuser(Request $request,$id){
         $id=$request->id;
+        $post=Post::find($id);
+        $post->status='deleted';
+        $post->save();
         return redirect()->back()->with('delete_success','Your product is deleted!');
+    }
+    // login facebook controller
+    
+    public function redirectToProvider(Request $request)
+
+    {
+
+        // $page=$request->page;
+
+        // $userid = $request->userID;
+
+        // $id = $request->id;
+
+        // $storeID=$request->storeID;
+
+        // $SaveTo=$request->SaveTo;
+
+        // Session::put('page',$page);
+
+        // session::put('restID', $id);
+
+        // session::put('storeID', $storeID);
+
+        // Session::put('SaveTo', $SaveTo);
+
+       return Socialite::driver('facebook')->redirect();
+
+    }
+
+
+
+    /**
+
+     * Obtain the user information from GitHub.
+
+     *
+
+     * @return Response
+
+     */
+
+    public function handleProviderCallback()
+    {
+
+        $user = Socialite::driver('facebook')->user();
+        $suerID= $user->getId();
+        $username= $user->getName();
+        $email=$user->getEmail();
+        $userPhoto= $user->getAvatar();
+        
+        $existUser=User::where("email",$email)->first();
+        $existId=User::where("fb_userID",$suerID)->first();
+        // dd($suerID);exit;      
+        // echo Session::get('storeID')."<br/>";
+        // echo Session::get('page');exit;
+        // $urlSave = Session::get('page')."?userID=".$existUser->id."&id=".Session::get('restID');
+        if (!empty($email)) {
+            if($existUser){
+                $url = Session::get('page')."?userID=".$existUser->id."&id=".Session::get('restID');
+                Auth::login($existUser);            
+                if (Session::get('page')=='store-review-preview') {
+                    return redirect()->to($url);
+                }else { 
+                    if (Session::get('SaveTo')=='store-save') {  
+                        $user_ID=$existUser->id;
+                        $store_ID=Session::get('storeID'); 
+                        $store=Store::find($store_ID);
+                        $exists = $store->userSave->contains($user_ID);
+                        if($exists ==false){
+                            $store->save();
+                            $store->userSave()->attach($user_ID);
+                        }
+                    return redirect()->to(str_replace('||','&',Session::get('page')));
+                    // return Session::get('page');
+
+                    }else{                    
+                        return redirect()->to(str_replace('||','&',Session::get('page')));
+                    }  
+                }
+                // return redirect()->to(Session::get('page'));
+            }            
+        }else {
+            if ($existId) {
+                $url = Session::get('page')."?userID=".$existId->id."&id=".Session::get('restID');
+                Auth::login($existId);            
+                if (Session::get('page')=='store-review-preview') {
+                    return redirect()->to($url);
+                }else { 
+                    if (Session::get('SaveTo')=='store-save') {  
+                        $user_ID=$existId->id;
+                        $store_ID=Session::get('storeID'); 
+                        $store=Store::find($store_ID);
+                        $exists = $store->userSave->contains($user_ID);
+                        if($exists ==false){
+                            $store->save();
+                            $store->userSave()->attach($user_ID);
+                        }
+                    return redirect()->to(str_replace('||','&',Session::get('page')));
+                    // return Session::get('page');
+
+                    }else{                    
+                        return redirect()->to(str_replace('||','&',Session::get('page')));
+                    }  
+                }   
+            } 
+        }
+
+        // elseif ($email==Null) {
+        //     if ($existId) {
+        //        // dd($existId);exit;   
+        //     } 
+        // }
+        $createUser=new User();
+        $createUser->remember_token = $user->token;
+        $createUser->username=$username;
+        $createUser->email=$email;
+        $createUser->fb_userID=$suerID;
+        // $createUser->password=bcrypt($suerID);
+        $createUser->photo=$userPhoto;
+        $createUser->permission="3";
+        $createUser->permission_type="User";
+        // $createUser->register_key=bcrypt($email);
+        $createUser->verified="1";
+        $createUser->account_type="1";
+        $createUser->save();
+        Auth::login($createUser);
+            if (Session::get('page')=='store-review-preview') {
+                return redirect()->to($url);
+            }else {                
+                // if (Session::get('page'=='store-save')) {
+                //     return redirect()->to(Session::get('locationss'));
+                // }else{                    
+                //     return redirect()->to(Session::get('page'));
+                // }
+                    return redirect()->to(str_replace('||','&',Session::get('page')));
+            }
+                // return redirect()->to(Session::get('page'));
+
     }
 }

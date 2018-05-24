@@ -1,5 +1,18 @@
 <div class="navigation">
     <div class="container wrapper-nav">
+    	
+    	@if(!empty($lastpost))
+    	@php
+          $topads=App\Banner::where('status','Publish')->where('position','Top-Header')->get();
+        @endphp
+    	@foreach($topads as $banner)
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 home-adstop">
+    <a href="{{ $banner->external_url }}" target="_blank">
+	  <img src="{{$banner->image}}" alt="">
+    </a>
+	</div>
+	@endforeach
+    	@endif
         <div class="row">
             <div class="col-sm-3 col-md-3 navInner no-padding-right">
                 <div class="panel-group" id="accordion">

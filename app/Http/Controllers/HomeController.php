@@ -12,12 +12,12 @@ use App\Banner;
 use App\Information;
 use DB;
 use Auth;
-
+use Image;
 class HomeController extends Controller
 {
     public function getIdex(){
-        $lastpost=Post::orderBy('created_at', 'desc')->paginate(8);
-        $popular=Post::orderBy('views', 'desc')->paginate(8);
+        $lastpost=Post::orderBy('created_at', 'desc')->paginate(24);
+        $popular=Post::orderBy('views', 'desc')->paginate(24);
         $categoty=Category::where('parent_id','0')->get();
         $subcategory=Category::where('parent_id','!=','0')->get();
         $location=Location::where('status','Publish')->get();
@@ -27,8 +27,8 @@ class HomeController extends Controller
         if(!empty($request->email)){
             $user=User::where('email',$request->email)->first();
             if($request->token==$user->register_key){
-                $lastpost=Post::orderBy('created_at', 'desc')->paginate(8);
-                $popular=Post::orderBy('views', 'desc')->paginate(8);
+                $lastpost=Post::orderBy('created_at', 'desc')->paginate(24);
+                $popular=Post::orderBy('views', 'desc')->paginate(24);
                 $categoty=Category::where('parent_id','0')->get();
                 $subcategory=Category::where('parent_id','!=','0')->get();
                 $location=Location::where('status','Publish')->get();
@@ -50,7 +50,8 @@ class HomeController extends Controller
         $postview=Post::find($id);
         $postview->views=$view;
         $postview->save();
-    	return view('khmer24.detail-view')->withCategoty($categoty)->withSubcategory($subcategory)->withLocation($location)->withPost($post)->with('product_detail','product_detail');
+        $adsright=Banner::where('status','Publish')->where('position','Right')->get();
+    	return view('khmer24.detail-view')->withCategoty($categoty)->withSubcategory($subcategory)->withLocation($location)->withPost($post)->with('product_detail','product_detail')->withAdsright($adsright);
     }
     public function storemarket(){
         return view('khmer24.user-store');
@@ -87,7 +88,7 @@ class HomeController extends Controller
         $adstop=Banner::where('status','Publish')->where('position','Top')->get();
         if (!empty($_GET['cats'])) {
             $varcate=str_replace('||','&',$_GET['cats']);
-            $post=Post::where('category_name',$varcate)->paginate(8);
+            $post=Post::where('category_name',$varcate)->where('status','Published')->orderBy('created_at', 'desc')->paginate(24);
         }else{
             // 
             $categoryName=$_GET['category'];
@@ -96,58 +97,58 @@ class HomeController extends Controller
             if (empty($_GET['sort-by'])) {
                 if (!empty($categoryName) && !empty($locationName) && !empty($keyword)) {
                     if (!empty($_GET['pricefrom']) || !empty($_GET['priceto'])) {
-                        $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->where('sub_category_name',$categoryName)->where('location_name',$locationName)->where('name', 'like', '%' . $keyword . '%')->paginate(8);
+                        $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->where('sub_category_name',$categoryName)->where('location_name',$locationName)->where('name', 'like', '%' . $keyword . '%')->where('status','Published')->orderBy('created_at', 'desc')->paginate(24);
                     }else{
-                        $post=Post::where('sub_category_name',$categoryName)->where('location_name',$locationName)->where('name', 'like', '%' . $keyword . '%')->paginate(8);
+                        $post=Post::where('sub_category_name',$categoryName)->where('location_name',$locationName)->where('name', 'like', '%' . $keyword . '%')->where('status','Published')->orderBy('created_at', 'desc')->paginate(24);
                     }
                 }
                 if (!empty($categoryName) && !empty($locationName) && empty($keywork)) {
                     if (!empty($_GET['pricefrom']) || !empty($_GET['priceto'])) {
-                        $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->where('sub_category_name',$categoryName)->where('location_name',$locationName)->where('name', 'like', '%' . $keyword . '%')->paginate(8);
+                        $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->where('sub_category_name',$categoryName)->where('location_name',$locationName)->where('name', 'like', '%' . $keyword . '%')->where('status','Published')->orderBy('created_at', 'desc')->paginate(24);
                     }else{
-                        $post=Post::where('sub_category_name',$categoryName)->where('location_name',$locationName)->where('name', 'like', '%' . $keyword . '%')->paginate(8);
+                        $post=Post::where('sub_category_name',$categoryName)->where('location_name',$locationName)->where('name', 'like', '%' . $keyword . '%')->where('status','Published')->orderBy('created_at', 'desc')->paginate(24);
                     }
                 }
                 if (!empty($categoryName) && empty($locationName) && empty($keywork)) {
                     if (!empty($_GET['pricefrom']) || !empty($_GET['priceto'])) {
-                        $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->where('sub_category_name',$categoryName)->paginate(8);
+                        $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->where('sub_category_name',$categoryName)->where('status','Published')->orderBy('created_at', 'desc')->paginate(24);
                     }else{
-                        $post=Post::where('sub_category_name',$categoryName)->paginate(8);
+                        $post=Post::where('sub_category_name',$categoryName)->where('status','Published')->orderBy('created_at', 'desc')->paginate(24);
                     }
                 }
                 if (empty($categoryName) && !empty($locationName) && empty($keywork)) {
                     if (!empty($_GET['pricefrom']) || !empty($_GET['priceto'])) {
-                        $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->where('location_name',$locationName)->paginate(8);
+                        $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->where('location_name',$locationName)->where('status','Published')->orderBy('created_at', 'desc')->paginate(24);
                     }else{
-                        $post=Post::where('location_name',$locationName)->paginate(8);
+                        $post=Post::where('location_name',$locationName)->where('status','Published')->orderBy('created_at', 'desc')->paginate(24);
                     }
                 }
                 if (empty($categoryName) && empty($locationName) && !empty($keywork)) {
                     if (!empty($_GET['pricefrom']) || !empty($_GET['priceto'])) {
-                        return $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->where('name', 'like', '%' . $keyword . '%')->paginate(8);
+                        $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->where('name', 'like', '%' . $keyword . '%')->where('status','Published')->orderBy('created_at', 'desc')->paginate(24);
                     }else{
-                        return $post=Post::where('name', 'like', '%' . $keyword . '%')->paginate(8);
+                        $post=Post::where('name', 'like', '%' . $keyword . '%')->orderBy('created_at', 'desc')->paginate(24);
                     }
                 }
                 if (empty($categoryName) && !empty($locationName) && !empty($keyword)) {
                     if (!empty($_GET['pricefrom']) || !empty($_GET['priceto'])) {
-                        $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->where('location_name',$locationName)->where('name', 'like', '%' . $keyword . '%')->paginate(8);
+                        $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->where('location_name',$locationName)->where('name', 'like', '%' . $keyword . '%')->where('status','Published')->orderBy('created_at', 'desc')->paginate(24);
                     }else{
-                        $post=Post::where('location_name',$locationName)->where('name', 'like', '%' . $keyword . '%')->paginate(8);
+                        $post=Post::where('location_name',$locationName)->where('name', 'like', '%' . $keyword . '%')->where('status','Published')->orderBy('created_at', 'desc')->paginate(24);
                     }
                 }
                 if (empty($categoryName) && empty($locationName) && !empty($keyword)) {
                     if (!empty($_GET['pricefrom']) || !empty($_GET['priceto'])) {
-                        $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->where('name', 'like', '%' . $keyword . '%')->paginate(8);
+                        $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->where('name', 'like', '%' . $keyword . '%')->where('status','Published')->orderBy('created_at', 'desc')->paginate(24);
                     }else{
-                        $post=Post::where('name', 'like', '%' . $keyword . '%')->paginate(8);
+                        $post=Post::where('name', 'like', '%' . $keyword . '%')->where('status','Published')->orderBy('created_at', 'desc')->paginate(24);
                     }
                 }
                 if (empty($categoryName) && empty($locationName) && empty($keyword)) {
                     if (!empty($_GET['pricefrom']) || !empty($_GET['priceto'])) {
-                        $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->where('name', 'like', '%' . $keyword . '%')->paginate(8);
+                        $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->where('name', 'like', '%' . $keyword . '%')->where('status','Published')->orderBy('created_at', 'desc')->paginate(24);
                     }else{
-                        $post=Post::where('name', 'like', '%' . $keyword . '%')->paginate(8);
+                        $post=Post::where('name', 'like', '%' . $keyword . '%')->where('status','Published')->orderBy('created_at', 'desc')->paginate(24);
                     }
                 }
             }else{
@@ -165,15 +166,15 @@ class HomeController extends Controller
                     if ($_GET['postby']=='last') {
                         if (!empty($_GET['pricefrom']) || !empty($_GET['priceto'])) {
                             if (!empty($keysearch)) {
-                                $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->where($keysearch)->orderBy('created_at', 'desc')->paginate(8);
+                                $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->where($keysearch)->orderBy('created_at', 'desc')->where('status','Published')->paginate(24);
                             }else{
-                                $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->orderBy('created_at', 'desc')->paginate(8);
+                                $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->orderBy('created_at', 'desc')->where('status','Published')->paginate(24);
                             }
                         }else{
                             if (!empty($keysearch)){
-                                $post=Post::where($keysearch)->orderBy('created_at', 'desc')->paginate(8);
+                                $post=Post::where($keysearch)->orderBy('created_at', 'desc')->where('status','Published')->paginate(24);
                             }else{
-                                $post=Post::orderBy('created_at', 'desc')->paginate(8);
+                                $post=Post::orderBy('created_at', 'desc')->where('status','Published')->paginate(24);
                             }
                         }
                     }
@@ -181,15 +182,15 @@ class HomeController extends Controller
                     if ($_GET['postby']=='popular') {
                         if (!empty($_GET['pricefrom']) || !empty($_GET['priceto'])) {
                             if (!empty($keysearch)){
-                                $post=Post::where($keysearch)->where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->orderBy('views', 'desc')->paginate(8);
+                                $post=Post::where($keysearch)->where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->where('status','Published')->orderBy('views', 'desc')->paginate(24);
                             }else{
-                                $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->orderBy('views', 'desc')->paginate(8);
+                                $post=Post::where('price','>=',$_GET['pricefrom'])->where('price','<=',$_GET['priceto'])->orderBy('views', 'desc')->paginate(24);
                             }
                         }else{
                             if (!empty($keysearch)){
-                                $post=Post::where($keysearch)->orderBy('views', 'desc')->paginate(8);
+                                $post=Post::where($keysearch)->where('status','Published')->orderBy('views', 'desc')->paginate(24);
                             }else{
-                                $post=Post::orderBy('views', 'desc')->paginate(8);
+                                $post=Post::where('status','Published')->orderBy('views', 'desc')->paginate(24);
                             }
                         }
                     }
@@ -205,19 +206,43 @@ class HomeController extends Controller
  
         foreach ($imageFile as $file) {//this statement will loop through all files.
             $file_name = $file->getClientOriginalName(); //Get file original name
-            $file->move('uploads/' , $file_name); // move files to destination folder
-            $imageFile.='"'.$url.'uploads/'.$file_name.'",';
+            //
+    	    list($width, $height) = getimagesize($file);
+    	    
+            //
+            $wm=$width / 2;
+            $hm=$height / 2;
+            $img = Image::make($file);
+            
+            $img->text('365daymarket.com', $wm, $hm, function($font) {
+                // $font->file('foo/bar.ttf');
+                $font->file(public_path('fonts/enfont/Arimo-Bold.ttf'));
+                $font->size(34);
+                // $font->color('#444');
+                $font->color(array(245, 248, 255, 0.80));
+                $font->valign( 'center' );
+                $font->align( 'center' );
+                // $font->angle(45);
+            });
+            // draw transparent text
+
+            $path = public_path('uploads/');
+            $today = date('Y-m-d H-i-s');
+
+           // $file->move('uploads/' , $file_name); // move files to destination folder
+            $img->save($path . $today .'-'. $file_name);
+            $img->fit(280, null)->save($path . $today .'_thum_'. $file_name); //create thum
+            
+            $imageFile.='"'.$url.'uploads/'.$today.'-'.$file_name.'",';
+            $imageThum.='"'.$url.'uploads/'.$today.'_thum_'.$file_name.'",';
         }
-        // foreach ($imageFile as $imgfile) {
-        //     if (!empty($imgfile)) {
-        //         $file_name = $imgfile->getClientOriginalName();
-        //         $imageFile.='"'.$url.'/uploads/'.$imgfile.'",';
-        //         $imageFile->move('uploads/', $file_name);
-        //     }
-        // }
+
         $arr=['array','Array'];
         $imageFile=rtrim(str_replace($arr, '',$imageFile),',');
+        $imageThum=rtrim(str_replace($arr, '',$imageThum),','); // img thum
+        
         $imageFile='['.$imageFile.']';
+        $imageThum='['.$imageThum.']'; //img thum
         $imageFile=$imageFile;
         $post=new Post();
         $post->user_id=Auth::user()->id;
@@ -228,11 +253,12 @@ class HomeController extends Controller
         $post->username=$request->username;
         $post->phone=$request->phone;
         $post->email=$request->email;
-        $post->location_name=$request->location;
+        $post->images=$imageFile;
+        $post->img_thum=$imageThum;
         $post->sub_category_name=$request->subcategoryname;
         $post->category_name=$request->categoryname;
+        $post->location_name=$request->location;
         $post->address=$request->categoryname;
-        $post->images=$imageFile;
         $post->Save();
         return redirect()->back()->with('message_save','Your product has been saved!');
     }

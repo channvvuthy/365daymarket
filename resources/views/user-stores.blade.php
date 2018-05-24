@@ -44,7 +44,11 @@
               $getuser=App\User::where('id',$id)->first();
             @endphp
           <div class="store-profile">
+            @if (!empty($getuser->image))
             <img src="{{ $getuser->image }}" alt="" class="col-md-4">
+            @else
+            <img src="{{ asset('uploads/shopping_logo.png') }}" alt="" class="col-md-4">
+            @endif
             <h1>{{ $userstore->name }}</h1>
           </div>
           <!-- Blog Post -->
@@ -62,7 +66,7 @@
             <div class="ads-body">
               <h2 class="card-title"><a href="{{ route('view.ads') }}?key={{ bcrypt($adsItems->name) }}&id={{ $adsItems->id }}">{{ $adsItems->name }}</a></h2>
               <p class="card-text">{{ str_limit($adsItems->description, 200) }}</p>
-              <p class="card-text store-itemprice">{{ $adsItems->price }}</p>
+              <p class="card-text store-itemprice">{{ $adsItems->price }} @if(strpos($adsItems->price, '$') === false) $ @endif </p>
             </div>
           </div>
           @endforeach
@@ -75,8 +79,15 @@
           <div class="card my-4">
             <h2 class="card-header">Contact</h2>
             <div class="card-body">
-              <p><i class="glyphicon glyphicon-phone"></i> {{ $userstore->phone }}</p>
+            @if(!empty($userstore->phone))
+              <p><i class="glyphicon glyphicon-phone-alt"></i> {{ $userstore->phone }}</p>
+            @endif
+            @if(!empty($getuser->email))
+              <p><i class="glyphicon glyphicon-envelope"></i> {{ $getuser->email }}</p>
+            @endif
+            @if(!empty($userstore->address))
               <p><i class="glyphicon glyphicon-briefcase"></i> {{ $userstore->address }}</p>
+            @endif
             </div>
             @if (!empty($userstore->maplon))
             <h2 class="map-location"><i class="glyphicon glyphicon-map-marker"></i> Location :</h2>
@@ -85,6 +96,17 @@
                     <iframe width="100%" height="300" frameborder="0" scrolling="no" marginheight="0"
                             marginwidth="0"
                             src="https://maps.google.com/maps?q={{$userstore->maplat}},{{$userstore->maplon}}&hl=es;z=17.5&amp;output=embed"></iframe>
+                </div>
+                <script async defer
+                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB301j39-PCrbDTVZhn95hif4AB7JG5K_Q&callback=initMap"></script>
+            </div>
+            @else
+            <h2 class="map-location"><i class="glyphicon glyphicon-map-marker"></i> Location :</h2>
+            <div class="__google__map">
+                <div id="map" style="height:300px;">
+                    <iframe width="100%" height="300" frameborder="0" scrolling="no" marginheight="0"
+                            marginwidth="0"
+                            src="https://maps.google.com/maps?q=0,0&hl=es;z=17.5&amp;output=embed"></iframe>
                 </div>
                 <script async defer
                         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB301j39-PCrbDTVZhn95hif4AB7JG5K_Q&callback=initMap"></script>

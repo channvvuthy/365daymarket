@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use URL;
 use Tymon\JWTAuth\Facades\JWTAuth;
+
 class PostController extends Controller
 {
 

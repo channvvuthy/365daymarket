@@ -19,13 +19,15 @@ body {
     font-family: myFirstFont;
     font-weight: bold;
     font-size: 24px;
+        margin-bottom: 15px;
 }
 .menus.pull-right {
     margin-top: 10px;
 }
 .logo {
     font-size: 25px;
-    font-family: myFirstFont;
+    /* font-family: 'logofong'; */
+    font-weight: bold;
 }
 .logo a{
     text-decoration: none;
@@ -36,13 +38,11 @@ body {
     padding: 10px 0px;
 }
 select.btn.btn-default.dropdown-toggle.btn-category.catfirst {
-    font-family: Verdana;
     font-style: normal;
 }
 .menus a{
     text-decoration:none;
     color: #fff;
-    font-family: Verdana;
 }
 .menus a:hover{
     transition:color 0.4s linear;
@@ -59,17 +59,14 @@ select.btn.btn-default.dropdown-toggle.btn-category.catfirst {
 
 }
 select.btn.btn-default.dropdown-toggle.btn-category.catfirst {
-    font-family: Verdana;
     font-style: normal;
 }
 
 select.btn.btn-default.dropdown-toggle.btn-location.catfirst {
-    font-family: Verdana;
     font-style: normal;
 }
 
 input.form-control.input-search {
-    font-family: Verdana;
     font-style: normal;
 }
 li.list-group-item i {
@@ -83,7 +80,6 @@ li.list-group-item i {
 li.list-group-item a {
     color: #333;
     text-decoration: none !important;
-    font-family: Verdana;
 }
 li.list-group-item a:hover{
     color:#007abf;
@@ -142,10 +138,11 @@ h2.title-latest.text-center {
 }
 
 h2.title-popular.text-center {
-    font-family: myFirstFont;
     position: relative;
-    font-size: 20px;
+    font-size: 24px;
     margin: 10px 0;
+    font-weight: bold;
+    margin-top: 40px;
 }
 h2.title-popular.text-center:before,h2.title-latest.text-center:before{
     content: '';
@@ -281,7 +278,7 @@ h2 {
 .latest-ads h2{
     margin-bottom:15px;
 }
-.viewmore_btn a {display: table;background: #007abf;color: #fff;text-align: center;margin: auto;padding: 5px 15px;margin-top: 15px;margin-bottom: 30px;}
+.viewmore_btn a {display: table;background: #007abf;color: #fff;text-align: center;margin: auto;padding: 5px 15px;margin-top: 15px;margin-bottom: 30px;display: block;}
 .pang_kisi ul {
     list-style: none;
     padding:  0;
@@ -606,7 +603,7 @@ ul.pangkisi-list li {
 }
 .ads-banner img {
     width: 100%;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 .ads-banner-r{display: block;}
 .ads-left-banner {
@@ -626,7 +623,7 @@ ul.pangkisi-list li {
     margin-right: 4px;
 }
 .category_sidebar ul li a {
-    font-size: 12px;
+    font-size: 14px;
     line-height: 30px;
 }
 .brand-location {
@@ -784,6 +781,7 @@ p.price {
     margin: 0;
     color:  #fff;
     font-size: 25px;
+    text-transform: capitalize;
 }
 .store_title .title p {
     color: #dedede;
@@ -810,7 +808,8 @@ p.price {
 .discription_header h2 {
     font-size: 20px;
     display: -webkit-inline-box;
-    overflow:  hidden;
+    overflow: hidden;
+    line-height: 30px;
 }
 span.price {
     font-size: 18px;
@@ -854,9 +853,11 @@ span.price_style {
 }
 .discription_header h3 {
     margin:  0;
-    margin-bottom: 5px;
+    margin-bottom: 19px;
     border-bottom: 1px solid #dadada;
-    padding-bottom: 5px;
+    padding-bottom: 15px;
+    font-weight:  bold;
+    font-size: 19px;
 }
 i.icon.icon-share.text_gray {
     background: #007abf;
@@ -880,11 +881,13 @@ div.p {
     background:  #fff !important;
     overflow: hidden;
     margin: 10px 0;
+    margin-bottom: 15px;
 }
 div.p h3 {
     margin: 0;
     padding: 10px 0;
-    font-size: 18px;
+    font-size: 17px;
+    line-height: 26px;
 }
 .store_description {
     padding: 10px;
@@ -960,6 +963,7 @@ span.price-item {
     float:  left;
     max-width: 28px;
     margin-right: 5px;
+    margin-top: 6px;
 }
 .nav_cate_left ul li{/* border-bottom: 1px solid #ddd !important */}
 .save-wrap {
@@ -1016,7 +1020,7 @@ select {
 span.detail-date {
     margin-right: 30px;
 }
-p{line-height: 25px;}
+p{line-height: 26px;}
 /*slider*/
 .carousel {
     width: 100%;
@@ -1116,6 +1120,7 @@ ul.pagination {
     display:  block;
     clear:  both;
     overflow:  hidden;
+    padding: 0 10px;
 }
 .all-location {
     position: relative;
@@ -1129,7 +1134,7 @@ li.profileuser img {
     width: 25px;
 }
 .logo a:focus,.logo a:hover,.menus.pull-right a:hover,a.btn-post:hover{color: #e4e4e4 !important;}
-.categorylist{padding-left: 20px;}
+.categorylist{/* padding-left: 20px; */}
 .categorylist a.active{color: #e37a01!important;}
 .user-img-photo {
     width: 25%;
@@ -1248,7 +1253,8 @@ td.action-adspost {
 nav.navbar.fixed-top {
     background: #007abf;
     padding: 10px 0;
-    font-family: 'logofong';
+    /* font-family: 'logofong'; */
+    font-weight: bold;
 }
 nav.navbar.fixed-top a {
     color: #fff !important;
@@ -1293,7 +1299,7 @@ nav.navbar.fixed-top a {
     color: #f00;
     font-size: 19px;
 }
-.storeAll-items h1{font-size: 25px;font-family: 'logofong';}
+.storeAll-items h1{font-size: 25px;/* font-family: 'logofong'; */text-transform: capitalize;font-weight:  bold;color: #007abf;text-shadow: -1px -1px 0px #ccc;}
 .storeAll-items h2.all-ads{font-size: 25px;border-bottom: 3px double #e0e0e0;}
 .storeAll-items h2{font-size: 20px;}
 h2.card-title {
@@ -1301,7 +1307,9 @@ h2.card-title {
 }
 .store-item{overflow: hidden;margin-bottom: 10px;background: #e8e8e8;}
 img.store-itemphoto {
-    width: 100%;
+    height: 100%;
+    margin: auto;
+    display: block;
 }
 .ads-body {
     overflow: hidden;
@@ -1309,8 +1317,10 @@ img.store-itemphoto {
     display:  table;
 }
 .img-wrap {
-    max-height: 170px;
+    height: 170px;
     overflow:  hidden;
+    background: #fff;
+    margin-right: 10px;
 }
 .store-itemprice{color: red;font-weight: bold;}
 h2.map-location {
@@ -1361,7 +1371,7 @@ footer.footer-wrapper {
     color: #000;
     padding-top: 10px;
 }
-span.web{font-family: 'logofong';padding:0 4px;}
+span.web{/* font-family: 'logofong'; */padding:0 4px;}
 .item-stores-cover p a {
     font-size: 14px;
     color: #eee;
@@ -1401,13 +1411,13 @@ span.web{font-family: 'logofong';padding:0 4px;}
     overflow:  hidden;
     display:  block;
     padding: 10px;
-    max-height: 80px;
+    height: 80px;
     border-bottom: 5px solid #c9c9c9;
     position:  relative;
 }
 .more-adsheader img {
     float:  left;
-    width: 88px;
+    height: 100%;
     margin-right: 10px;
 }
 .more-adsheader h2 {
@@ -1456,6 +1466,49 @@ span.web{font-family: 'logofong';padding:0 4px;}
     background: #0096de !important;
     border-color: #0096de !important;
     border-radius: 6px !important;
+}
+span.viewmail {
+    color: #016198;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+span.viewphone {
+    color: #ff8900;
+    padding-right: 15px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+span.viewphone i,span.viewmail i{padding-right:5px}
+.store_description i {
+    float:  left;
+    padding-right: 10px;
+    padding-top: 5px;
+}
+.viewmore_btn a:hover {
+    color: #000 !important;
+    background: #f0ad4e;
+}
+.home-adstop {
+    overflow:  hidden;
+    display:  block;
+    margin-bottom: 15px;
+}
+.home-adstop img {
+    display:  block;
+    margin:  auto;
+    max-width: 100%;
+}
+img.rightside-ads {
+    width: 100%;
+    margin-top: 10px;
+}
+textarea{resize: vertical;}
+textarea.clear_padding {
+    padding: 10px !important;
+}
+.form-hf h4.modal-title.text-center a {
+    color: #000 !important;
+    font-weight: bold;
 }
 .btn-loginform:hover{opacity: .8}
 .business-upgrade_wrapper{background: #eee;margin: auto;padding: 0 60px;float: none;}

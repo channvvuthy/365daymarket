@@ -31,8 +31,12 @@
                                 </div>
                                 <div class="postbox clear_padding col-xs-12 col-sm-12 col-md-8 col-lg-8">
                                     <label class="col-md-3">Title <span class="red">*</span>:</label>
-                                    <input type="text" name="name" class="col-md-7" required>
+                                    <input type="text" name="name" class="col-md-5" required>
+                                    {{--  --}}
+                                    <label class="col-md-2">Price <span class="red">*</span>:</label>
+                                    <input type="text" name="price" class="col-md-2" required>
                                 </div>
+                                {{--  --}}
                                 <div class="brandlist postbox clear_padding col-xs-12 col-sm-12 col-md-8 col-lg-8">
                                     {{-- <label class="col-md-3">Type:</label>
                                     <select name="variation_type" class="variationselect">
@@ -40,10 +44,6 @@
                                         <option value="Iphone">Iphone</option>
                                         <option value="Iphone">Iphone</option>
                                     </select> --}}
-                                </div>
-                                <div class="postbox clear_padding col-xs-12 col-sm-12 col-md-8 col-lg-8">
-                                    <label class="col-md-3">Price <span class="red">*</span>:</label>
-                                    <input type="text" name="price" class="col-md-7" required>
                                 </div>
                                 <div class="postbox clear_padding col-xs-12 col-sm-12 col-md-8 col-lg-8">
                                     <label class="col-md-3">Description <span class="red">*</span>:</label>
@@ -58,35 +58,35 @@
                                         </div>
                                         <div class="file_photo col-md-3" style="border: 1px solid #eee;">
                                             <input type="file" class="hidden ph1" name="photo[]">
-                                            <img src="{{ asset('uploads/upload-photo.jpg') }}" alt="" class="uploadphoto1">
+                                            <img src="{{ asset('uploads/upload_photo.png') }}" alt="" class="uploadphoto1">
                                         </div>
                                         <div class="file_photo col-md-3" style="border: 1px solid #eee;">
                                             <input type="file" class="hidden ph2" name="photo[]">
-                                            <img src="{{ asset('uploads/upload-photo.jpg') }}" alt="" class="uploadphoto2">
+                                            <img src="{{ asset('uploads/upload_photo.png') }}" alt="" class="uploadphoto2">
                                         </div>
                                         <div class="file_photo col-md-3" style="border: 1px solid #eee;">
                                             <input type="file" class="hidden ph3" name="photo[]">
-                                            <img src="{{ asset('uploads/upload-photo.jpg') }}" alt="" class="uploadphoto3">
+                                            <img src="{{ asset('uploads/upload_photo.png') }}" alt="" class="uploadphoto3">
                                         </div>
                                         <div class="file_photo col-md-3" style="border: 1px solid #eee;">
                                             <input type="file" class="hidden ph4" name="photo[]">
-                                            <img src="{{ asset('uploads/upload-photo.jpg') }}" alt="" class="uploadphoto4">
+                                            <img src="{{ asset('uploads/upload_photo.png') }}" alt="" class="uploadphoto4">
                                         </div>
                                         <div class="file_photo col-md-3" style="border: 1px solid #eee;">
                                             <input type="file" class="hidden ph5" name="photo[]">
-                                            <img src="{{ asset('uploads/upload-photo.jpg') }}" alt="" class="uploadphoto5">
+                                            <img src="{{ asset('uploads/upload_photo.png') }}" alt="" class="uploadphoto5">
                                         </div>
                                         <div class="file_photo col-md-3" style="border: 1px solid #eee;">
                                             <input type="file" class="hidden ph6" name="photo[]">
-                                            <img src="{{ asset('uploads/upload-photo.jpg') }}" alt="" class="uploadphoto6">
+                                            <img src="{{ asset('uploads/upload_photo.png') }}" alt="" class="uploadphoto6">
                                         </div>
                                         <div class="file_photo col-md-3" style="border: 1px solid #eee;">
                                             <input type="file" class="hidden ph7" name="photo[]">
-                                            <img src="{{ asset('uploads/upload-photo.jpg') }}" alt="" class="uploadphoto7">
+                                            <img src="{{ asset('uploads/upload_photo.png') }}" alt="" class="uploadphoto7">
                                         </div>
                                         <div class="file_photo col-md-3" style="border: 1px solid #eee;">
                                             <input type="file" class="hidden ph8" name="photo[]">
-                                            <img src="{{ asset('uploads/upload-photo.jpg') }}" alt="" class="uploadphoto8">
+                                            <img src="{{ asset('uploads/upload_photo.png') }}" alt="" class="uploadphoto8">
                                         </div>
 
                                     </div>
@@ -94,15 +94,15 @@
                                 <div class="clearfix"></div>
                                 <div class="postbox clear_padding col-xs-12 col-sm-12 col-md-8 col-lg-8">
                                     <label class="col-md-3">Name <span class="red">*</span>:</label>
-                                    <input type="text" name="username" class="col-md-7" required>
+                                    <input type="text" name="username" class="col-md-9" required>
                                 </div>
                                 <div class="postbox clear_padding col-xs-12 col-sm-12 col-md-8 col-lg-8">
                                     <label class="col-md-3">Phone <span class="red">*</span>:</label>
-                                    <input type="text" name="phone" class="col-md-7" required>
+                                    <input type="text" name="phone" class="col-md-9" required>
                                 </div>
                                 <div class="postbox clear_padding col-xs-12 col-sm-12 col-md-8 col-lg-8">
                                     <label class="col-md-3">Email <span class="red">*</span>:</label>
-                                    <input type="text" name="email" class="col-md-7" required>
+                                    <input type="text" name="email" class="col-md-9" required>
                                 </div>
                                 <div class="postbox clear_padding col-xs-12 col-sm-12 col-md-8 col-lg-8">
                                     <label class="col-md-3">City/Province <span class="red">*</span>:</label>

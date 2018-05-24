@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Category;
 use DB;
@@ -16,20 +15,22 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $tableIds = DB::select(DB::raw("SELECT id,name,icon,description,status FROM categories WHERE parent_id=0"));
+        $tableIds = DB::select( DB::raw("SELECT id,name,icon,description,status FROM categories WHERE parent_id=0"));
         $jsonResult = array();
 
-        for ($i = 0; $i < count($tableIds); $i++) {
+        for($i = 0;$i < count($tableIds);$i++)
+        {
             $jsonResult[$i]["id"] = $tableIds[$i]->id;
             $jsonResult[$i]["name"] = $tableIds[$i]->name;
             $jsonResult[$i]["icon"] = $tableIds[$i]->icon;
             $jsonResult[$i]["description"] = $tableIds[$i]->description;
             $jsonResult[$i]["status"] = $tableIds[$i]->status;
             $id = $tableIds[$i]->id;
-            $jsonResult[$i]["sub_category"] = DB::select(DB::raw("SELECT id,name,icon,description,status FROM categories WHERE parent_id =$id"));
+            $jsonResult[$i]["sub_category"] = DB::select( DB::raw("SELECT id,name,icon,description,status FROM categories WHERE parent_id =$id"));
         }
+
         return Response::json(array(
-            'categories' => $jsonResult),
+            'categories'    =>  $jsonResult),
             200
         );
     }
@@ -47,53 +48,45 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required|min:3|unique:categories',
+        $this->validate($request,[
+           'name'=>'required|min:3|unique:categories',
         ]);
-        $category = new Category();
-        $category->name = $request->name;
-        $category->parent_id = $request->parent_id;
-        $category->description = $request->description;
-        $category->icon = $request->icon;
-        try {
-            if ($category->save()) {
-                return response()->json(['message' => 'Category created'], 200);
-            }
-        } catch (\QueryException  $queryException) {
+        $category=new Category();
+        $category->name=$request->name;
+        $category->parent_id=$request->parent_id;
+        $category->description=$request->description;
+        $category->icon=$request->icon;
+        try{
+           if($category->save()){
+               return response()->json(['message' => 'Category created'],200);
+           }
+        }catch (\QueryException  $queryException){
 //            return response()->json(['message' => $queryException->getMessage()],404);
-        } catch (\Exception $ex) {
-
+        }catch (\Exception $ex){
+            
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
+    public function show($id)
     {
-        $category = Category::find($id);
-        $category_name = $category->name;
-        $sub_categories = DB::select("SELECT * FROM categories WHERE parent_id='$id'");
-        return Response::json(array(
-            'category_name' => $category_name,
-            'sub_categories' => $sub_categories
-        ),
-            200
-        );
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -104,8 +97,8 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -116,7 +109,7 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -124,12 +117,11 @@ class CategoryController extends Controller
         //
     }
 
-    public function getAjaxRequestSubCategory(Request $request)
-    {
-        $categories = Category::where('parent_id', $request->id)->where('status', 'Publish')->get();
-        if (count($categories)) {
-            foreach ($categories as $category) {
-                echo "<option value='" . $category->name . "'>$category->name</option>";
+    public function getAjaxRequestSubCategory(Request $request){
+        $categories=Category::where('parent_id',$request->id)->where('status','Publish')->get();
+        if(count($categories)){
+            foreach ($categories as $category){
+                echo "<option value='".$category->name."'>$category->name</option>";
             }
         }
     }

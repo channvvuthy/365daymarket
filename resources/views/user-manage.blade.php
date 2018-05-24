@@ -386,7 +386,7 @@
                                                     @for ($ii = count($arrImg)+1; $ii <= 8 ; $ii++)
                                                     <div class="file_photo col-md-3" style="border: 1px solid #eee;">
                                                         <input type="file" class="hidden ph{{ $ii }}" name="photo[]">
-                                                        <img src="{{ asset('uploads/upload-photo.jpg') }}" alt="" class="uploadphoto{{ $ii }}">
+                                                        <img src="{{ asset('uploads/upload_photo.png') }}" alt="" class="uploadphoto{{ $ii }}">
                                                         {{-- <div class="remove_photo" title="Remove">
                                                             <i class="glyphicon glyphicon-remove-sign"></i>
                                                         </div> --}}
@@ -469,19 +469,27 @@
                                         @php
                                             $imgArr=json_decode($adspost->images,true);
                                         @endphp
+                                        @if ($adspost->status == 'Published')
                                         <tr>
                                             <th class="img-userads">
                                               <img src="{{ $imgArr[0] }}" alt="">
                                             </th>
                                             <td>{{ $adspost->name }}</td>
                                             <td>{{ $adspost->price }}</td>
-                                            <td>Disable</td>
+                                            <td>
+                                                @if ($adspost->status == 'Published')
+                                                    Active
+                                                @else
+                                                    Deleted
+                                                @endif
+                                            </td>
                                             <td class="action-adspost">
                                                 <a href="{{ route('user.profile') }}?_keys={{ bcrypt(Auth::user()->id) }}&user-option=edit-ads&_token={{ bcrypt(Auth::user()->id) }}&adsID={{ $adspost->id }}" title="Edit"><i class="glyphicon glyphicon-edit"></i> Edit</a>
                                                  | 
                                                 <a href="{{ route('remove.ads',['id'=>$adspost->id]) }}" title="Edit"><i class="glyphicon glyphicon-trash"></i> Delete</a>
                                             </td>
                                         </tr>
+                                        @endif
                                         @endforeach
                                         {{-- <tr>
                                           <th class="img-userads">
@@ -526,12 +534,12 @@
         $("input.profile").change(function () {
             // if (this.files && this.files[0]) {
                 var reader = new FileReader();
-                reader.onload = imageIsLoaded1;
+                reader.onload = profileIsLoaded;
                 reader.readAsDataURL(this.files[0]);
             // }
         });
     });
-    function imageIsLoaded1(e) {
+    function profileIsLoaded(e) {
         $('.change-profile').submit();
         $('.profile-photo').attr('src', e.target.result);
     };
