@@ -15,7 +15,8 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <input type="hidden" name="_token" value="{{Session::token()}}">
-                                <input type="text" placeholder="Email Address" id="email" name="email" class="form-control" required>
+                                <input type="text" placeholder="Email Address" id="email" name="email"
+                                       class="form-control" required>
                                 <span class="text-danger">{{$errors->first('email')}}</span>
                             </div>
                             <div class="form-group">
@@ -38,18 +39,20 @@
                 </form>
                 <div class="row">
                     <div class="col-md-12">
-                    <div class="fb-loginfram">
-                        <div class="__or text-center">OR</div>
-                        <p class="text-center">Register with Facebook account</p>
-                        <div class="__facebook__social">
-                            <a href="{{-- {{route('facebook.login')}} --}}" id="fb-register"><i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
+                        <div class="fb-loginfram">
+                            <div class="__or text-center">OR</div>
+                            <p class="text-center">Register with Facebook account</p>
+                            <div class="__facebook__social">
+                                <a href="{{-- {{route('facebook.login')}} --}}" id="fb-register"><i
+                                            class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer text-center form-hf">
-                <p class="text-center">Already a member? <a href="#" onclick="login__form();" class="alreadyaccount">Sign In</a>
+                <p class="text-center">Already a member? <a href="#" onclick="login__form();" class="alreadyaccount">Sign
+                        In</a>
                 </p>
             </div>
         </div>
@@ -79,33 +82,38 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <input type="hidden" name="_token" value="{{Session::token()}}">
-                                <input type="text" placeholder="Email Address" id="email" name="email"
-                                       class="form-control" required>
-                              <span class="text-danger">{{$errors->first('message__error')}}</span>
+                                <input type="text" placeholder="Email Address" name="email"
+                                       class="form-control email" required>
+                                <span class="text-danger">{{$errors->first('message__error')}}</span>
                             </div>
                             <div class="form-group">
-                                <input type="password" placeholder="Password" id="password" name="password" class="form-control">
-                                <input type="hidden" placeholder="" id="store-id" name="storeID" class="form-control" value="">
-                                <input type="hidden" placeholder="" id="log-save-store" name="getSave" class="form-control" value="">
+                                <input type="password" placeholder="Password" name="password"
+                                       class="password form-control">
+                                <input type="hidden" placeholder="" id="store-id" name="storeID" class="form-control"
+                                       value="">
+                                <input type="hidden" placeholder="" id="log-save-store" name="getSave"
+                                       class="form-control" value="">
                             </div>
                             <div class="form-group text-center">
-                                <button class="btn btn-danger btn-loginform __clear__border" id="__botton__register" type="submit" value="">
+                                <button class="btn btn-danger btn-loginform __clear__border __botton__register"
+                                        type="submit" value="">
                                     Log in
                                 </button>
                                 <a href="#" onclick="forgotPassword()"> Forget your password?</a>
                             </div>
                         </div>
                     </div>
-                </form> 
+                </form>
                 <div class="row">
                     <div class="col-md-12">
-                    <div class="fb-loginfram">
-                        <div class="__or text-center">OR</div>
-                        <p class="text-center">Log in with Facebook account</p>
-                        <div class="__facebook__social">
-                            <a href="{{-- {{route('facebook.login')}} --}}" id="fb-save-store"><i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
+                        <div class="fb-loginfram">
+                            <div class="__or text-center">OR</div>
+                            <p class="text-center">Log in with Facebook account</p>
+                            <div class="__facebook__social">
+                                <a href="{{-- {{route('facebook.login')}} --}}" id="fb-save-store"><i
+                                            class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>
@@ -126,7 +134,8 @@
                     <span aria-hidden="true">×</span>
                     <span class="sr-only">Close</span>
                 </button>
-                <h4 class="modal-title text-center"><a href="https://mail.google.com/mail/" title="">Please Confirm Your Email Address</a></h4>
+                <h4 class="modal-title text-center"><a href="https://mail.google.com/mail/" title="">Please Confirm Your
+                        Email Address</a></h4>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -235,44 +244,44 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-    {{-- // Show Modal resest password --}}
-    @if(empty(Auth::check()))
+{{-- // Show Modal resest password --}}
+@if(empty(Auth::check()))
     @if(!empty($reset_password))
-    <script type="text/javascript">
-        $(".modalResetPassword").modal('show');
-        // 
-        $("body").on('click', '.bntResetPassword', function () {
-            var email = $(".emailFromGmail").val();
-            var oldPassword = $(".oldPassword").val();
-            var newPassword = $(".newPassword").val();
-            if (oldPassword == "") {
-                $(".errorPassword ").removeClass('hidden');
-                return;
-            } else {
-                $(".errorPassword ").addClass('hidden');
-            }
-            if (oldPassword != newPassword) {
-                $(".errorNewPassword").removeClass('hidden');
-                return;
-            } else {
-                $(".errorNewPassword").addClass('hidden');
-            }
-            jQuery.ajax({
-                url: "{{route('reset.password')}}",
-                type: "GET",
-                dataType: "json",
-                data: {email: email, oldPassword: oldPassword},
-                success: function (data) {
-                    location.reload(true);
-                },
-                complete:function () {
-                    location.reload(true);
+        <script type="text/javascript">
+            $(".modalResetPassword").modal('show');
+            //
+            $("body").on('click', '.bntResetPassword', function () {
+                var email = $(".emailFromGmail").val();
+                var oldPassword = $(".oldPassword").val();
+                var newPassword = $(".newPassword").val();
+                if (oldPassword == "") {
+                    $(".errorPassword ").removeClass('hidden');
+                    return;
+                } else {
+                    $(".errorPassword ").addClass('hidden');
                 }
+                if (oldPassword != newPassword) {
+                    $(".errorNewPassword").removeClass('hidden');
+                    return;
+                } else {
+                    $(".errorNewPassword").addClass('hidden');
+                }
+                jQuery.ajax({
+                    url: "{{route('reset.password')}}",
+                    type: "GET",
+                    dataType: "json",
+                    data: {email: email, oldPassword: oldPassword},
+                    success: function (data) {
+                        location.reload(true);
+                    },
+                    complete: function () {
+                        location.reload(true);
+                    }
+                });
             });
-        });
-    </script>
+        </script>
     @endif
-    @endif
+@endif
 <script type="text/javascript">
     // 
     $(".btn_forgot").click(function () {
@@ -310,36 +319,36 @@
 </script>
 @if(session()->has('message_login_error'))
     <script>
-    $(".message_login_error").modal('show');
+        $(".message_login_error").modal('show');
     </script>
 @endif
 @if(session()->has('message'))
     <script>
-    $(".modal__message").modal('show');
+        $(".modal__message").modal('show');
     </script>
 @endif
 @if(session()->has('message_save'))
     <script>
-    $(".modal__message_save").modal('show');
+        $(".modal__message_save").modal('show');
     </script>
 @endif
-  @if($errors->first('email'))
-  <script>
-    $(".modal__register").modal('show');
-  </script>
-  @endif
-  @if ($errors->first('password'))
+@if($errors->first('email'))
     <script>
         $(".modal__register").modal('show');
     </script>
-  @endif
-  @if ($errors->first('cpassword'))
+@endif
+@if ($errors->first('password'))
     <script>
         $(".modal__register").modal('show');
     </script>
-  @endif
-  <script>
-    $(document).on('click','.registeraccount',function (e) {
+@endif
+@if ($errors->first('cpassword'))
+    <script>
+        $(".modal__register").modal('show');
+    </script>
+@endif
+<script>
+    $(document).on('click', '.registeraccount', function (e) {
         e.preventDefault();
         $(".modal").modal('hide');
         $(".modal__register").modal('show');
@@ -370,17 +379,17 @@
     function login__form() {
         $(".modal__login").modal("show");
         $(".modal__register").modal('hide');
-        var href=  $('#fb-save-store');
+        var href = $('#fb-save-store');
 
-        var locations=href.attr('href');
+        var locations = href.attr('href');
 
-        var locationss=window.location.href;
+        var locationss = window.location.href;
 
         // locations=locations.replace('#','');
 
-        var page=locationss;
+        var page = locationss;
 
-        href.attr('href',locations+"?page="+page.replace(/&/g,'||'));
+        href.attr('href', locations + "?page=" + page.replace(/&/g, '||'));
 
     }
     @if($errors->first('message__error'))
@@ -393,27 +402,27 @@
 
         $(".modal__login_savestore").modal();
 
-        var href=  $('#save-store-lg');
+        var href = $('#save-store-lg');
 
-        var getID=  $('#store-id');
+        var getID = $('#store-id');
 
-        var getSAVE=  $('#log-save-store');
+        var getSAVE = $('#log-save-store');
 
-        var locations=href.attr('href');
+        var locations = href.attr('href');
 
-        var locationss=window.location;
+        var locationss = window.location;
 
-        locationss=locations.replace('#','');
+        locationss = locations.replace('#', '');
 
-        var SaveTo='store-save';
+        var SaveTo = 'store-save';
 
-        var page=window.location.href;
+        var page = window.location.href;
 
-        getID.attr('value',id);
+        getID.attr('value', id);
 
-        getSAVE.attr('value','store-save');
+        getSAVE.attr('value', 'store-save');
 
-        href.attr('href',locations+"?page="+page.replace(/&/g,'||')+"&storeID="+id+"&SaveTo="+SaveTo);
+        href.attr('href', locations + "?page=" + page.replace(/&/g, '||') + "&storeID=" + id + "&SaveTo=" + SaveTo);
 
     }
 
@@ -421,15 +430,15 @@
 
         $(".modal__loginSave").modal();
 
-        var href=  $('#fb-save-list');
+        var href = $('#fb-save-list');
 
-        var locations=href.attr('href');
+        var locations = href.attr('href');
 
-        locations=locations.replace('#','');
+        locations = locations.replace('#', '');
 
-        var page="store-all-save";
+        var page = "store-all-save";
 
-        href.attr('href',locations+"?page="+page);
+        href.attr('href', locations + "?page=" + page);
 
     }
 
@@ -437,16 +446,16 @@
 
         $(".modal__loginReview").modal();
 
-        var href=  $('#fb-login-listreview');
+        var href = $('#fb-login-listreview');
 
-        var locations=href.attr('href');
+        var locations = href.attr('href');
 
-        locations=locations.replace('#','');
+        locations = locations.replace('#', '');
 
-        var page="store-list-review";
+        var page = "store-list-review";
 
-        href.attr('href',locations+"?page="+page);
+        href.attr('href', locations + "?page=" + page);
 
     }
 
-  </script>
+</script>

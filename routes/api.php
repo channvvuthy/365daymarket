@@ -65,8 +65,13 @@ Route::post('create-post', [
 
 Route::post('update-store', [
     'uses' => 'UserController@postUpdateStore',
-    'as'=>'update-store' ,
+    'as' => 'update-store',
     'middleware' => 'jwt.auth'
+]);
+
+Route::post('update-product', [
+    'uses' => 'PostController@postUpdate',
+    'as' => 'update.product'
 ]);
 
 

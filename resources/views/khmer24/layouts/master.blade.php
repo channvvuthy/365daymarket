@@ -18,7 +18,6 @@
     @endif
     {{--  --}}
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('css/emoji.css')}}">
     <link rel="stylesheet" href="{{asset('css/icon.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <script src="{{asset('js/jquery.min.js')}}"></script>
@@ -31,25 +30,25 @@
     </script>
     <title>@yield('title')</title>
     <style>
+        {{--@font-face {--}}
+            {{--font-family: myFirstFont;--}}
+            {{--src: url("{{asset('fonts/Pasajero.otf')}}");--}}
+        {{--}--}}
+        {{--@font-face {--}}
+            {{--font-family: Arimo-Bold;--}}
+            {{--src: url("{{asset('fonts/enfont/texgyretermes-regular.otf')}}");--}}
+        {{--}--}}
+        {{--@font-face {--}}
+            {{--font-family: khmer-365day;--}}
+            {{--src: url("{{asset('fonts/enfont/SithiManuss.ttf')}}");--}}
+        {{--}--}}
         @font-face {
-            font-family: myFirstFont;
-            src: url("{{asset('fonts/Pasajero.otf')}}");
-        }
-        @font-face {
-            font-family: Arimo-Bold;
-            src: url("{{asset('fonts/enfont/texgyretermes-regular.otf')}}");
-        }
-        @font-face {
-            font-family: khmer-365day;
-            src: url("{{asset('fonts/enfont/SithiManuss.ttf')}}");
-        }
-        @font-face {
-          font-family: logofong;
-          src: url("{{asset('fonts/enfont/Bevan.ttf')}}");
+          font-family: KHMERMEF;
+          src: url("{{asset('fonts/KHMERMEF1.ttf')}}");
       }
     </style>
 </head>
-<body style="font-family: 'Arimo-Bold','khmer-365day' !important;">
+<body>
 @include('khmer24.inc.header-top')
 @include('khmer24.inc.header-middle')
 @include('khmer24.inc.nav')

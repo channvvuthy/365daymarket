@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use URL;
+use Image;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class PostController extends Controller
@@ -131,9 +132,13 @@ class PostController extends Controller
      * @param  \App\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($id)
     {
-        //
+        $product = DB::select("SELECT * FROM posts WHERE id={$id}");
+        return Response::json(array(
+            'product' => $product),
+            200
+        );
     }
 
     /**
@@ -143,8 +148,62 @@ class PostController extends Controller
      * @param  \App\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'price' => 'required',
+            'description' => 'required',
+            'location_name' => 'required|min:6',
+            'sub_category_name' => 'required',
+            'username' => 'required',
+            'phone' => 'required',
+            'product_id' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'error' => $validator->messages()]);
+        }
+        $id = $request->product_id;
+        $user = JWTAuth::parseToken()->authenticate();
+        $userId = $user['id'];
+        $name = $request->name;
+        $price = $request->price;
+        $description = $request->description;
+        $address = $request->address;
+        $location_name = $request->location;
+        $user_name = $request->user_name;
+        $email = $request->email;
+        $phone = $request->phone;
+        $image = $request->file('image');
+        $sub_category_name = $request->sub_category_name;
+        $imageInsert = array();
+        if (!empty($image)) {
+            foreach ($image as $img) {
+                $rand = md5(rand(1, 100));
+                $file_name = $img->getClientOriginalName();
+                $new_file_name = URL::to('/') . '/images/' . $rand . $file_name;
+                array_push($imageInsert, $new_file_name);
+                $img->move('images', $new_file_name);
+
+            }
+        }
+        $imageInsert = json_encode($imageInsert);
+        $post = Post::find($id);
+        $post->name = $name;
+        $post->price = $price;
+        $post->description = $description;
+        $post->location_name = $location_name;
+        $post->address = $address;
+        $post->user_id = $request->user_id;
+        $post->username = $user_name;
+        $post->sub_category_name = $sub_category_name;
+        $post->brand = $request->brand;
+        $post->email = $email;
+        $post->phone = $phone;
+        $post->images = $imageInsert;
+        $post->user_id = $userId;
+        $post->save();
+        return response()->json(['success' => true, 'message' => 'Your product has been updated!']);
 
     }
 
@@ -172,8 +231,8 @@ class PostController extends Controller
             'description' => 'required',
             'location_name' => 'required|min:6',
             'sub_category_name' => 'required',
-            'username' => 'required'  ,
-            'phone'=>'required'
+            'username' => 'required',
+            'phone' => 'required'
         ]);
         if ($validator->fails()) {
             return response()->json(['success' => false, 'error' => $validator->messages()]);
@@ -192,33 +251,172 @@ class PostController extends Controller
         $sub_category_name = $request->sub_category_name;
         $imageInsert = array();
         if (!empty($image)) {
-            foreach ($image as $img) {
-                $rand = md5(rand(1, 100));
-                $file_name = $img->getClientOriginalName();
-                $new_file_name = URL::to('/').'/images/'.$rand . $file_name;
+            foreach ($image as $file) {
+                $file_name = $file->getClientOriginalName();
+                list($width, $height) = getimagesize($file);
+                $wm = $width / 2;
+                $hm = $height / 2;
+                $img = Image::make($file);
+
+                $img->text('365daymarket.com', $wm, $hm, function ($font) {
+                    $font->file(public_path('fonts/enfont/Arimo-Bold.ttf'));
+                    $font->size(34);
+                    $font->color(array(245, 248, 255, 0.80));
+                    $font->valign('center');
+                    $font->align('center');
+                });
+
+                $path = public_path('test/');
+                $file_name = str_replace(" ", "", $file_name);
+                $today = date('Ymd His');
+                $new_file_name = URL::to('/') . '/images/' . $today . $file_name;
                 array_push($imageInsert, $new_file_name);
-                $img->move('images',$new_file_name);
+                $img->save($path . $today . $file_name);
 
             }
         }
-        $imageInsert=json_encode($imageInsert);
-        $post=new Post();
-        $post->name=$name;
-        $post->price=$price;
-        $post->description=$description;
-        $post->location_name=$location_name;
-        $post->address=$address;
-        $post->user_id=$request->user_id;
-        $post->username=$user_name;
-        $post->sub_category_name=$sub_category_name;
-        $post->brand=$request->brand;
-        $post->email=$email;
-        $post->phone=$phone;
-        $post->images=$imageInsert;
-        $post->user_id=$userId;
+        $imageInsert = json_encode($imageInsert);
+        $post = new Post();
+        $post->name = $name;
+        $post->price = $price;
+        $post->description = $description;
+        $post->location_name = $location_name;
+        $post->address = $address;
+        $post->user_id = $userId;
+        $post->username = $user_name;
+        $post->sub_category_name = $sub_category_name;
+        $post->brand = $request->brand;
+        $post->email = $email;
+        $post->phone = $phone;
+        $post->images = $imageInsert;
+        $post->user_id = $userId;
         $post->save();
         return response()->json(['success' => true, 'message' => 'Your product has been created!']);
 
 
+    }
+
+    public function postUpdate(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'price' => 'required',
+            'description' => 'required',
+            'location_name' => 'required|min:6',
+            'sub_category_name' => 'required',
+            'username' => 'required',
+            'phone' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'error' => $validator->messages()]);
+        }
+        $user = JWTAuth::parseToken()->authenticate();
+        $userId = $user['id'];
+        $name = $request->name;
+        $price = $request->price;
+        $description = $request->description;
+        $address = $request->address;
+        $location_name = $request->location;
+        $user_name = $request->user_name;
+        $email = $request->email;
+        $phone = $request->phone;
+        $image = $request->file('image');
+        $sub_category_name = $request->sub_category_name;
+        $product_id = $request->id;
+        $imageInsert = array();
+        if (!empty($image)) {
+            foreach ($image as $file) {
+                $file_name = $file->getClientOriginalName();
+                list($width, $height) = getimagesize($file);
+                $wm = $width / 2;
+                $hm = $height / 2;
+                $img = Image::make($file);
+
+                $img->text('365daymarket.com', $wm, $hm, function ($font) {
+                    $font->file(public_path('fonts/enfont/Arimo-Bold.ttf'));
+                    $font->size(34);
+                    $font->color(array(245, 248, 255, 0.80));
+                    $font->valign('center');
+                    $font->align('center');
+                });
+
+                $path = public_path('test/');
+                $file_name = str_replace(" ", "", $file_name);
+                $today = date('Ymd His');
+                $new_file_name = URL::to('/') . '/images/' . $today . $file_name;
+                array_push($imageInsert, $new_file_name);
+                $img->save($path . $today . $file_name);
+
+            }
+        }
+        $imageInsert = json_encode($imageInsert);
+        $post = Post::find($product_id);
+        $post->name = $name;
+        $post->price = $price;
+        $post->description = $description;
+        $post->location_name = $location_name;
+        $post->address = $address;
+        $post->user_id = $userId;
+        $post->username = $user_name;
+        $post->sub_category_name = $sub_category_name;
+        $post->brand = $request->brand;
+        $post->email = $email;
+        $post->phone = $phone;
+        $post->images = $imageInsert;
+        $post->user_id = $userId;
+        $post->save();
+        return response()->json(['success' => true, 'message' => 'Your product has been updated!']);
+    }
+
+    public function testAPI(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'price' => 'required',
+            'description' => 'required',
+            'location_name' => 'required|min:6',
+            'sub_category_name' => 'required',
+            'username' => 'required',
+            'phone' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'error' => $validator->messages()]);
+        }
+        $user = JWTAuth::parseToken()->authenticate();
+        $userId = $user['id'];
+        $name = $request->name;
+        $price = $request->price;
+        $description = $request->description;
+        $address = $request->address;
+        $location_name = $request->location;
+        $user_name = $request->user_name;
+        $email = $request->email;
+        $phone = $request->phone;
+        $image = $request->file('image');
+        $sub_category_name = $request->sub_category_name;
+        $imageInsert = array();
+        if (!empty($image)) {
+            foreach ($image as $file) {
+                $file_name = $file->getClientOriginalName();
+                list($width, $height) = getimagesize($file);
+                $wm = $width / 2;
+                $hm = $height / 2;
+                $img = Image::make($file);
+
+                $img->text('365daymarket.com', $wm, $hm, function ($font) {
+                    $font->file(public_path('fonts/enfont/Arimo-Bold.ttf'));
+                    $font->size(34);
+                    $font->color(array(245, 248, 255, 0.80));
+                    $font->valign('center');
+                    $font->align('center');
+                });
+
+                $path = public_path('test/');
+                $file_name = str_replace(" ", "", $file_name);
+                $today = date('Ymd His');
+                $img->save($path . $today . $file_name);
+
+            }
+        }
     }
 }
