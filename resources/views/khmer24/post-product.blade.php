@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="latest-ads">
                     <div class="tap-post col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <ul>
+                        <ul class="">
                             <li class="select_cate @if (empty($_GET['category'])) active @endif"><i>1</i> Select Category</li>
                             <li class="description_post @if (!empty($_GET['category'])) active @endif"><i>2</i> Description</li>
                             <li class="finish_post"><i>3</i> Finish</li>

@@ -648,4 +648,52 @@ class UserController extends Controller
         // return redirect()->to(Session::get('page'));
 
     }
+
+    public function postForgotPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|exists:users',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'error' => $validator->messages()]);
+        }
+        $reset_password = str_random(30);
+        $user = User::where('email', $request->email)->first();
+        $user->reset_password = $reset_password;
+        $data = array('name' => $user->email, 'reset_password' => $reset_password);
+        $email = $user->email;
+        $user->save();
+        try {
+            Mail::send('email.api_forgot_password', $data, function ($message) use ($email) {
+                $message->from('channvuthyit@gmail.com', 'Chann Vuthy');
+                $message->to($email)->subject('Forgot password');
+            });
+                return response()->json(['success' => false, 'message' => 'Please  check your email address. We have been send code to your email ready!']);
+
+        } catch (\Exception $ex) {
+            return $ex->getMessage();
+        }
+    }
+
+    public function postResetPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'reset_password' => 'required',
+            'new_password' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'error' => $validator->messages()]);
+        }
+        $reset_password = $request->reset_password;
+        $new_password = $request->new_password;
+        $user = User::where('reset_password', $reset_password)->first();
+        if ($user) {
+            $user->password = bcrypt($new_password);
+            $user->reset_password = "";
+            $user->save();
+            return response()->json(['success' => true, 'message' => 'Your password has been update success!']);
+        }
+        return response()->json(['success' => true, 'message' => 'Your reset password code was expired']);
+
+    }
 }

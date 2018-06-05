@@ -74,4 +74,14 @@ Route::post('update-product', [
     'as' => 'update.product'
 ]);
 
+Route::post('forgot-password', [
+    'uses' => 'UserController@postForgotPassword',
+    'as' => 'api.forgot.password'
+]);
+
+Route::post('reset-password', [
+    'uses' => 'UserController@postResetPassword',
+    'as' => 'api.reset.password'
+]);
+
 
