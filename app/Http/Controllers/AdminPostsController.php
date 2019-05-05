@@ -29,34 +29,49 @@
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
 
 			# START COLUMNS DO NOT REMOVE THIS LINE
-	        $this->col = [];
-			$this->col[] = array("label"=>"Name","name"=>"name" );
-		$this->col[] = array("label"=>"Price","name"=>"price" );
-		$this->col[] = array("label"=>"Description","name"=>"description" );
-		$this->col[] = array("label"=>"User Id","name"=>"user_id","join"=>"users,id");
-		$this->col[] = array("label"=>"Discount","name"=>"discount" );
-		$this->col[] = array("label"=>"Username","name"=>"username" );
-		$this->col[] = array("label"=>"Phone","name"=>"phone" );
-
+			$this->col = [];
+			$this->col[] = ["label"=>"Name","name"=>"name"];
+			$this->col[] = ["label"=>"Price","name"=>"price"];
+			$this->col[] = ["label"=>"Description","name"=>"description"];
+			$this->col[] = ["label"=>"User Id","name"=>"user_id","join"=>"users,id"];
+			$this->col[] = ["label"=>"Discount","name"=>"discount"];
+			$this->col[] = ["label"=>"Username","name"=>"username"];
+			$this->col[] = ["label"=>"Phone","name"=>"phone"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
-			# START FORM DO NOT REMOVE THIS LINE
-		$this->form = [];
-		$this->form[] = ["label"=>"Name","name"=>"name","type"=>"text","required"=>TRUE,"validation"=>"required|string|min:3|max:70","placeholder"=>"You can only enter the letter only"];
-		$this->form[] = ["label"=>"Price","name"=>"price","type"=>"money","required"=>TRUE,"validation"=>"required|integer|min:0"];
-		$this->form[] = ["label"=>"Description","name"=>"description","type"=>"textarea","required"=>TRUE,"validation"=>"required|string|min:5|max:5000"];
-		$this->form[] = ["label"=>"User Id","name"=>"user_id","type"=>"select2","required"=>TRUE,"validation"=>"required|integer|min:0","datatable"=>"users,id"];
-		$this->form[] = ["label"=>"Discount","name"=>"discount","type"=>"number","required"=>TRUE,"validation"=>"required|integer|min:0"];
-		$this->form[] = ["label"=>"Username","name"=>"username","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
-		$this->form[] = ["label"=>"Phone","name"=>"phone","type"=>"number","required"=>TRUE,"validation"=>"required|numeric","placeholder"=>"You can only enter the number only"];
-		$this->form[] = ["label"=>"Email","name"=>"email","type"=>"email","required"=>TRUE,"validation"=>"required|min:1|max:255|email|unique:posts","placeholder"=>"Please enter a valid email address"];
-		$this->form[] = ["label"=>"Images","name"=>"images","type"=>"textarea","required"=>TRUE,"validation"=>"required|string|min:5|max:5000"];
-		$this->form[] = ["label"=>"Category Name","name"=>"category_name","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
-		$this->form[] = ["label"=>"Sub Category Nmae","name"=>"sub_category_name","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
-		$this->form[] = ["label"=>"Brand","name"=>"brand","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
-		$this->form[] = ["label"=>"Location Name","name"=>"location_name","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
-		$this->form[] = ["label"=>"Address","name"=>"address","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
 
-			# END FORM DO NOT REMOVE THIS LINE     
+			# START FORM DO NOT REMOVE THIS LINE
+			$this->form = [];
+			$this->form[] = ['label'=>'Name','name'=>'name','type'=>'text','validation'=>'required|string|min:3|max:70','width'=>'col-sm-10','placeholder'=>'You can only enter the letter only'];
+			$this->form[] = ['label'=>'Price','name'=>'price','type'=>'money','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Description','name'=>'description','type'=>'textarea','validation'=>'required|string|min:5|max:5000','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Discount','name'=>'discount','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
+			// $this->form[] = ['label'=>'Username','name'=>'username','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Phone','name'=>'phone','type'=>'number','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Email','name'=>'email','type'=>'email','width'=>'col-sm-10','placeholder'=>'You can only enter the number only'];
+			$this->form[] = ['label'=>'Images','name'=>'images','type'=>'upload','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Category Name','name'=>'category_name','type'=>'select2','validation'=>'required|min:1|max:255','width'=>'col-sm-10',"datatable"=>"categories,name","datatable_where"=>"parent_id = 0"];
+			$this->form[] = ['label'=>'Sub Category Nmae','name'=>'sub_category_name','type'=>'select2','validation'=>'required|min:1|max:255','width'=>'col-sm-10',"datatable"=>"categories,name","datatable_where"=>"parent_id != 0",'parent_select'=>'category_name'];
+			$this->form[] = ['label'=>'Brand','name'=>'brand','type'=>'select2','width'=>'col-sm-10',"datatable"=>"brands,name"];
+			$this->form[] = ['label'=>'Location Name','name'=>'location_name','type'=>'text','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Address','name'=>'address','type'=>'text','width'=>'col-sm-10'];
+			# END FORM DO NOT REMOVE THIS LINE
+
+			# OLD START FORM
+			//$this->form = [];
+			//$this->form[] = ['label'=>'Name','name'=>'name','type'=>'text','validation'=>'required|string|min:3|max:70','width'=>'col-sm-10','placeholder'=>'You can only enter the letter only'];
+			//$this->form[] = ['label'=>'Price','name'=>'price','type'=>'money','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Description','name'=>'description','type'=>'textarea','validation'=>'required|string|min:5|max:5000','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Discount','name'=>'discount','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Username','name'=>'username','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Phone','name'=>'phone','type'=>'number','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Email','name'=>'email','type'=>'email','width'=>'col-sm-10','placeholder'=>'You can only enter the number only'];
+			//$this->form[] = ['label'=>'Images','name'=>'images','type'=>'upload','width'=>'col-sm-10','placeholder'=>'Please enter a valid email address'];
+			//$this->form[] = ['label'=>'Category Name','name'=>'category_name','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Sub Category Nmae','name'=>'sub_category_name','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Brand','name'=>'brand','type'=>'text','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Location Name','name'=>'location_name','type'=>'text','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Address','name'=>'address','type'=>'text','width'=>'col-sm-10'];
+			# OLD END FORM
 
 			/* 
 	        | ---------------------------------------------------------------------- 
@@ -264,7 +279,8 @@
 	    |
 	    */
 	    public function hook_before_add(&$postdata) {        
-	        //Your code here
+			//Your code here
+			$postdata['user_id']=CRUDBooster::myId();
 
 	    }
 
@@ -329,11 +345,11 @@
 
 	    }
 
-	    public function getAdd()
-        {
-            $data['page_title']="Product";
-            $this->cbView('khmer24.product',$data);
-        }
+	    // public function getAdd()
+        // {
+        //     // $data['page_title']="Product";
+        //     // $this->cbView('khmer24.product',$data);
+        // }
 
 
         //By the way, you can still create your own method in here... :)
