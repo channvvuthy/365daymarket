@@ -13,7 +13,7 @@ class BannerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $offset = 0;
         $limit = 30;
@@ -27,6 +27,11 @@ class BannerController extends Controller
         if (!empty($request->q)) {
             $q = $request->q;
             $banners = DB::select("SELECT * FROM banners WHERE name LIKE  '%" . $q . "%' ORDER BY id DESC LIMIT $offset,$limit ");
+        }
+        if (!empty($request->position)) {
+            $position = $request->position;
+            $banners = DB::select("SELECT * FROM banners WHERE position ='$request->position' ORDER BY id DESC LIMIT $offset,$limit ");
+
         }
 
 

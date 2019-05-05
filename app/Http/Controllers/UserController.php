@@ -693,7 +693,7 @@ class UserController extends Controller
             $user->save();
             return response()->json(['success' => true, 'message' => 'Your password has been update success!']);
         }
-        return response()->json(['success' => true, 'message' => 'Your reset password code was expired']);
+        return response()->json(['success' => false, 'message' => 'Your reset password code was expired']);
 
     }
 }

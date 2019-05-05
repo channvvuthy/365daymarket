@@ -215,7 +215,7 @@ class HomeController extends Controller
         return view('khmer24.search-result')->withCategoty($categoty)->withSubcategory($subcategory)->withLocation($location)->withPost($post)->withAdsleft($adsleft)->withAdstop($adstop)->withAdsright($adsright);
     }
 
-    public function savePost(Request $request, $imageThum)
+    public function savePost(Request $request)
     {
         $url = $request->url;
         $imageFile = $request->photo;

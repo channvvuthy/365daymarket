@@ -1,16 +1,28 @@
 <?php
+Route::get('/', function () {
+    $categories = \App\Category::where('parent_id', '0')->get();
+    $subcategories = \App\Category::where('parent_id', '!=', '0')->get();
+    $locations = \App\Location::where('status', '!=', '0')->get();
+    return view('vue.index')->with('categories', $categories)->with('subcategories', $subcategories)->with('locations', $locations);
+});
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-Route::get('/', ['uses' => 'HomeController@getIdex', 'as' => 'home']);
+Route::get('product/{id}', function ($id) {
+    $categories = \App\Category::where('parent_id', '0')->get();
+    $subcategories = \App\Category::where('parent_id', '!=', '0')->get();
+    $locations = \App\Location::where('status', '!=', '0')->get();
+    $product=\App\Post::find($id);
+    return view('vue.product')->with('categories', $categories)->with('subcategories', $subcategories)->with('locations', $locations)->with('product',$product);
+
+});
+Route::get('store/{id}/{name}',function($id,$name){
+    $categories = \App\Category::where('parent_id', '0')->get();
+    $subcategories = \App\Category::where('parent_id', '!=', '0')->get();
+    $locations = \App\Location::where('status', '!=', '0')->get();
+    return view('vue.store')->with('categories', $categories)->with('subcategories', $subcategories)->with('locations', $locations)->with('name',$name);
+
+});
+
+
 Route::get('ads-detail.html', [
     'uses' => 'HomeController@viewdetail',
     'as' => 'view.ads'
@@ -19,6 +31,7 @@ Route::get('store.market', [
     'uses' => 'HomeController@storemarket',
     'as' => 'store.market'
 ]);
+
 Route::get('post-product', [
     'uses' => 'HomeController@postProduct',
     'as' => 'post.product'

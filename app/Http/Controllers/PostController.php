@@ -310,8 +310,8 @@ class PostController extends Controller
         if ($validator->fails()) {
             return response()->json(['success' => false, 'error' => $validator->messages()]);
         }
-        $user = JWTAuth::parseToken()->authenticate();
-        $userId = $user['id'];
+        //$user = JWTAuth::parseToken()->authenticate();
+        $userId = 1;#$user['id'];
         $name = $request->name;
         $price = $request->price;
         $description = $request->description;

@@ -51,7 +51,7 @@
 		$this->form[] = ["label"=>"Email","name"=>"email","type"=>"email","required"=>TRUE,"validation"=>"required|min:1|max:255|email|unique:posts","placeholder"=>"Please enter a valid email address"];
 		$this->form[] = ["label"=>"Images","name"=>"images","type"=>"textarea","required"=>TRUE,"validation"=>"required|string|min:5|max:5000"];
 		$this->form[] = ["label"=>"Category Name","name"=>"category_name","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
-		$this->form[] = ["label"=>"Sub Category Nmae","name"=>"sub_category_nmae","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
+		$this->form[] = ["label"=>"Sub Category Nmae","name"=>"sub_category_name","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
 		$this->form[] = ["label"=>"Brand","name"=>"brand","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
 		$this->form[] = ["label"=>"Location Name","name"=>"location_name","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
 		$this->form[] = ["label"=>"Address","name"=>"address","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
