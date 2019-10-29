@@ -12,10 +12,10 @@ class ComposerStaticInit1941c1843da109f8b36dc24df6ce0fd2
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         '023d27dca8066ef29e6739335ea73bad' => __DIR__ . '/..' . '/symfony/polyfill-php70/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
-        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
@@ -144,8 +144,8 @@ class ComposerStaticInit1941c1843da109f8b36dc24df6ce0fd2
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'crocodicstudio\\crudbooster\\' => 
         array (
@@ -446,6 +446,8 @@ class ComposerStaticInit1941c1843da109f8b36dc24df6ce0fd2
         'App\\Category' => __DIR__ . '/../..' . '/app/Category.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\AboutController' => __DIR__ . '/../..' . '/app/Http/Controllers/AboutController.php',
+        'App\\Http\\Controllers\\AdminAboutsController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminAboutsController.php',
         'App\\Http\\Controllers\\AdminBannersController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminBannersController.php',
         'App\\Http\\Controllers\\AdminBrandsController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminBrandsController.php',
         'App\\Http\\Controllers\\AdminCategoriesController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminCategoriesController.php',
@@ -472,6 +474,7 @@ class ComposerStaticInit1941c1843da109f8b36dc24df6ce0fd2
         'App\\Http\\Controllers\\SaveController' => __DIR__ . '/../..' . '/app/Http/Controllers/SaveController.php',
         'App\\Http\\Controllers\\SignInController' => __DIR__ . '/../..' . '/app/Http/Controllers/SignInController.php',
         'App\\Http\\Controllers\\SingUpController' => __DIR__ . '/../..' . '/app/Http/Controllers/SingUpController.php',
+        'App\\Http\\Controllers\\TestingController' => __DIR__ . '/../..' . '/app/Http/Controllers/TestingController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
